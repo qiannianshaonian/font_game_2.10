@@ -1,0 +1,11 @@
+{
+  "code": "import { Resource } from \"../../resource/Resource\";\r\nexport class BaseShader extends Resource {\r\n    constructor() {\r\n        super();\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Resource.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/.rpt2_cache/placeholder/laya/webgl/shader/BaseShader.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Resource } from \"../../resource/Resource\";\r\nexport declare class BaseShader extends Resource {\r\n    static activeShader: BaseShader | null;\r\n    static bindShader: BaseShader;\r\n    constructor();\r\n}\r\n"
+  }
+}

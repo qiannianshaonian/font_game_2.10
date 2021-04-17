@@ -1,0 +1,4 @@
+{
+  "code": "export default class ControllerBase {\r\n    getSign() {\r\n        return this[\"__proto__\"].constructor.name;\r\n    }\r\n    show() {\r\n    }\r\n    close() {\r\n    }\r\n    destroy() {\r\n    }\r\n}\r\nControllerBase._controllerObjs = {};\r\n",
+  "references": []
+}

@@ -1,0 +1,12 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class DrawLineCmd {\r\n    static create(fromX, fromY, toX, toY, lineColor, lineWidth, vid) {\r\n        var cmd = Pool.getItemByClass(\"DrawLineCmd\", DrawLineCmd);\r\n        cmd.fromX = fromX;\r\n        cmd.fromY = fromY;\r\n        cmd.toX = toX;\r\n        cmd.toY = toY;\r\n        cmd.lineColor = lineColor;\r\n        cmd.lineWidth = lineWidth;\r\n        cmd.vid = vid;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        Pool.recover(\"DrawLineCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context._drawLine(gx, gy, this.fromX, this.fromY, this.toX, this.toY, this.lineColor, this.lineWidth, this.vid);\r\n    }\r\n    get cmdID() {\r\n        return DrawLineCmd.ID;\r\n    }\r\n}\r\nDrawLineCmd.ID = \"DrawLine\";\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/Context.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/display/cmd/DrawLineCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nexport declare class DrawLineCmd {\r\n    static ID: string;\r\n    fromX: number;\r\n    fromY: number;\r\n    toX: number;\r\n    toY: number;\r\n    lineColor: string;\r\n    lineWidth: number;\r\n    vid: number;\r\n    static create(fromX: number, fromY: number, toX: number, toY: number, lineColor: string, lineWidth: number, vid: number): DrawLineCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

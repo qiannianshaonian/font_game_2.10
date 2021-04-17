@@ -1,0 +1,15 @@
+{
+  "code": "import { SaveBase } from \"./SaveBase\";\r\nimport { Matrix } from \"../../../maths/Matrix\";\r\nimport { Rectangle } from \"../../../maths/Rectangle\";\r\nexport class SaveClipRect {\r\n    constructor() {\r\n        this._globalClipMatrix = new Matrix();\r\n        this._clipInfoID = -1;\r\n        this._clipRect = new Rectangle();\r\n        this.incache = false;\r\n    }\r\n    isSaveMark() { return false; }\r\n    restore(context) {\r\n        this._globalClipMatrix.copyTo(context._globalClipMatrix);\r\n        this._clipRect.clone(context._clipRect);\r\n        context._clipInfoID = this._clipInfoID;\r\n        SaveClipRect.POOL[SaveClipRect.POOL._length++] = this;\r\n        context._clipInCache = this.incache;\r\n    }\r\n    static save(context) {\r\n        if ((context._saveMark._saveuse & SaveBase.TYPE_CLIPRECT) == SaveBase.TYPE_CLIPRECT)\r\n            return;\r\n        context._saveMark._saveuse |= SaveBase.TYPE_CLIPRECT;\r\n        var cache = SaveClipRect.POOL;\r\n        var o = cache._length > 0 ? cache[--cache._length] : (new SaveClipRect());\r\n        context._globalClipMatrix.copyTo(o._globalClipMatrix);\r\n        context._clipRect.clone(o._clipRect);\r\n        o._clipInfoID = context._clipInfoID;\r\n        o.incache = context._clipInCache;\r\n        var _save = context._save;\r\n        _save[_save._length++] = o;\r\n    }\r\n}\r\nSaveClipRect.POOL = SaveBase._createArray();\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/canvas/save/ISaveData.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/canvas/save/SaveBase.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/maths/Matrix.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/maths/Rectangle.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Context.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/canvas/save/SaveClipRect.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { ISaveData } from \"./ISaveData\";\r\nimport { Rectangle } from \"../../../maths/Rectangle\";\r\nimport { Context } from \"../../../resource/Context\";\r\nexport declare class SaveClipRect implements ISaveData {\r\n    private static POOL;\r\n    private _globalClipMatrix;\r\n    private _clipInfoID;\r\n    _clipRect: Rectangle;\r\n    incache: boolean;\r\n    isSaveMark(): boolean;\r\n    restore(context: Context): void;\r\n    static save(context: Context): void;\r\n}\r\n"
+  }
+}

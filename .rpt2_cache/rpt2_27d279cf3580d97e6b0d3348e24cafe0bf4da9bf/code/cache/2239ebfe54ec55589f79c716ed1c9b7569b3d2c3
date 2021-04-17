@@ -1,0 +1,7 @@
+{
+  "code": "import { ui } from \"./../ui/layaMaxUI\";\r\nimport GameControl from \"./GameControl\";\r\nexport default class GameUI extends ui.test.TestSceneUI {\r\n    constructor() {\r\n        super();\r\n        GameUI.instance = this;\r\n        Laya.MouseManager.multiTouchEnabled = false;\r\n    }\r\n    onEnable() {\r\n        this._control = this.getComponent(GameControl);\r\n        this.tipLbll.on(Laya.Event.CLICK, this, this.onTipClick);\r\n    }\r\n    onTipClick(e) {\r\n        this.tipLbll.visible = false;\r\n        this._score = 0;\r\n        this.scoreLbl.text = \"\";\r\n        this._control.startGame();\r\n    }\r\n    addScore(value = 1) {\r\n        this._score += value;\r\n        this.scoreLbl.changeText(\"分数：\" + this._score);\r\n        if (this._control.createBoxInterval > 600 && this._score % 20 == 0)\r\n            this._control.createBoxInterval -= 20;\r\n    }\r\n    stopGame() {\r\n        this.tipLbll.visible = true;\r\n        this.tipLbll.text = \"游戏结束了，点击屏幕重新开始\";\r\n        this._control.stopGame();\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/src/ui/layaMaxUI.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/src/script/GameControl.ts"
+  ]
+}

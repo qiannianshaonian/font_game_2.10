@@ -1,0 +1,9 @@
+{
+  "code": "import { Event } from \"laya/events/Event\";\r\nimport { Button } from \"laya/ui/Button\";\r\nimport { Handler } from \"laya/utils/Handler\";\r\nimport { Tween } from \"laya/utils/Tween\";\r\nexport default class ButtonRunTime extends Button {\r\n    constructor() {\r\n        super();\r\n        this.scaleNum = 0.8;\r\n        this.oldScaleX = 1;\r\n        this.oldScaleY = 1;\r\n        this.on(Event.MOUSE_DOWN, this, this.btnDown);\r\n    }\r\n    btnUp() {\r\n        Tween.to(this, { scaleX: this.oldScaleX, scaleY: this.oldScaleY }, 100, null, Handler.create(this, this.upComplete));\r\n    }\r\n    upComplete() {\r\n        this.isOnTween = false;\r\n    }\r\n    btnDown() {\r\n        if (!this.isOnTween) {\r\n            this.oldScaleX = this.scaleX;\r\n            this.oldScaleY = this.scaleY;\r\n            this.isOnTween = true;\r\n            Tween.to(this, { scaleX: this.oldScaleX * this.scaleNum, scaleY: this.oldScaleY * this.scaleNum }, 100, null, Handler.create(this, this.downComplete));\r\n        }\r\n    }\r\n    downComplete() {\r\n        this.btnUp();\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/events/Event.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/ui/Button.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/utils/Handler.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/utils/Tween.ts"
+  ]
+}

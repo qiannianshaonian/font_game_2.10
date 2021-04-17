@@ -1,0 +1,13 @@
+{
+  "code": "import { Handler } from \"../utils/Handler\";\r\nimport { ILaya } from \"./../../ILaya\";\r\nimport { Loader } from \"./Loader\";\r\nexport class AtlasInfoManager {\r\n    static enable(infoFile, callback = null) {\r\n        ILaya.loader.load(infoFile, Handler.create(null, AtlasInfoManager._onInfoLoaded, [callback]), null, Loader.JSON);\r\n    }\r\n    static _onInfoLoaded(callback, data) {\r\n        var tKey;\r\n        var tPrefix;\r\n        var tArr;\r\n        var i, len;\r\n        for (tKey in data) {\r\n            tArr = data[tKey];\r\n            tPrefix = tArr[0];\r\n            tArr = tArr[1];\r\n            len = tArr.length;\r\n            for (i = 0; i < len; i++) {\r\n                AtlasInfoManager._fileLoadDic[tPrefix + tArr[i]] = tKey;\r\n            }\r\n        }\r\n        callback && callback.run();\r\n    }\r\n    static getFileLoadPath(file) {\r\n        return AtlasInfoManager._fileLoadDic[file] || file;\r\n    }\r\n}\r\nAtlasInfoManager._fileLoadDic = {};\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/Handler.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/ILaya.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/net/Loader.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/.rpt2_cache/placeholder/laya/net/AtlasInfoManager.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Handler } from \"../utils/Handler\";\r\nexport declare class AtlasInfoManager {\r\n    private static _fileLoadDic;\r\n    static enable(infoFile: string, callback?: Handler | null): void;\r\n    private static _onInfoLoaded;\r\n    static getFileLoadPath(file: string): string;\r\n}\r\n"
+  }
+}

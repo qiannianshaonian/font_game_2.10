@@ -1,0 +1,11 @@
+{
+  "code": "import { ILaya } from \"../../ILaya\";\r\nexport class Prefab {\r\n    create() {\r\n        if (this.json)\r\n            return ILaya.SceneUtils.createByData(null, this.json);\r\n        return null;\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/ILaya.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/components/Prefab.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class Prefab {\r\n    json: any;\r\n    create(): any;\r\n}\r\n"
+  }
+}

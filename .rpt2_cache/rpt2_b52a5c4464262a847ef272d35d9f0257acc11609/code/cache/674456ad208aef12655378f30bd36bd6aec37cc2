@@ -1,0 +1,9 @@
+{
+  "code": "export class EarcutNode {\r\n    constructor(i, x, y) {\r\n        this.i = i;\r\n        this.x = x;\r\n        this.y = y;\r\n        this.prev = null;\r\n        this.next = null;\r\n        this.z = null;\r\n        this.prevZ = null;\r\n        this.nextZ = null;\r\n        this.steiner = false;\r\n    }\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/.rpt2_cache/placeholder/laya/webgl/shapes/EarcutNode.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class EarcutNode {\r\n    i: any;\r\n    x: any;\r\n    y: any;\r\n    prev: any;\r\n    next: any;\r\n    z: any;\r\n    prevZ: any;\r\n    nextZ: any;\r\n    steiner: any;\r\n    constructor(i: any, x: any, y: any);\r\n}\r\n"
+  }
+}

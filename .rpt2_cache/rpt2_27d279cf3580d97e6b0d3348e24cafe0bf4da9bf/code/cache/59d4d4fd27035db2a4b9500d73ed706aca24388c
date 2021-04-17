@@ -1,0 +1,13 @@
+{
+  "code": "import PrefebBase from \"./PrefebBase\";\r\nimport AppConfig from \"../../AppConfig\";\r\nimport { Handler } from \"laya/utils/Handler\";\r\nimport { Laya } from \"Laya\";\r\nimport { Browser } from \"laya/utils/Browser\";\r\nexport default class GameResult extends PrefebBase {\r\n    constructor() { super(); }\r\n    onAwake() {\r\n        super.onAwake();\r\n        this.owner[\"height\"] = Laya.stage.height;\r\n        this.txt_score.text = this.score.toString();\r\n        this.btn_home.clickHandler = Handler.create(this, function () {\r\n            this.showHomeHandler.run();\r\n        }, null, false);\r\n        this.btn_tryAgain.clickHandler = Handler.create(this, function () {\r\n            if (AppConfig.platform == \"wx\") {\r\n                this.restartHandler.runWith(1);\r\n                Browser.window.wx[\"shareAppMessage\"]({\r\n                    title: '我在这个游戏里面得了' + this.score + \"分\",\r\n                    imageUrl: \"https://mmocgame.qpic.cn/wechatgame/iaUVuxArE9L9G28F6XrxKAIEtJOs9x1Ycm2MYmC2Uz5T9O4RLq0ejvG3ic2KlUBiaVf/0\",\r\n                    imageUrlId: \"NelenHPLRXK1-AWENn0aZw\"\r\n                });\r\n            }\r\n            else {\r\n                this.restartHandler.run();\r\n            }\r\n        }, null, false);\r\n        this.btn_showAd.clickHandler = Handler.create(this, function () {\r\n            if (AppConfig.platform == \"wx\") {\r\n                this.showAdHandler.runWith(1);\r\n                Browser.window.wx[\"shareAppMessage\"]({\r\n                    title: '我在这个游戏里面得了' + this.score + \"分\",\r\n                    imageUrl: \"https://mmocgame.qpic.cn/wechatgame/iaUVuxArE9L9G28F6XrxKAIEtJOs9x1Ycm2MYmC2Uz5T9O4RLq0ejvG3ic2KlUBiaVf/0\",\r\n                    imageUrlId: \"NelenHPLRXK1-AWENn0aZw\"\r\n                });\r\n            }\r\n            else {\r\n                this.showAdHandler.run();\r\n            }\r\n        }, null, false);\r\n    }\r\n    onEnable() {\r\n        if (this.comeBackTime < 1) {\r\n            this.btn_showAd.visible = false;\r\n        }\r\n    }\r\n    onDisable() {\r\n        this.btn_home.offAll();\r\n        this.btn_tryAgain.offAll();\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/src/script/prefeb/PrefebBase.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/src/AppConfig.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/utils/Handler.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/ui/Image.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/Laya.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/display/Text.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/ui/Button.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/utils/Browser.ts"
+  ]
+}

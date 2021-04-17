@@ -1,0 +1,14 @@
+{
+  "code": "import { IndexBuffer2D } from \"../../../utils/IndexBuffer2D\";\r\nimport { VertexBuffer2D } from \"../../../utils/VertexBuffer2D\";\r\nimport { LayaGL } from \"../../../../layagl/LayaGL\";\r\nexport class SkinMeshBuffer {\r\n    constructor() {\r\n        var gl = LayaGL.instance;\r\n        this.ib = IndexBuffer2D.create(gl.DYNAMIC_DRAW);\r\n        this.vb = VertexBuffer2D.create(8);\r\n    }\r\n    static getInstance() {\r\n        return SkinMeshBuffer.instance = SkinMeshBuffer.instance || new SkinMeshBuffer();\r\n    }\r\n    addSkinMesh(skinMesh) {\r\n        skinMesh.getData2(this.vb, this.ib, this.vb._byteLength / 32);\r\n    }\r\n    reset() {\r\n        this.vb.clear();\r\n        this.ib.clear();\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/WebGLContext.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/utils/IndexBuffer2D.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/utils/VertexBuffer2D.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/layagl/LayaGL.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/webgl/shader/d2/skinAnishader/SkinMeshBuffer.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { IndexBuffer2D } from \"../../../utils/IndexBuffer2D\";\r\nimport { VertexBuffer2D } from \"../../../utils/VertexBuffer2D\";\r\nexport declare class SkinMeshBuffer {\r\n    ib: IndexBuffer2D;\r\n    vb: VertexBuffer2D;\r\n    static instance: SkinMeshBuffer;\r\n    constructor();\r\n    static getInstance(): SkinMeshBuffer;\r\n    addSkinMesh(skinMesh: any): void;\r\n    reset(): void;\r\n}\r\n"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class RotateCmd {\r\n    static create(angle, pivotX, pivotY) {\r\n        var cmd = Pool.getItemByClass(\"RotateCmd\", RotateCmd);\r\n        cmd.angle = angle;\r\n        cmd.pivotX = pivotX;\r\n        cmd.pivotY = pivotY;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        Pool.recover(\"RotateCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context._rotate(this.angle, this.pivotX + gx, this.pivotY + gy);\r\n    }\r\n    get cmdID() {\r\n        return RotateCmd.ID;\r\n    }\r\n}\r\nRotateCmd.ID = \"Rotate\";\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/Context.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/display/cmd/RotateCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nexport declare class RotateCmd {\r\n    static ID: string;\r\n    angle: number;\r\n    pivotX: number;\r\n    pivotY: number;\r\n    static create(angle: number, pivotX: number, pivotY: number): RotateCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "code": "export class AnimationNodeContent {\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/ani/KeyFramesContent.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/ani/AnimationNodeContent.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { KeyFramesContent } from \"./KeyFramesContent\";\r\nexport declare class AnimationNodeContent {\r\n    name: string;\r\n    parentIndex: number;\r\n    parent: AnimationNodeContent;\r\n    keyframeWidth: number;\r\n    lerpType: number;\r\n    interpolationMethod: any[];\r\n    childs: any[];\r\n    keyFrame: KeyFramesContent[];\r\n    playTime: number;\r\n    extenData: ArrayBuffer;\r\n    dataOffset: number;\r\n}\r\n"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "code": "export default class URI extends Laya.Script {\r\n}\r\nURI.prefabUrl = \"prefab/\";\r\nURI.spineUrl = \"res/spine/\";\r\nURI.soundUrl = \"sound/\";\r\n",
+  "references": []
+}

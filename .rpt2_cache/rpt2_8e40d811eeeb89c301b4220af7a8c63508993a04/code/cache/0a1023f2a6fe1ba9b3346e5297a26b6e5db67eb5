@@ -1,0 +1,8 @@
+{
+  "code": "import { Script } from \"laya/components/Script\";\r\nimport { Pool } from \"laya/utils/Pool\";\r\nexport default class PrefebBase extends Script {\r\n    static setPrefeb(value) {\r\n        PrefebBase._prefeb = value;\r\n    }\r\n    onAwake() {\r\n        for (let i = 0; i < this.owner.numChildren; i++) {\r\n            let element = this.owner.getChildAt(i);\r\n            if (element.name == \"\" || element.name.indexOf(\"_\") == -1) {\r\n                continue;\r\n            }\r\n            let tempPropertyList = element.name.split(\"_\");\r\n            switch (tempPropertyList[0]) {\r\n                case \"list\":\r\n                case \"txt\":\r\n                case \"img\":\r\n                case \"btn\":\r\n                case \"progress\":\r\n                    this[element.name] = element;\r\n                    break;\r\n                default:\r\n                    break;\r\n            }\r\n        }\r\n    }\r\n    static getPrefeb() {\r\n        return this._prefeb;\r\n    }\r\n    static getSign() {\r\n        return this[\"__proto__\"].constructor.name;\r\n    }\r\n    static create() {\r\n        return Pool.getItemByCreateFun(PrefebBase.getSign(), PrefebBase._prefeb.create, PrefebBase._prefeb);\r\n    }\r\n    recover() {\r\n        Pool.recover(PrefebBase.getSign(), this);\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/components/Prefab.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/components/Script.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/Pool.ts"
+  ]
+}

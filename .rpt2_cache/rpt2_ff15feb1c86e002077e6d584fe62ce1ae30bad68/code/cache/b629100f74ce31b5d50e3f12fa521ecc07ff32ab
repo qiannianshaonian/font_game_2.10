@@ -1,0 +1,14 @@
+{
+  "code": "import { SaveBase } from \"./SaveBase\";\r\nimport { Matrix } from \"../../../maths/Matrix\";\r\nexport class SaveTranslate {\r\n    constructor() {\r\n        this._mat = new Matrix();\r\n    }\r\n    isSaveMark() { return false; }\r\n    restore(context) {\r\n        this._mat.copyTo(context._curMat);\r\n        SaveTranslate.POOL[SaveTranslate.POOL._length++] = this;\r\n    }\r\n    static save(context) {\r\n        var no = SaveTranslate.POOL;\r\n        var o = no._length > 0 ? no[--no._length] : (new SaveTranslate());\r\n        context._curMat.copyTo(o._mat);\r\n        var _save = context._save;\r\n        _save[_save._length++] = o;\r\n    }\r\n}\r\nSaveTranslate.POOL = SaveBase._createArray();\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/canvas/save/ISaveData.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/canvas/save/SaveBase.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/maths/Matrix.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/resource/Context.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/webgl/canvas/save/SaveTranslate.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { ISaveData } from \"./ISaveData\";\r\nimport { Matrix } from \"../../../maths/Matrix\";\r\nimport { Context } from \"../../../resource/Context\";\r\nexport declare class SaveTranslate implements ISaveData {\r\n    private static POOL;\r\n    _mat: Matrix;\r\n    isSaveMark(): boolean;\r\n    restore(context: Context): void;\r\n    static save(context: Context): void;\r\n}\r\n"
+  }
+}

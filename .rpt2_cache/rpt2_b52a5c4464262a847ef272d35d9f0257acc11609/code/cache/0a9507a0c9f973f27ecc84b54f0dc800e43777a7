@@ -1,0 +1,13 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class DrawTexturesCmd {\r\n    static create(texture, pos) {\r\n        var cmd = Pool.getItemByClass(\"DrawTexturesCmd\", DrawTexturesCmd);\r\n        cmd.texture = texture;\r\n        texture._addReference();\r\n        cmd.pos = pos;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        this.texture._removeReference();\r\n        this.texture = null;\r\n        this.pos = null;\r\n        Pool.recover(\"DrawTexturesCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context.drawTextures(this.texture, this.pos, gx, gy);\r\n    }\r\n    get cmdID() {\r\n        return DrawTexturesCmd.ID;\r\n    }\r\n}\r\nDrawTexturesCmd.ID = \"DrawTextures\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Texture.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/.rpt2_cache/placeholder/laya/display/cmd/DrawTexturesCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nimport { Texture } from \"../../resource/Texture\";\r\nexport declare class DrawTexturesCmd {\r\n    static ID: string;\r\n    texture: Texture;\r\n    pos: any[];\r\n    static create(texture: Texture, pos: any[]): DrawTexturesCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

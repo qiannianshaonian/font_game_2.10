@@ -1,0 +1,9 @@
+{
+  "code": "export class PathConstraintData {\r\n    constructor() {\r\n        this.bones = [];\r\n    }\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/ani/bone/PathConstraintData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class PathConstraintData {\r\n    name: string;\r\n    bones: number[];\r\n    target: string;\r\n    positionMode: string;\r\n    spacingMode: string;\r\n    rotateMode: string;\r\n    offsetRotation: number;\r\n    position: number;\r\n    spacing: number;\r\n    rotateMix: number;\r\n    translateMix: number;\r\n    constructor();\r\n}\r\n"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "code": "export class StringKey {\r\n    constructor() {\r\n        this._strsToID = {};\r\n        this._idToStrs = [];\r\n        this._length = 0;\r\n    }\r\n    add(str) {\r\n        var index = this._strsToID[str];\r\n        if (index != null)\r\n            return index;\r\n        this._idToStrs[this._length] = str;\r\n        return this._strsToID[str] = this._length++;\r\n    }\r\n    getID(str) {\r\n        var index = this._strsToID[str];\r\n        return index == null ? -1 : index;\r\n    }\r\n    getName(id) {\r\n        var str = this._idToStrs[id];\r\n        return str == null ? undefined : str;\r\n    }\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/utils/StringKey.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class StringKey {\r\n    private _strsToID;\r\n    private _idToStrs;\r\n    private _length;\r\n    add(str: string): number;\r\n    getID(str: string): number;\r\n    getName(id: number): string;\r\n}\r\n"
+  }
+}

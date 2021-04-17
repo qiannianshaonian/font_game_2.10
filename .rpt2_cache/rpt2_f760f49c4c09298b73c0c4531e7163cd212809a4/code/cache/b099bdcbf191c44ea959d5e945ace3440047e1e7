@@ -1,0 +1,9 @@
+{
+  "code": "export class SpriteConst {\r\n}\r\nSpriteConst.ALPHA = 0x01;\r\nSpriteConst.TRANSFORM = 0x02;\r\nSpriteConst.BLEND = 0x04;\r\nSpriteConst.CANVAS = 0x08;\r\nSpriteConst.FILTERS = 0x10;\r\nSpriteConst.MASK = 0x20;\r\nSpriteConst.CLIP = 0x40;\r\nSpriteConst.STYLE = 0x80;\r\nSpriteConst.TEXTURE = 0x100;\r\nSpriteConst.GRAPHICS = 0x200;\r\nSpriteConst.LAYAGL3D = 0x400;\r\nSpriteConst.CUSTOM = 0x800;\r\nSpriteConst.ONECHILD = 0x1000;\r\nSpriteConst.CHILDS = 0x2000;\r\nSpriteConst.REPAINT_NONE = 0;\r\nSpriteConst.REPAINT_NODE = 0x01;\r\nSpriteConst.REPAINT_CACHE = 0x02;\r\nSpriteConst.REPAINT_ALL = 0x03;\r\n",
+  "references": [],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/display/SpriteConst.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class SpriteConst {\r\n    static ALPHA: number;\r\n    static TRANSFORM: number;\r\n    static BLEND: number;\r\n    static CANVAS: number;\r\n    static FILTERS: number;\r\n    static MASK: number;\r\n    static CLIP: number;\r\n    static STYLE: number;\r\n    static TEXTURE: number;\r\n    static GRAPHICS: number;\r\n    static LAYAGL3D: number;\r\n    static CUSTOM: number;\r\n    static ONECHILD: number;\r\n    static CHILDS: number;\r\n    static REPAINT_NONE: number;\r\n    static REPAINT_NODE: number;\r\n    static REPAINT_CACHE: number;\r\n    static REPAINT_ALL: number;\r\n}\r\n"
+  }
+}

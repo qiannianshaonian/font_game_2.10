@@ -1,0 +1,12 @@
+{
+  "code": "import { EventDispatcher } from \"../events/EventDispatcher\";\r\nexport class SoundChannel extends EventDispatcher {\r\n    constructor() {\r\n        super(...arguments);\r\n        this.isStopped = false;\r\n    }\r\n    set volume(v) {\r\n    }\r\n    get volume() {\r\n        return 1;\r\n    }\r\n    get position() {\r\n        return 0;\r\n    }\r\n    get duration() {\r\n        return 0;\r\n    }\r\n    play() {\r\n    }\r\n    stop() {\r\n        if (this.completeHandler)\r\n            this.completeHandler.runWith(false);\r\n    }\r\n    pause() {\r\n    }\r\n    resume() {\r\n    }\r\n    __runComplete(handler) {\r\n        if (handler) {\r\n            handler.runWith(true);\r\n        }\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/events/EventDispatcher.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/Handler.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/media/SoundChannel.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { EventDispatcher } from \"../events/EventDispatcher\";\r\nimport { Handler } from \"../utils/Handler\";\r\nexport declare class SoundChannel extends EventDispatcher {\r\n    url: string;\r\n    loops: number;\r\n    startTime: number;\r\n    isStopped: boolean;\r\n    completeHandler: Handler;\r\n    volume: number;\r\n    readonly position: number;\r\n    readonly duration: number;\r\n    play(): void;\r\n    stop(): void;\r\n    pause(): void;\r\n    resume(): void;\r\n    protected __runComplete(handler: Handler): void;\r\n}\r\n"
+  }
+}

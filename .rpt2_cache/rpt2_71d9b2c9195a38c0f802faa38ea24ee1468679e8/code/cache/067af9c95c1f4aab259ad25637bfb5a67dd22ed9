@@ -1,0 +1,13 @@
+{
+  "code": "import { MeshData } from \"./MeshData\";\r\nexport class SkinMeshForGraphic extends MeshData {\r\n    constructor() {\r\n        super();\r\n    }\r\n    init2(texture, ps, verticles, uvs) {\r\n        if (this.transform) {\r\n            this.transform = null;\r\n        }\r\n        var _ps = ps || [0, 1, 3, 3, 1, 2];\r\n        this.texture = texture;\r\n        this.indexes = new Uint16Array(_ps);\r\n        this.vertices = new Float32Array(verticles);\r\n        this.uvs = new Float32Array(uvs);\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/ani/bone/canvasmesh/MeshData.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/maths/Matrix.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/Texture.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/ani/bone/canvasmesh/SkinMeshForGraphic.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { MeshData } from \"./MeshData\";\r\nimport { Matrix } from \"../../../maths/Matrix\";\r\nimport { Texture } from \"../../../resource/Texture\";\r\nexport declare class SkinMeshForGraphic extends MeshData {\r\n    constructor();\r\n    transform: Matrix | null;\r\n    init2(texture: Texture, ps: any[], verticles: any[], uvs: any[]): void;\r\n}\r\n"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "code": "export class ICharRender {\r\n    constructor() {\r\n        this.fontsz = 16;\r\n    }\r\n    getWidth(font, str) { return 0; }\r\n    scale(sx, sy) {\r\n    }\r\n    get canvasWidth() {\r\n        return 0;\r\n    }\r\n    set canvasWidth(w) {\r\n    }\r\n    getCharBmp(char, font, lineWidth, colStr, strokeColStr, size, margin_left, margin_top, margin_right, margin_bottom, rect = null) {\r\n        return null;\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/text/CharRenderInfo.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/webgl/text/ICharRender.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { CharRenderInfo } from \"./CharRenderInfo\";\r\nexport declare class ICharRender {\r\n    fontsz: number;\r\n    getWidth(font: string, str: string): number;\r\n    scale(sx: number, sy: number): void;\r\n    canvasWidth: number;\r\n    getCharBmp(char: string, font: string, lineWidth: number, colStr: string, strokeColStr: string, size: CharRenderInfo, margin_left: number, margin_top: number, margin_right: number, margin_bottom: number, rect?: any[] | null): ImageData | null;\r\n}\r\n"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "code": "import { Rectangle } from \"../../../maths/Rectangle\";\r\nexport class MeshData {\r\n    constructor() {\r\n        this.uvs = new Float32Array([0, 0, 1, 0, 1, 1, 0, 1]);\r\n        this.vertices = new Float32Array([0, 0, 100, 0, 100, 100, 0, 100]);\r\n        this.indexes = new Uint16Array([0, 1, 3, 3, 1, 2]);\r\n        this.useUvTransform = false;\r\n        this.canvasPadding = 1;\r\n    }\r\n    getBounds() {\r\n        return Rectangle._getWrapRec(this.vertices);\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/Texture.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/maths/Matrix.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/maths/Rectangle.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/ani/bone/canvasmesh/MeshData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Texture } from \"../../../resource/Texture\";\r\nimport { Matrix } from \"../../../maths/Matrix\";\r\nimport { Rectangle } from \"../../../maths/Rectangle\";\r\nexport declare class MeshData {\r\n    texture: Texture;\r\n    uvs: Float32Array;\r\n    vertices: Float32Array;\r\n    indexes: Uint16Array;\r\n    uvTransform: Matrix;\r\n    useUvTransform: boolean;\r\n    canvasPadding: number;\r\n    getBounds(): Rectangle;\r\n}\r\n"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "code": "export class SlotData {\r\n    constructor() {\r\n        this.displayArr = [];\r\n    }\r\n    getDisplayByName(name) {\r\n        var tDisplay;\r\n        for (var i = 0, n = this.displayArr.length; i < n; i++) {\r\n            tDisplay = this.displayArr[i];\r\n            if (tDisplay.attachmentName == name) {\r\n                return i;\r\n            }\r\n        }\r\n        return -1;\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/ani/bone/SkinSlotDisplayData.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/ani/bone/SlotData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class SlotData {\r\n    name: string;\r\n    displayArr: any[];\r\n    getDisplayByName(name: string): number;\r\n}\r\n"
+  }
+}

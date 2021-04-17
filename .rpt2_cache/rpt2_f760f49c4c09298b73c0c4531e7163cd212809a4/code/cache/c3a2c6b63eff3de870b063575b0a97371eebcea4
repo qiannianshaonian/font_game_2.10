@@ -1,0 +1,13 @@
+{
+  "code": "import { ScrollBar } from \"./ScrollBar\";\r\nimport { ILaya } from \"../../ILaya\";\r\nimport { ClassUtils } from \"../utils/ClassUtils\";\r\nexport class HScrollBar extends ScrollBar {\r\n    initialize() {\r\n        super.initialize();\r\n        this.slider.isVertical = false;\r\n    }\r\n}\r\nILaya.regClass(HScrollBar);\r\nClassUtils.regClass(\"laya.ui.HScrollBar\", HScrollBar);\r\nClassUtils.regClass(\"Laya.HScrollBar\", HScrollBar);\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/ui/ScrollBar.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/ILaya.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/ClassUtils.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/ui/HScrollBar.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { ScrollBar } from \"./ScrollBar\";\r\nexport declare class HScrollBar extends ScrollBar {\r\n    protected initialize(): void;\r\n}\r\n"
+  }
+}

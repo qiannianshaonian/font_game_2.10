@@ -1,0 +1,7 @@
+{
+  "code": "import { Script } from \"laya/components/Script\";\r\nexport default class SceneMgr extends Script {\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/components/Script.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/src/script/scene/SceneBase.ts"
+  ]
+}

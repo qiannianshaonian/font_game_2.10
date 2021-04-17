@@ -1,0 +1,9 @@
+{
+  "code": "export class EventData {\r\n    constructor() {\r\n    }\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/.rpt2_cache/placeholder/laya/ani/bone/EventData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class EventData {\r\n    name: string;\r\n    intValue: number;\r\n    floatValue: number;\r\n    stringValue: string;\r\n    audioValue: string;\r\n    time: number;\r\n    constructor();\r\n}\r\n"
+  }
+}

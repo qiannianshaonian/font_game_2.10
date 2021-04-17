@@ -1,0 +1,14 @@
+{
+  "code": "import PrefebBase from \"./PrefebBase\";\r\nimport { Handler } from \"laya/utils/Handler\";\r\nimport { Laya } from \"Laya\";\r\nimport { WxMiniUtil } from \"../tool/WxMiniUtil\";\r\nexport default class GameResult extends PrefebBase {\r\n    constructor() { super(); }\r\n    onAwake() {\r\n        super.onAwake();\r\n        this.owner[\"height\"] = Laya.stage.height;\r\n        this.txt_score.text = this.score.toString();\r\n        this.btn_home.clickHandler = Handler.create(this, function () {\r\n            this.showHomeHandler.run();\r\n        }, null, false);\r\n        this.btn_tryAgain.clickHandler = Handler.create(this, function () {\r\n            this.restartHandler.run();\r\n        }, null, false);\r\n        this.btn_showAd.clickHandler = Handler.create(this, function () {\r\n            WxMiniUtil.showRewardedVideo(Handler.create(this, this.onShowAdComple));\r\n        }, null, false);\r\n    }\r\n    onShowAdComple() {\r\n        this.showAdHandler.run();\r\n    }\r\n    onEnable() {\r\n        if (this.comeBackTime < 1) {\r\n            this.btn_showAd.visible = false;\r\n        }\r\n        WxMiniUtil.showBanner();\r\n    }\r\n    onDisable() {\r\n        this.btn_home.offAll();\r\n        this.btn_tryAgain.offAll();\r\n        WxMiniUtil.hideBanner();\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/src/script/prefeb/PrefebBase.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/AppConfig.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/Handler.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/ui/Image.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/Laya.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/display/Text.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/ui/Button.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/Browser.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/script/tool/WxMiniUtil.ts"
+  ]
+}

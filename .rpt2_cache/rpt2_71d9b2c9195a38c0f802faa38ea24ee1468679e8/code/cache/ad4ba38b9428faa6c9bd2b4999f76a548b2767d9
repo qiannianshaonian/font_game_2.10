@@ -1,0 +1,9 @@
+{
+  "code": "export class CONST3D2D {\r\n}\r\nCONST3D2D.BYTES_PE = 4;\r\nCONST3D2D.BYTES_PIDX = 2;\r\nCONST3D2D.defaultMatrix4 = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];\r\nCONST3D2D.defaultMinusYMatrix4 = [1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];\r\nCONST3D2D.uniformMatrix3 = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0];\r\nCONST3D2D._TMPARRAY = [];\r\nCONST3D2D._OFFSETX = 0;\r\nCONST3D2D._OFFSETY = 0;\r\n",
+  "references": [],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/utils/CONST3D2D.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class CONST3D2D {\r\n    static BYTES_PE: number;\r\n    static BYTES_PIDX: number;\r\n    static defaultMatrix4: any[];\r\n    static defaultMinusYMatrix4: any[];\r\n    static uniformMatrix3: any[];\r\n    static _TMPARRAY: any[];\r\n    static _OFFSETX: number;\r\n    static _OFFSETY: number;\r\n}\r\n"
+  }
+}

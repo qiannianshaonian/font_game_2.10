@@ -1,0 +1,12 @@
+{
+  "code": "import { RenderTexture2D } from \"./RenderTexture2D\";\r\nimport { RenderTextureFormat } from \"./RenderTextureFormat\";\r\nexport class WebGLRTMgr {\r\n    static getRT(w, h) {\r\n        w = w | 0;\r\n        h = h | 0;\r\n        if (w >= 10000) {\r\n            console.error('getRT error! w too big');\r\n        }\r\n        var ret;\r\n        ret = new RenderTexture2D(w, h, RenderTextureFormat.R8G8B8A8, -1);\r\n        return ret;\r\n    }\r\n    static releaseRT(rt) {\r\n        rt.destroy();\r\n        return;\r\n    }\r\n}\r\nWebGLRTMgr.dict = {};\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/RenderTexture2D.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/RenderTextureFormat.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/WebGLRTMgr.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { RenderTexture2D } from \"./RenderTexture2D\";\r\nexport declare class WebGLRTMgr {\r\n    private static dict;\r\n    static getRT(w: number, h: number): RenderTexture2D;\r\n    static releaseRT(rt: RenderTexture2D): void;\r\n}\r\n"
+  }
+}

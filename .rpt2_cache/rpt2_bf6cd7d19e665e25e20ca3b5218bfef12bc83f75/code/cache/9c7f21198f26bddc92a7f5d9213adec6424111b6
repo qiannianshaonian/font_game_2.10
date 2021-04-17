@@ -1,0 +1,22 @@
+{
+  "code": "import { SubmitKey } from \"./SubmitKey\";\r\nimport { Stat } from \"../../utils/Stat\";\r\nimport { WebGLContext } from \"../WebGLContext\";\r\nimport { BlendMode } from \"../canvas/BlendMode\";\r\nimport { CONST3D2D } from \"../utils/CONST3D2D\";\r\nexport class SubmitTarget {\r\n    constructor() {\r\n        this.blendType = 0;\r\n        this._ref = 1;\r\n        this._key = new SubmitKey();\r\n    }\r\n    renderSubmit() {\r\n        var gl = WebGLContext.mainContext;\r\n        this._mesh.useMesh(gl);\r\n        var target = this.srcRT;\r\n        if (target) {\r\n            this.shaderValue.texture = target._getSource();\r\n            this.shaderValue.upload();\r\n            this.blend();\r\n            Stat.renderBatches++;\r\n            Stat.trianglesFaces += this._numEle / 3;\r\n            gl.drawElements(gl.TRIANGLES, this._numEle, gl.UNSIGNED_SHORT, this._startIdx);\r\n        }\r\n        return 1;\r\n    }\r\n    blend() {\r\n        if (BlendMode.activeBlendFunction !== BlendMode.fns[this.blendType]) {\r\n            var gl = WebGLContext.mainContext;\r\n            gl.enable(gl.BLEND);\r\n            BlendMode.fns[this.blendType](gl);\r\n            BlendMode.activeBlendFunction = BlendMode.fns[this.blendType];\r\n        }\r\n    }\r\n    getRenderType() {\r\n        return 0;\r\n    }\r\n    releaseRender() {\r\n        if ((--this._ref) < 1) {\r\n            var pool = SubmitTarget.POOL;\r\n            pool[pool._length++] = this;\r\n        }\r\n    }\r\n    static create(context, mesh, sv, rt) {\r\n        var o = SubmitTarget.POOL._length ? SubmitTarget.POOL[--SubmitTarget.POOL._length] : new SubmitTarget();\r\n        o._mesh = mesh;\r\n        o.srcRT = rt;\r\n        o._startIdx = mesh.indexNum * CONST3D2D.BYTES_PIDX;\r\n        o._ref = 1;\r\n        o._key.clear();\r\n        o._numEle = 0;\r\n        o.blendType = context._nBlendType;\r\n        o._key.blendShader = o.blendType;\r\n        o.shaderValue = sv;\r\n        o.shaderValue.setValue(context._shader2D);\r\n        if (context._colorFiler) {\r\n            var ft = context._colorFiler;\r\n            sv.defines.add(ft.type);\r\n            sv.colorMat = ft._mat;\r\n            sv.colorAlpha = ft._alpha;\r\n        }\r\n        return o;\r\n    }\r\n}\r\nSubmitTarget.POOL = [];\r\n{\r\n    SubmitTarget.POOL._length = 0;\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/submit/ISubmit.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/submit/SubmitKey.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/filters/ColorFilter.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/RenderTexture2D.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/Stat.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/WebGLContext.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/canvas/BlendMode.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/shader/d2/value/TextureSV.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/shader/d2/value/Value2D.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/utils/CONST3D2D.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/utils/Mesh2D.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/submit/SubmitTarget.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { ISubmit } from \"./ISubmit\";\r\nimport { SubmitKey } from \"./SubmitKey\";\r\nimport { Context } from \"../../resource/Context\";\r\nimport { RenderTexture2D } from \"../../resource/RenderTexture2D\";\r\nimport { Value2D } from \"../shader/d2/value/Value2D\";\r\nimport { Mesh2D } from \"../utils/Mesh2D\";\r\nexport declare class SubmitTarget implements ISubmit {\r\n    _mesh: Mesh2D;\r\n    _startIdx: number;\r\n    _numEle: number;\r\n    shaderValue: Value2D;\r\n    blendType: number;\r\n    _ref: number;\r\n    _key: SubmitKey;\r\n    srcRT: RenderTexture2D;\r\n    constructor();\r\n    static POOL: any;\r\n    renderSubmit(): number;\r\n    blend(): void;\r\n    getRenderType(): number;\r\n    releaseRender(): void;\r\n    static create(context: Context, mesh: Mesh2D, sv: Value2D, rt: RenderTexture2D): SubmitTarget;\r\n}\r\n"
+  }
+}

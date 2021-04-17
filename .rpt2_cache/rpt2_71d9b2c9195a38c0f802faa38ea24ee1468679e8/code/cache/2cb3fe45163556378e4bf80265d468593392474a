@@ -1,0 +1,13 @@
+{
+  "code": "import { LayaGL } from \"../layagl/LayaGL\";\r\nimport { TextureFormat } from \"../resource/TextureFormat\";\r\nimport { RenderTextureFormat } from \"../resource/RenderTextureFormat\";\r\nexport class SystemUtils {\r\n    static get maxTextureCount() {\r\n        return this._maxTextureCount;\r\n    }\r\n    static get maxTextureSize() {\r\n        return this._maxTextureSize;\r\n    }\r\n    static get shaderCapailityLevel() {\r\n        return this._shaderCapailityLevel;\r\n    }\r\n    static supportTextureFormat(format) {\r\n        switch (format) {\r\n            case TextureFormat.R32G32B32A32:\r\n                return (!LayaGL.layaGPUInstance._isWebGL2 && !LayaGL.layaGPUInstance._oesTextureFloat) ? false : true;\r\n            case TextureFormat.R16G16B16A16:\r\n                return (!LayaGL.layaGPUInstance._isWebGL2 && !LayaGL.layaGPUInstance._oesTextureHalfFloat) ? false : true;\r\n            default:\r\n                return true;\r\n        }\r\n    }\r\n    static supportRenderTextureFormat(format) {\r\n        switch (format) {\r\n            case RenderTextureFormat.R16G16B16A16:\r\n                return (((!!LayaGL.layaGPUInstance._isWebGL2) && (!!LayaGL.layaGPUInstance._extColorBufferFloat)) || LayaGL.layaGPUInstance._oesTextureHalfFloat && LayaGL.layaGPUInstance._oesTextureHalfFloatLinear) ? true : false;\r\n            case RenderTextureFormat.Depth:\r\n                return (LayaGL.layaGPUInstance._isWebGL2 || LayaGL.layaGPUInstance._webgl_depth_texture) ? true : false;\r\n            case RenderTextureFormat.ShadowMap:\r\n                return LayaGL.layaGPUInstance._isWebGL2 ? true : false;\r\n            default:\r\n                return true;\r\n        }\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/layagl/LayaGL.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/TextureFormat.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/RenderTextureFormat.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/SystemUtils.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class SystemUtils {\r\n    static _maxTextureCount: number;\r\n    static _maxTextureSize: number;\r\n    static _shaderCapailityLevel: number;\r\n    static readonly maxTextureCount: number;\r\n    static readonly maxTextureSize: number;\r\n    static readonly shaderCapailityLevel: number;\r\n    static supportTextureFormat(format: number): boolean;\r\n    static supportRenderTextureFormat(format: number): boolean;\r\n}\r\n"
+  }
+}

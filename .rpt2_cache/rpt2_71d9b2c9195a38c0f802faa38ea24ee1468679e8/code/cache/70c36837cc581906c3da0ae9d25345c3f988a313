@@ -1,0 +1,13 @@
+{
+  "code": "import { Matrix } from \"../maths/Matrix\";\r\nimport { Graphics } from \"../display/Graphics\";\r\nexport class GraphicsAni extends Graphics {\r\n    drawSkin(skinA, alpha) {\r\n        this.drawTriangles(skinA.texture, 0, 0, skinA.vertices, skinA.uvs, skinA.indexes, skinA.transform || Matrix.EMPTY, alpha);\r\n    }\r\n    static create() {\r\n        var rs = GraphicsAni._caches.pop();\r\n        return rs || new GraphicsAni();\r\n    }\r\n    static recycle(graphics) {\r\n        graphics.clear();\r\n        GraphicsAni._caches.push(graphics);\r\n    }\r\n}\r\nGraphicsAni._caches = [];\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/ani/bone/canvasmesh/SkinMeshForGraphic.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/maths/Matrix.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/display/Graphics.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/ani/GraphicsAni.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { SkinMeshForGraphic } from \"./bone/canvasmesh/SkinMeshForGraphic\";\r\nimport { Graphics } from \"../display/Graphics\";\r\nexport declare class GraphicsAni extends Graphics {\r\n    drawSkin(skinA: SkinMeshForGraphic, alpha: number): void;\r\n    private static _caches;\r\n    static create(): GraphicsAni;\r\n    static recycle(graphics: GraphicsAni): void;\r\n}\r\n"
+  }
+}

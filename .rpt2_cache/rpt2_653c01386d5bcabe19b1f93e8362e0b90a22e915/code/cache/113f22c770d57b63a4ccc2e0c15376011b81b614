@@ -1,0 +1,14 @@
+{
+  "code": "import { Scene } from \"laya/display/Scene\";\r\nimport { ClassUtils } from \"laya/utils/ClassUtils\";\r\nvar REG = ClassUtils.regClass;\r\nimport { Image } from \"laya/ui/Image\";\r\nimport { Label } from \"laya/ui/Label\";\r\nexport var ui;\r\n(function (ui) {\r\n    var loading;\r\n    (function (loading) {\r\n        class LoadingUI extends Scene {\r\n            constructor() {\r\n                super();\r\n                this.referenceClass = [Image, Label];\r\n            }\r\n        }\r\n        loading.LoadingUI = LoadingUI;\r\n    })(loading = ui.loading || (ui.loading = {}));\r\n})(ui || (ui = {}));\r\nimport { Box } from \"laya/ui/Box\";\r\nimport { Text } from \"laya/display/Text\";\r\nimport { Sprite } from \"laya/display/Sprite\";\r\nimport { Button } from \"laya/ui/Button\";\r\nimport { List } from \"laya/ui/List\";\r\n(function (ui) {\r\n    var main;\r\n    (function (main) {\r\n        class MainGameUI extends Scene {\r\n            constructor() {\r\n                super();\r\n                this.referenceClass = [Image, Box, Text, Sprite, Button,\r\n                    Label, List];\r\n            }\r\n        }\r\n        main.MainGameUI = MainGameUI;\r\n    })(main = ui.main || (ui.main = {}));\r\n})(ui || (ui = {}));\r\n(function (ui) {\r\n    var test;\r\n    (function (test) {\r\n        class TestSceneUI extends Scene {\r\n            constructor() {\r\n                super();\r\n                this.referenceClass = [Label, Sprite];\r\n            }\r\n            createChildren() {\r\n                super.createChildren();\r\n                this.loadScene(\"test/TestScene\");\r\n            }\r\n        }\r\n        test.TestSceneUI = TestSceneUI;\r\n        REG(\"ui.test.TestSceneUI\", TestSceneUI);\r\n    })(test = ui.test || (ui.test = {}));\r\n})(ui || (ui = {}));\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/display/Scene.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/utils/ClassUtils.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/ui/Image.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/ui/Label.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/ui/Box.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/display/Text.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/display/Sprite.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/ui/Button.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/ui/List.ts"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "code": "import { SaveBase } from \"./SaveBase\";\r\nimport { Matrix } from \"../../../maths/Matrix\";\r\nexport class SaveTransform {\r\n    constructor() {\r\n        this._matrix = new Matrix();\r\n    }\r\n    isSaveMark() { return false; }\r\n    restore(context) {\r\n        context._curMat = this._savematrix;\r\n        SaveTransform.POOL[SaveTransform.POOL._length++] = this;\r\n    }\r\n    static save(context) {\r\n        var _saveMark = context._saveMark;\r\n        if ((_saveMark._saveuse & SaveBase.TYPE_TRANSFORM) === SaveBase.TYPE_TRANSFORM)\r\n            return;\r\n        _saveMark._saveuse |= SaveBase.TYPE_TRANSFORM;\r\n        var no = SaveTransform.POOL;\r\n        var o = no._length > 0 ? no[--no._length] : (new SaveTransform());\r\n        o._savematrix = context._curMat;\r\n        context._curMat = context._curMat.copyTo(o._matrix);\r\n        var _save = context._save;\r\n        _save[_save._length++] = o;\r\n    }\r\n}\r\nSaveTransform.POOL = SaveBase._createArray();\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/canvas/save/ISaveData.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/canvas/save/SaveBase.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/maths/Matrix.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/resource/Context.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/webgl/canvas/save/SaveTransform.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { ISaveData } from \"./ISaveData\";\r\nimport { Matrix } from \"../../../maths/Matrix\";\r\nimport { Context } from \"../../../resource/Context\";\r\nexport declare class SaveTransform implements ISaveData {\r\n    private static POOL;\r\n    _savematrix: Matrix;\r\n    _matrix: Matrix;\r\n    constructor();\r\n    isSaveMark(): boolean;\r\n    restore(context: Context): void;\r\n    static save(context: Context): void;\r\n}\r\n"
+  }
+}

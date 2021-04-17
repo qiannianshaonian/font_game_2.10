@@ -1,0 +1,12 @@
+{
+  "code": "import { Value2D } from \"./Value2D\";\r\nimport { ShaderDefines2D } from \"../ShaderDefines2D\";\r\nexport class PrimitiveSV extends Value2D {\r\n    constructor(args) {\r\n        super(ShaderDefines2D.PRIMITIVE, 0);\r\n        this._attribLocation = ['position', 0, 'attribColor', 1];\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/shader/d2/value/Value2D.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/shader/d2/ShaderDefines2D.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/shader/d2/value/PrimitiveSV.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Value2D } from \"./Value2D\";\r\nexport declare class PrimitiveSV extends Value2D {\r\n    constructor(args: any);\r\n}\r\n"
+  }
+}

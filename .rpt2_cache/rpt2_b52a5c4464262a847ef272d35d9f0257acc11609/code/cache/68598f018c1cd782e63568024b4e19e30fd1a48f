@@ -1,0 +1,12 @@
+{
+  "code": "import { Mesh2D } from \"./Mesh2D\";\r\nimport { LayaGL } from \"../../layagl/LayaGL\";\r\nexport class MeshParticle2D extends Mesh2D {\r\n    constructor(maxNum) {\r\n        super(MeshParticle2D.const_stride, maxNum * 4 * MeshParticle2D.const_stride, 4);\r\n        this.canReuse = true;\r\n        this.setAttributes(MeshParticle2D._fixattriInfo);\r\n        this.createQuadIB(maxNum);\r\n        this._quadNum = maxNum;\r\n    }\r\n    static __init__() {\r\n        var gl = LayaGL.instance;\r\n        MeshParticle2D._fixattriInfo = [gl.FLOAT, 4, 0,\r\n            gl.FLOAT, 3, 16,\r\n            gl.FLOAT, 3, 28,\r\n            gl.FLOAT, 4, 40,\r\n            gl.FLOAT, 4, 56,\r\n            gl.FLOAT, 3, 72,\r\n            gl.FLOAT, 2, 84,\r\n            gl.FLOAT, 4, 92,\r\n            gl.FLOAT, 1, 108,\r\n            gl.FLOAT, 1, 112];\r\n    }\r\n    setMaxParticleNum(maxNum) {\r\n        this._vb._resizeBuffer(maxNum * 4 * MeshParticle2D.const_stride, false);\r\n        this.createQuadIB(maxNum);\r\n    }\r\n    static getAMesh(maxNum) {\r\n        if (MeshParticle2D._POOL.length) {\r\n            var ret = MeshParticle2D._POOL.pop();\r\n            ret.setMaxParticleNum(maxNum);\r\n            return ret;\r\n        }\r\n        return new MeshParticle2D(maxNum);\r\n    }\r\n    releaseMesh() {\r\n        ;\r\n        this._vb.setByteLength(0);\r\n        this.vertNum = 0;\r\n        this.indexNum = 0;\r\n        MeshParticle2D._POOL.push(this);\r\n    }\r\n    destroy() {\r\n        this._ib.destroy();\r\n        this._vb.destroy();\r\n        this._vb.deleteBuffer();\r\n    }\r\n}\r\nMeshParticle2D.const_stride = 116;\r\nMeshParticle2D._POOL = [];\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/utils/Mesh2D.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/layagl/LayaGL.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/.rpt2_cache/placeholder/laya/webgl/utils/MeshParticle2D.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Mesh2D } from \"./Mesh2D\";\r\nexport declare class MeshParticle2D extends Mesh2D {\r\n    static const_stride: number;\r\n    private static _fixattriInfo;\r\n    private static _POOL;\r\n    static __init__(): void;\r\n    constructor(maxNum: number);\r\n    setMaxParticleNum(maxNum: number): void;\r\n    static getAMesh(maxNum: number): MeshParticle2D;\r\n    releaseMesh(): void;\r\n    destroy(): void;\r\n}\r\n"
+  }
+}

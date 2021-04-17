@@ -1,0 +1,13 @@
+{
+  "code": "import { ShaderDefines2D } from \"./ShaderDefines2D\";\r\nimport { DrawStyle } from \"../../canvas/DrawStyle\";\r\nimport { Shader } from \"../Shader\";\r\nimport texture_vs from './files/texture.vs.glsl';\r\nimport texture_ps from './files/texture.ps.glsl';\r\nimport prime_vs from './files/primitive.vs.glsl';\r\nimport prime_ps from './files/primitive.ps.glsl';\r\nimport skin_vs from './skinAnishader/skinShader.vs.glsl';\r\nimport skin_ps from './skinAnishader/skinShader.ps.glsl';\r\nexport class Shader2D {\r\n    constructor() {\r\n        this.ALPHA = 1;\r\n        this.defines = new ShaderDefines2D();\r\n        this.shaderType = 0;\r\n        this.fillStyle = DrawStyle.DEFAULT;\r\n        this.strokeStyle = DrawStyle.DEFAULT;\r\n    }\r\n    destroy() {\r\n        this.defines = null;\r\n        this.filters = null;\r\n    }\r\n    static __init__() {\r\n        Shader.preCompile2D(0, ShaderDefines2D.TEXTURE2D, texture_vs, texture_ps, null);\r\n        Shader.preCompile2D(0, ShaderDefines2D.PRIMITIVE, prime_vs, prime_ps, null);\r\n        Shader.preCompile2D(0, ShaderDefines2D.SKINMESH, skin_vs, skin_ps, null);\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/shader/d2/ShaderDefines2D.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/canvas/DrawStyle.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/shader/Shader.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/webgl/shader/d2/Shader2D.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { ShaderDefines2D } from \"./ShaderDefines2D\";\r\nimport { DrawStyle } from \"../../canvas/DrawStyle\";\r\nimport { Shader } from \"../Shader\";\r\nexport declare class Shader2D {\r\n    ALPHA: number;\r\n    shader: Shader;\r\n    filters: any[];\r\n    defines: ShaderDefines2D;\r\n    shaderType: number;\r\n    colorAdd: any[];\r\n    fillStyle: DrawStyle;\r\n    strokeStyle: DrawStyle;\r\n    destroy(): void;\r\n    static __init__(): void;\r\n}\r\n"
+  }
+}

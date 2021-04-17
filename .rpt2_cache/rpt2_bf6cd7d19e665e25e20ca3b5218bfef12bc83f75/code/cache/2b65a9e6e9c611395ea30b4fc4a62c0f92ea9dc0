@@ -1,0 +1,12 @@
+{
+  "code": "import { Shader } from \"../Shader\";\r\nexport class Shader2X extends Shader {\r\n    constructor(vs, ps, saveName = null, nameMap = null, bindAttrib = null) {\r\n        super(vs, ps, saveName, nameMap, bindAttrib);\r\n        this._params2dQuick2 = null;\r\n        this._shaderValueWidth = 0;\r\n        this._shaderValueHeight = 0;\r\n    }\r\n    _disposeResource() {\r\n        super._disposeResource();\r\n        this._params2dQuick2 = null;\r\n    }\r\n    upload2dQuick2(shaderValue) {\r\n        this.upload(shaderValue, this._params2dQuick2 || this._make2dQuick2());\r\n    }\r\n    _make2dQuick2() {\r\n        if (!this._params2dQuick2) {\r\n            this._params2dQuick2 = [];\r\n            var params = this._params, one;\r\n            for (var i = 0, n = params.length; i < n; i++) {\r\n                one = params[i];\r\n                if (one.name !== \"size\")\r\n                    this._params2dQuick2.push(one);\r\n            }\r\n        }\r\n        return this._params2dQuick2;\r\n    }\r\n    static create(vs, ps, saveName = null, nameMap = null, bindAttrib = null) {\r\n        return new Shader2X(vs, ps, saveName, nameMap, bindAttrib);\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/shader/Shader.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/shader/ShaderValue.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/shader/d2/Shader2X.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Shader } from \"../Shader\";\r\nimport { ShaderValue } from \"../ShaderValue\";\r\nexport declare class Shader2X extends Shader {\r\n    _params2dQuick2: any[] | null;\r\n    _shaderValueWidth: number;\r\n    _shaderValueHeight: number;\r\n    constructor(vs: string, ps: string, saveName?: any, nameMap?: any, bindAttrib?: any[] | null);\r\n    protected _disposeResource(): void;\r\n    upload2dQuick2(shaderValue: ShaderValue): void;\r\n    _make2dQuick2(): any[];\r\n    static create(vs: string, ps: string, saveName?: any, nameMap?: any, bindAttrib?: any[] | null): Shader;\r\n}\r\n"
+  }
+}

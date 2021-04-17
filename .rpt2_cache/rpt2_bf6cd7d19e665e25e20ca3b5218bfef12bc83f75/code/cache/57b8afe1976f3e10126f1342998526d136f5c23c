@@ -1,0 +1,13 @@
+{
+  "code": "import { ScrollBar } from \"./ScrollBar\";\r\nimport { ILaya } from \"../../ILaya\";\r\nimport { ClassUtils } from \"../utils/ClassUtils\";\r\nexport class VScrollBar extends ScrollBar {\r\n}\r\nILaya.regClass(VScrollBar);\r\nClassUtils.regClass(\"laya.ui.VScrollBar\", VScrollBar);\r\nClassUtils.regClass(\"Laya.VScrollBar\", VScrollBar);\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/ui/ScrollBar.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/ILaya.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/ClassUtils.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/ui/VScrollBar.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { ScrollBar } from \"./ScrollBar\";\r\nexport declare class VScrollBar extends ScrollBar {\r\n}\r\n"
+  }
+}

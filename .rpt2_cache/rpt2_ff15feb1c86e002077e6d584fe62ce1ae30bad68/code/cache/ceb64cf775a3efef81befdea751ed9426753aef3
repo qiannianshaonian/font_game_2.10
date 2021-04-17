@@ -1,0 +1,11 @@
+{
+  "code": "export class DeformSlotData {\r\n    constructor() {\r\n        this.deformSlotDisplayList = [];\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/ani/bone/DeformSlotDisplayData.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/ani/bone/DeformSlotData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { DeformSlotDisplayData } from \"./DeformSlotDisplayData\";\r\nexport declare class DeformSlotData {\r\n    deformSlotDisplayList: DeformSlotDisplayData[];\r\n    constructor();\r\n}\r\n"
+  }
+}

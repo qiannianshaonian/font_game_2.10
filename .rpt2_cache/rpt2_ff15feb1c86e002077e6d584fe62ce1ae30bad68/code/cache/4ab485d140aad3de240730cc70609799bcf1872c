@@ -1,0 +1,11 @@
+{
+  "code": "import { Bezier } from \"../../maths/Bezier\";\r\nexport class BezierLerp {\r\n    constructor() {\r\n    }\r\n    static getBezierRate(t, px0, py0, px1, py1) {\r\n        var key = BezierLerp._getBezierParamKey(px0, py0, px1, py1);\r\n        var vKey = key * 100 + t;\r\n        if (BezierLerp._bezierResultCache[vKey])\r\n            return BezierLerp._bezierResultCache[vKey];\r\n        var points = BezierLerp._getBezierPoints(px0, py0, px1, py1, key);\r\n        var i, len;\r\n        len = points.length;\r\n        for (i = 0; i < len; i += 2) {\r\n            if (t <= points[i]) {\r\n                BezierLerp._bezierResultCache[vKey] = points[i + 1];\r\n                return points[i + 1];\r\n            }\r\n        }\r\n        BezierLerp._bezierResultCache[vKey] = 1;\r\n        return 1;\r\n    }\r\n    static _getBezierParamKey(px0, py0, px1, py1) {\r\n        return (((px0 * 100 + py0) * 100 + px1) * 100 + py1) * 100;\r\n    }\r\n    static _getBezierPoints(px0, py0, px1, py1, key) {\r\n        if (BezierLerp._bezierPointsCache[key])\r\n            return BezierLerp._bezierPointsCache[key];\r\n        var controlPoints;\r\n        controlPoints = [0, 0, px0, py0, px1, py1, 1, 1];\r\n        var bz;\r\n        bz = new Bezier();\r\n        var points;\r\n        points = bz.getBezierPoints(controlPoints, 100, 3);\r\n        BezierLerp._bezierPointsCache[key] = points;\r\n        return points;\r\n    }\r\n}\r\nBezierLerp._bezierResultCache = {};\r\nBezierLerp._bezierPointsCache = {};\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/maths/Bezier.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/ani/math/BezierLerp.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class BezierLerp {\r\n    constructor();\r\n    private static _bezierResultCache;\r\n    private static _bezierPointsCache;\r\n    static getBezierRate(t: number, px0: number, py0: number, px1: number, py1: number): number;\r\n    private static _getBezierParamKey;\r\n    private static _getBezierPoints;\r\n}\r\n"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class DrawPathCmd {\r\n    static create(x, y, paths, brush, pen) {\r\n        var cmd = Pool.getItemByClass(\"DrawPathCmd\", DrawPathCmd);\r\n        cmd.x = x;\r\n        cmd.y = y;\r\n        cmd.paths = paths;\r\n        cmd.brush = brush;\r\n        cmd.pen = pen;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        this.paths = null;\r\n        this.brush = null;\r\n        this.pen = null;\r\n        Pool.recover(\"DrawPathCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        this.paths && context._drawPath(this.x + gx, this.y + gy, this.paths, this.brush, this.pen);\r\n    }\r\n    get cmdID() {\r\n        return DrawPathCmd.ID;\r\n    }\r\n}\r\nDrawPathCmd.ID = \"DrawPath\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/display/cmd/DrawPathCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nexport declare class DrawPathCmd {\r\n    static ID: string;\r\n    x: number;\r\n    y: number;\r\n    paths: any[] | null;\r\n    brush: any;\r\n    pen: any;\r\n    static create(x: number, y: number, paths: any[], brush: any, pen: any): DrawPathCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

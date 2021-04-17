@@ -1,0 +1,11 @@
+{
+  "code": "export class DeformAniData {\r\n    constructor() {\r\n        this.deformSlotDataList = [];\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/ani/bone/DeformSlotData.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/ani/bone/DeformAniData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { DeformSlotData } from \"./DeformSlotData\";\r\nexport declare class DeformAniData {\r\n    skinName: string;\r\n    deformSlotDataList: DeformSlotData[];\r\n    constructor();\r\n}\r\n"
+  }
+}

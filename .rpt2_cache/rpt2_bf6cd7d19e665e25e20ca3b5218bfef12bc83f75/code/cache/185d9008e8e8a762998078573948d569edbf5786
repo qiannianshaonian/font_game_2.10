@@ -1,0 +1,12 @@
+{
+  "code": "import { SubmitKey } from \"./SubmitKey\";\r\nexport class SubmitCMD {\r\n    constructor() {\r\n        this._ref = 1;\r\n        this._key = new SubmitKey();\r\n    }\r\n    renderSubmit() {\r\n        this.fun.apply(this._this, this.args);\r\n        return 1;\r\n    }\r\n    getRenderType() {\r\n        return 0;\r\n    }\r\n    releaseRender() {\r\n        if ((--this._ref) < 1) {\r\n            var pool = SubmitCMD.POOL;\r\n            pool[pool._length++] = this;\r\n        }\r\n    }\r\n    static create(args, fun, thisobj) {\r\n        var o = SubmitCMD.POOL._length ? SubmitCMD.POOL[--SubmitCMD.POOL._length] : new SubmitCMD();\r\n        o.fun = fun;\r\n        o.args = args;\r\n        o._this = thisobj;\r\n        o._ref = 1;\r\n        o._key.clear();\r\n        return o;\r\n    }\r\n}\r\nSubmitCMD.POOL = [];\r\n{\r\n    SubmitCMD.POOL._length = 0;\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/submit/ISubmit.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/submit/SubmitKey.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/submit/SubmitCMD.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { ISubmit } from \"./ISubmit\";\r\nimport { SubmitKey } from \"./SubmitKey\";\r\nexport declare class SubmitCMD implements ISubmit {\r\n    static POOL: any;\r\n    fun: Function;\r\n    _this: any;\r\n    args: any[];\r\n    _ref: number;\r\n    _key: SubmitKey;\r\n    constructor();\r\n    renderSubmit(): number;\r\n    getRenderType(): number;\r\n    releaseRender(): void;\r\n    static create(args: any[], fun: Function, thisobj: any): SubmitCMD;\r\n}\r\n"
+  }
+}

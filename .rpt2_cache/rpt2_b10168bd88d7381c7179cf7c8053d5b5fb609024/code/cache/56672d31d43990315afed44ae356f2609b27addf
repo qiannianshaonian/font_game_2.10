@@ -1,0 +1,20 @@
+{
+  "code": "import LoadingScene from \"./script/scene/LoadingScene\";\r\nimport MainGameScene from \"./script/scene/MainGameScene\";\r\nimport ButtonRunTime from \"./script/tool/ButtonRunTime\";\r\nimport FontGrid from \"./script/prefeb/FontGrid\";\r\nimport GameUI from \"./script/GameUI\";\r\nimport GameControl from \"./script/GameControl\";\r\nimport GameResult from \"./script/prefeb/GameResult\";\r\nimport GameSetting from \"./script/prefeb/GameSetting\";\r\nimport StartGame from \"./script/prefeb/StartGame\";\r\nimport TipItem from \"./script/prefeb/TipItem\";\r\nimport { Text } from \"laya/display/Text\";\r\nimport { BoxCollider } from \"laya/physics/BoxCollider\";\r\nimport { RigidBody } from \"laya/physics/RigidBody\";\r\nimport { ClassUtils } from \"laya/utils/ClassUtils\";\r\nimport { ui } from \"./ui/layaMaxUI\";\r\nexport default class GameConfig {\r\n    constructor() {\r\n    }\r\n    static init() {\r\n        var reg = ClassUtils.regClass;\r\n        reg(\"ui\", ui);\r\n        reg(\"script/scene/LoadingScene.ts\", LoadingScene);\r\n        reg(\"script/scene/MainGameScene.ts\", MainGameScene);\r\n        reg(\"script/tool/ButtonRunTime.ts\", ButtonRunTime);\r\n        reg(\"script/prefeb/FontGrid.ts\", FontGrid);\r\n        reg(\"script/GameUI.ts\", GameUI);\r\n        reg(\"script/GameControl.ts\", GameControl);\r\n        reg(\"script/prefeb/GameResult.ts\", GameResult);\r\n        reg(\"script/prefeb/GameSetting.ts\", GameSetting);\r\n        reg(\"script/prefeb/StartGame.ts\", StartGame);\r\n        reg(\"script/prefeb/TipItem.ts\", TipItem);\r\n        reg(\"laya.display.Text\", Text);\r\n        reg(\"laya.physics.BoxCollider\", BoxCollider);\r\n        reg(\"laya.physics.RigidBody\", RigidBody);\r\n    }\r\n}\r\nGameConfig.width = 640;\r\nGameConfig.height = 1136;\r\nGameConfig.scaleMode = \"showall\";\r\nGameConfig.screenMode = \"vertical\";\r\nGameConfig.alignV = \"middle\";\r\nGameConfig.alignH = \"center\";\r\nGameConfig.startScene = \"loading/Loading.scene\";\r\nGameConfig.sceneRoot = \"\";\r\nGameConfig.debug = false;\r\nGameConfig.stat = false;\r\nGameConfig.physicsDebug = false;\r\nGameConfig.exportSceneToJson = true;\r\nGameConfig.init();\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/src/script/scene/LoadingScene.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/script/scene/MainGameScene.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/script/tool/ButtonRunTime.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/script/prefeb/FontGrid.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/script/GameUI.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/script/GameControl.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/script/prefeb/GameResult.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/script/prefeb/GameSetting.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/script/prefeb/StartGame.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/script/prefeb/TipItem.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/display/Text.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/physics/BoxCollider.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/physics/RigidBody.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/ClassUtils.ts",
+    "F:/ProjectsWorks/font_game_2.10/src/ui/layaMaxUI.ts"
+  ]
+}

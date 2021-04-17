@@ -1,0 +1,14 @@
+{
+  "code": "import { Loader } from \"./Loader\";\r\nimport { URL } from \"./URL\";\r\nimport { Handler } from \"../utils/Handler\";\r\nimport { ILaya } from \"../../ILaya\";\r\nexport class ResourceVersion {\r\n    static enable(manifestFile, callback, type = 2) {\r\n        ResourceVersion.type = type;\r\n        ILaya.loader.load(manifestFile, Handler.create(null, ResourceVersion.onManifestLoaded, [callback]), null, Loader.JSON);\r\n    }\r\n    static onManifestLoaded(callback, data) {\r\n        ResourceVersion.manifest = data;\r\n        URL.customFormat = ResourceVersion.addVersionPrefix;\r\n        callback.run();\r\n        if (!data) {\r\n            console.warn(\"资源版本清单文件不存在，不使用资源版本管理。忽略ERR_FILE_NOT_FOUND错误。\");\r\n        }\r\n    }\r\n    static addVersionPrefix(originURL) {\r\n        originURL = URL.getAdptedFilePath(originURL);\r\n        if (ResourceVersion.manifest && ResourceVersion.manifest[originURL]) {\r\n            if (ResourceVersion.type == ResourceVersion.FILENAME_VERSION)\r\n                return ResourceVersion.manifest[originURL];\r\n            return ResourceVersion.manifest[originURL] + \"/\" + originURL;\r\n        }\r\n        return originURL;\r\n    }\r\n}\r\nResourceVersion.FOLDER_VERSION = 1;\r\nResourceVersion.FILENAME_VERSION = 2;\r\nResourceVersion.type = ResourceVersion.FOLDER_VERSION;\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/net/Loader.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/net/URL.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/utils/Handler.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/ILaya.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/net/ResourceVersion.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Handler } from \"../utils/Handler\";\r\nexport declare class ResourceVersion {\r\n    static FOLDER_VERSION: number;\r\n    static FILENAME_VERSION: number;\r\n    static manifest: any;\r\n    static type: number;\r\n    static enable(manifestFile: string, callback: Handler, type?: number): void;\r\n    private static onManifestLoaded;\r\n    static addVersionPrefix(originURL: string): string;\r\n}\r\n"
+  }
+}

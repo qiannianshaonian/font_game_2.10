@@ -1,0 +1,14 @@
+{
+  "code": "import { Bitmap } from \"./Bitmap\";\r\nimport { Texture2D } from \"./Texture2D\";\r\nimport { WarpMode } from \"./WrapMode\";\r\nexport class HTMLImage extends Bitmap {\r\n}\r\nHTMLImage.create = function (width, height, format) {\r\n    var tex = new Texture2D(width, height, format, false, false);\r\n    tex.wrapModeU = WarpMode.Clamp;\r\n    tex.wrapModeV = WarpMode.Clamp;\r\n    return tex;\r\n};\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/Bitmap.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/Texture2D.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/BaseTexture.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/WrapMode.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/HTMLImage.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Bitmap } from \"./Bitmap\";\r\nexport declare class HTMLImage extends Bitmap {\r\n    static create: Function;\r\n}\r\n"
+  }
+}

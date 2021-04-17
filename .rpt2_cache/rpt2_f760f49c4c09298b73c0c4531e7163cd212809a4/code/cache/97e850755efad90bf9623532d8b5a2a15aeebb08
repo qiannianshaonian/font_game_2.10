@@ -1,0 +1,9 @@
+{
+  "code": "export class KeyFramesContent {\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/ani/KeyFramesContent.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class KeyFramesContent {\r\n    startTime: number;\r\n    duration: number;\r\n    interpolationData: any[];\r\n    data: Float32Array;\r\n    dData: Float32Array;\r\n    nextData: Float32Array;\r\n}\r\n"
+  }
+}

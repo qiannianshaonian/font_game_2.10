@@ -1,0 +1,11 @@
+{
+  "code": "import { Resource } from \"./Resource\";\r\nexport class Bitmap extends Resource {\r\n    constructor() {\r\n        super();\r\n        this._width = -1;\r\n        this._height = -1;\r\n    }\r\n    get width() {\r\n        return this._width;\r\n    }\r\n    set width(width) {\r\n        this._width = width;\r\n    }\r\n    get height() {\r\n        return this._height;\r\n    }\r\n    set height(height) {\r\n        this._height = height;\r\n    }\r\n    _getSource() {\r\n        throw \"Bitmap: must override it.\";\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/resource/Resource.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/resource/Bitmap.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Resource } from \"./Resource\";\r\nexport declare class Bitmap extends Resource {\r\n    protected _width: number;\r\n    protected _height: number;\r\n    width: number;\r\n    height: number;\r\n    constructor();\r\n    _getSource(): any;\r\n}\r\n"
+  }
+}

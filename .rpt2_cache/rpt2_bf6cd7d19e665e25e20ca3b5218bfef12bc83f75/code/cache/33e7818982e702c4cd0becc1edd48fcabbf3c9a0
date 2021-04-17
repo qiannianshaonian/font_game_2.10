@@ -1,0 +1,12 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class RestoreCmd {\r\n    static create() {\r\n        var cmd = Pool.getItemByClass(\"RestoreCmd\", RestoreCmd);\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        Pool.recover(\"RestoreCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context.restore();\r\n    }\r\n    get cmdID() {\r\n        return RestoreCmd.ID;\r\n    }\r\n}\r\nRestoreCmd.ID = \"Restore\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/display/cmd/RestoreCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nexport declare class RestoreCmd {\r\n    static ID: string;\r\n    static create(): RestoreCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

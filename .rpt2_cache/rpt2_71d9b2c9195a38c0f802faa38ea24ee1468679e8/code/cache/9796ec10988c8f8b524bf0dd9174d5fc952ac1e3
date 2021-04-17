@@ -1,0 +1,9 @@
+{
+  "code": "export class UIConfig {\r\n}\r\nUIConfig.touchScrollEnable = true;\r\nUIConfig.mouseWheelEnable = true;\r\nUIConfig.showButtons = true;\r\nUIConfig.popupBgColor = \"#000000\";\r\nUIConfig.popupBgAlpha = 0.5;\r\nUIConfig.closeDialogOnSide = true;\r\nwindow.UIConfig = UIConfig;\r\n",
+  "references": [],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/UIConfig.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class UIConfig {\r\n    static touchScrollEnable: boolean;\r\n    static mouseWheelEnable: boolean;\r\n    static showButtons: boolean;\r\n    static popupBgColor: string;\r\n    static popupBgAlpha: number;\r\n    static closeDialogOnSide: boolean;\r\n}\r\n"
+  }
+}

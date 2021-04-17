@@ -1,0 +1,9 @@
+{
+  "code": "export var TextureFormat;\r\n(function (TextureFormat) {\r\n    TextureFormat[TextureFormat[\"R8G8B8\"] = 0] = \"R8G8B8\";\r\n    TextureFormat[TextureFormat[\"R8G8B8A8\"] = 1] = \"R8G8B8A8\";\r\n    TextureFormat[TextureFormat[\"R5G6B5\"] = 16] = \"R5G6B5\";\r\n    TextureFormat[TextureFormat[\"Alpha8\"] = 2] = \"Alpha8\";\r\n    TextureFormat[TextureFormat[\"DXT1\"] = 3] = \"DXT1\";\r\n    TextureFormat[TextureFormat[\"DXT5\"] = 4] = \"DXT5\";\r\n    TextureFormat[TextureFormat[\"ETC1RGB\"] = 5] = \"ETC1RGB\";\r\n    TextureFormat[TextureFormat[\"PVRTCRGB_2BPPV\"] = 9] = \"PVRTCRGB_2BPPV\";\r\n    TextureFormat[TextureFormat[\"PVRTCRGBA_2BPPV\"] = 10] = \"PVRTCRGBA_2BPPV\";\r\n    TextureFormat[TextureFormat[\"PVRTCRGB_4BPPV\"] = 11] = \"PVRTCRGB_4BPPV\";\r\n    TextureFormat[TextureFormat[\"PVRTCRGBA_4BPPV\"] = 12] = \"PVRTCRGBA_4BPPV\";\r\n    TextureFormat[TextureFormat[\"R32G32B32A32\"] = 15] = \"R32G32B32A32\";\r\n    TextureFormat[TextureFormat[\"R16G16B16A16\"] = 17] = \"R16G16B16A16\";\r\n})(TextureFormat || (TextureFormat = {}));\r\n",
+  "references": [],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/TextureFormat.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare enum TextureFormat {\r\n    R8G8B8 = 0,\r\n    R8G8B8A8 = 1,\r\n    R5G6B5 = 16,\r\n    Alpha8 = 2,\r\n    DXT1 = 3,\r\n    DXT5 = 4,\r\n    ETC1RGB = 5,\r\n    PVRTCRGB_2BPPV = 9,\r\n    PVRTCRGBA_2BPPV = 10,\r\n    PVRTCRGB_4BPPV = 11,\r\n    PVRTCRGBA_4BPPV = 12,\r\n    R32G32B32A32 = 15,\r\n    R16G16B16A16 = 17\r\n}\r\n"
+  }
+}

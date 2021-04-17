@@ -1,0 +1,12 @@
+{
+  "code": "import { LayaGL } from \"../layagl/LayaGL\";\r\nexport class BufferStateBase {\r\n    constructor() {\r\n        this._nativeVertexArrayObject = LayaGL.layaGPUInstance.createVertexArray();\r\n    }\r\n    bind() {\r\n        if (BufferStateBase._curBindedBufferState !== this) {\r\n            LayaGL.layaGPUInstance.bindVertexArray(this._nativeVertexArrayObject);\r\n            BufferStateBase._curBindedBufferState = this;\r\n        }\r\n    }\r\n    unBind() {\r\n        if (BufferStateBase._curBindedBufferState === this) {\r\n            LayaGL.layaGPUInstance.bindVertexArray(null);\r\n            BufferStateBase._curBindedBufferState = null;\r\n        }\r\n        else {\r\n            throw \"BufferState: must call bind() function first.\";\r\n        }\r\n    }\r\n    destroy() {\r\n        LayaGL.layaGPUInstance.deleteVertexArray(this._nativeVertexArrayObject);\r\n    }\r\n    bindForNative() {\r\n        LayaGL.instance.bindVertexArray(this._nativeVertexArrayObject);\r\n        BufferStateBase._curBindedBufferState = this;\r\n    }\r\n    unBindForNative() {\r\n        LayaGL.instance.bindVertexArray(null);\r\n        BufferStateBase._curBindedBufferState = null;\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/layagl/LayaGL.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/utils/Buffer.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/webgl/BufferStateBase.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Buffer } from \"./utils/Buffer\";\r\nexport declare class BufferStateBase {\r\n    static _curBindedBufferState: BufferStateBase;\r\n    private _nativeVertexArrayObject;\r\n    _bindedIndexBuffer: Buffer;\r\n    constructor();\r\n    bind(): void;\r\n    unBind(): void;\r\n    destroy(): void;\r\n    bindForNative(): void;\r\n    unBindForNative(): void;\r\n}\r\n"
+  }
+}

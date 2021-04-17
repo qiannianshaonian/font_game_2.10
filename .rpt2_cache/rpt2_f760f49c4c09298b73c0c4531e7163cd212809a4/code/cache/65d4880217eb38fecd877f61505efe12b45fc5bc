@@ -1,0 +1,9 @@
+{
+  "code": "export var WarpMode;\r\n(function (WarpMode) {\r\n    WarpMode[WarpMode[\"Repeat\"] = 0] = \"Repeat\";\r\n    WarpMode[WarpMode[\"Clamp\"] = 1] = \"Clamp\";\r\n})(WarpMode || (WarpMode = {}));\r\n",
+  "references": [],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/resource/WrapMode.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare enum WarpMode {\r\n    Repeat = 0,\r\n    Clamp = 1\r\n}\r\n"
+  }
+}

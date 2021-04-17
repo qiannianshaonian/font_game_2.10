@@ -1,0 +1,6 @@
+{
+  "code": "export default class ControllerMgr {\r\n    static getInstance(c) {\r\n        let sign = c[\"name\"];\r\n        let item = ControllerMgr._controllerObjs[sign];\r\n        if (item == null) {\r\n            item = new c();\r\n            ControllerMgr._controllerObjs[sign] = item;\r\n        }\r\n        return item;\r\n    }\r\n}\r\nControllerMgr._controllerObjs = {};\r\nwindow[\"ControllerMgr\"] = ControllerMgr;\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/src/script/controller/ControllerBase.ts"
+  ]
+}

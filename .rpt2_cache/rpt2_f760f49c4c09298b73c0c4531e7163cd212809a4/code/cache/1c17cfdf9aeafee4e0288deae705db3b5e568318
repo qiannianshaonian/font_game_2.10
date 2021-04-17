@@ -1,0 +1,25 @@
+{
+  "code": "import { SubmitBase } from \"./SubmitBase\";\r\nimport { Stat } from \"../../utils/Stat\";\r\nimport { WebGLContext } from \"../WebGLContext\";\r\nimport { BlendMode } from \"../canvas/BlendMode\";\r\nimport { BaseShader } from \"../shader/BaseShader\";\r\nimport { ShaderDefines2D } from \"../shader/d2/ShaderDefines2D\";\r\nimport { CONST3D2D } from \"../utils/CONST3D2D\";\r\nexport class SubmitTexture extends SubmitBase {\r\n    constructor(renderType = SubmitBase.TYPE_2D) {\r\n        super(renderType);\r\n    }\r\n    releaseRender() {\r\n        if ((--this._ref) < 1) {\r\n            SubmitTexture.POOL[SubmitTexture._poolSize++] = this;\r\n            this.shaderValue.release();\r\n            this._mesh = null;\r\n            this._parent && (this._parent.releaseRender(), this._parent = null);\r\n        }\r\n    }\r\n    renderSubmit() {\r\n        if (this._numEle === 0)\r\n            return 1;\r\n        var tex = this.shaderValue.textureHost;\r\n        if (tex) {\r\n            var source = tex ? tex._getSource() : null;\r\n            if (!source)\r\n                return 1;\r\n        }\r\n        var gl = WebGLContext.mainContext;\r\n        this._mesh.useMesh(gl);\r\n        var lastSubmit = SubmitBase.preRender;\r\n        var prekey = SubmitBase.preRender._key;\r\n        if (this._key.blendShader === 0 && (this._key.submitType === prekey.submitType && this._key.blendShader === prekey.blendShader) && BaseShader.activeShader &&\r\n            SubmitBase.preRender.clipInfoID == this.clipInfoID &&\r\n            lastSubmit.shaderValue.defines._value === this.shaderValue.defines._value &&\r\n            (this.shaderValue.defines._value & ShaderDefines2D.NOOPTMASK) == 0) {\r\n            BaseShader.activeShader.uploadTexture2D(source);\r\n        }\r\n        else {\r\n            if (BlendMode.activeBlendFunction !== this._blendFn) {\r\n                WebGLContext.setBlend(gl, true);\r\n                this._blendFn(gl);\r\n                BlendMode.activeBlendFunction = this._blendFn;\r\n            }\r\n            this.shaderValue.texture = source;\r\n            this.shaderValue.upload();\r\n        }\r\n        gl.drawElements(gl.TRIANGLES, this._numEle, gl.UNSIGNED_SHORT, this._startIdx);\r\n        Stat.renderBatches++;\r\n        Stat.trianglesFaces += this._numEle / 3;\r\n        return 1;\r\n    }\r\n    static create(context, mesh, sv) {\r\n        var o = SubmitTexture._poolSize ? SubmitTexture.POOL[--SubmitTexture._poolSize] : new SubmitTexture(SubmitBase.TYPE_TEXTURE);\r\n        o._mesh = mesh;\r\n        o._key.clear();\r\n        o._key.submitType = SubmitBase.KEY_DRAWTEXTURE;\r\n        o._ref = 1;\r\n        o._startIdx = mesh.indexNum * CONST3D2D.BYTES_PIDX;\r\n        o._numEle = 0;\r\n        var blendType = context._nBlendType;\r\n        o._key.blendShader = blendType;\r\n        o._blendFn = context._targets ? BlendMode.targetFns[blendType] : BlendMode.fns[blendType];\r\n        o.shaderValue = sv;\r\n        if (context._colorFiler) {\r\n            var ft = context._colorFiler;\r\n            sv.defines.add(ft.type);\r\n            sv.colorMat = ft._mat;\r\n            sv.colorAlpha = ft._alpha;\r\n        }\r\n        return o;\r\n    }\r\n}\r\nSubmitTexture._poolSize = 0;\r\nSubmitTexture.POOL = [];\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/submit/SubmitBase.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/submit/SubmitKey.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/filters/ColorFilter.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/Context.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/Texture.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/Stat.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/WebGLContext.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/canvas/BlendMode.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/shader/BaseShader.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/shader/Shader.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/shader/d2/ShaderDefines2D.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/shader/d2/value/TextureSV.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/shader/d2/value/Value2D.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/utils/CONST3D2D.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/utils/Mesh2D.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/webgl/submit/SubmitTexture.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { SubmitBase } from \"./SubmitBase\";\r\nimport { Context } from \"../../resource/Context\";\r\nimport { Value2D } from \"../shader/d2/value/Value2D\";\r\nimport { Mesh2D } from \"../utils/Mesh2D\";\r\nexport declare class SubmitTexture extends SubmitBase {\r\n    private static _poolSize;\r\n    private static POOL;\r\n    constructor(renderType?: number);\r\n    releaseRender(): void;\r\n    renderSubmit(): number;\r\n    static create(context: Context, mesh: Mesh2D, sv: Value2D): SubmitTexture;\r\n}\r\n"
+  }
+}

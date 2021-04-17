@@ -1,0 +1,9 @@
+{
+  "code": "export class Styles {\r\n}\r\nStyles.defaultSizeGrid = [4, 4, 4, 4, 0];\r\nStyles.labelColor = \"#000000\";\r\nStyles.labelPadding = [2, 2, 2, 2];\r\nStyles.inputLabelPadding = [1, 1, 1, 3];\r\nStyles.buttonStateNum = 3;\r\nStyles.buttonLabelColors = [\"#32556b\", \"#32cc6b\", \"#ff0000\", \"#C0C0C0\"];\r\nStyles.comboBoxItemColors = [\"#5e95b6\", \"#ffffff\", \"#000000\", \"#8fa4b1\", \"#ffffff\"];\r\nStyles.scrollBarMinNum = 15;\r\nStyles.scrollBarDelayTime = 500;\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/ui/Styles.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class Styles {\r\n    static defaultSizeGrid: any[];\r\n    static labelColor: string;\r\n    static labelPadding: any[];\r\n    static inputLabelPadding: any[];\r\n    static buttonStateNum: number;\r\n    static buttonLabelColors: any[];\r\n    static comboBoxItemColors: any[];\r\n    static scrollBarMinNum: number;\r\n    static scrollBarDelayTime: number;\r\n}\r\n"
+  }
+}

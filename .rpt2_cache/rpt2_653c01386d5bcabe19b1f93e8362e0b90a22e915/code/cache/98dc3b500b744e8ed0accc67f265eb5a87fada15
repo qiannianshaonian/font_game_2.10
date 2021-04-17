@@ -1,0 +1,8 @@
+{
+  "code": "import { Laya } from \"Laya\";\r\nimport SceneBase from \"./SceneBase\";\r\nexport default class LoadingScene extends SceneBase {\r\n    constructor() { super(); }\r\n    onAwake() {\r\n        super.onAwake();\r\n        this.owner[\"height\"] = Laya.stage.height;\r\n    }\r\n    onEnable() {\r\n    }\r\n    onDisable() {\r\n    }\r\n    updatePercent(value) {\r\n        this.txt_progress.text = \"正在加载资源 \" + value + \"%\";\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/Laya.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/display/Text.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/src/script/scene/SceneBase.ts"
+  ]
+}

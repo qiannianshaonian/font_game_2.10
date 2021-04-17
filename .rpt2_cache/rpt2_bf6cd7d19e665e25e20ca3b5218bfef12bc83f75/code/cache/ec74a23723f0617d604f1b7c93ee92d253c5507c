@@ -1,0 +1,12 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class DrawPieCmd {\r\n    static create(x, y, radius, startAngle, endAngle, fillColor, lineColor, lineWidth, vid) {\r\n        var cmd = Pool.getItemByClass(\"DrawPieCmd\", DrawPieCmd);\r\n        cmd.x = x;\r\n        cmd.y = y;\r\n        cmd.radius = radius;\r\n        cmd._startAngle = startAngle;\r\n        cmd._endAngle = endAngle;\r\n        cmd.fillColor = fillColor;\r\n        cmd.lineColor = lineColor;\r\n        cmd.lineWidth = lineWidth;\r\n        cmd.vid = vid;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        this.fillColor = null;\r\n        this.lineColor = null;\r\n        Pool.recover(\"DrawPieCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context._drawPie(this.x + gx, this.y + gy, this.radius, this._startAngle, this._endAngle, this.fillColor, this.lineColor, this.lineWidth, this.vid);\r\n    }\r\n    get cmdID() {\r\n        return DrawPieCmd.ID;\r\n    }\r\n    get startAngle() {\r\n        return this._startAngle * 180 / Math.PI;\r\n    }\r\n    set startAngle(value) {\r\n        this._startAngle = value * Math.PI / 180;\r\n    }\r\n    get endAngle() {\r\n        return this._endAngle * 180 / Math.PI;\r\n    }\r\n    set endAngle(value) {\r\n        this._endAngle = value * Math.PI / 180;\r\n    }\r\n}\r\nDrawPieCmd.ID = \"DrawPie\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/display/cmd/DrawPieCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nexport declare class DrawPieCmd {\r\n    static ID: string;\r\n    x: number;\r\n    y: number;\r\n    radius: number;\r\n    private _startAngle;\r\n    private _endAngle;\r\n    fillColor: any;\r\n    lineColor: any;\r\n    lineWidth: number;\r\n    vid: number;\r\n    static create(x: number, y: number, radius: number, startAngle: number, endAngle: number, fillColor: any, lineColor: any, lineWidth: number, vid: number): DrawPieCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n    startAngle: number;\r\n    endAngle: number;\r\n}\r\n"
+  }
+}

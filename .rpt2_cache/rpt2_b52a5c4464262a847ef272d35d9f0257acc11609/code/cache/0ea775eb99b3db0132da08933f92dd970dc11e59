@@ -1,0 +1,12 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class BoundsStyle {\r\n    reset() {\r\n        if (this.bounds)\r\n            this.bounds.recover();\r\n        if (this.userBounds)\r\n            this.userBounds.recover();\r\n        this.bounds = null;\r\n        this.userBounds = null;\r\n        this.temBM = null;\r\n        return this;\r\n    }\r\n    recover() {\r\n        Pool.recover(\"BoundsStyle\", this.reset());\r\n    }\r\n    static create() {\r\n        return Pool.getItemByClass(\"BoundsStyle\", BoundsStyle);\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/maths/Rectangle.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/.rpt2_cache/placeholder/laya/display/css/BoundsStyle.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Rectangle } from \"../../maths/Rectangle\";\r\nexport declare class BoundsStyle {\r\n    bounds: Rectangle | null;\r\n    userBounds: Rectangle | null;\r\n    temBM: any[] | null;\r\n    reset(): BoundsStyle;\r\n    recover(): void;\r\n    static create(): BoundsStyle;\r\n}\r\n"
+  }
+}

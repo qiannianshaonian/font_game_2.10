@@ -1,0 +1,13 @@
+{
+  "code": "import { ICharRender } from \"./ICharRender\";\r\nimport { ColorUtils } from \"../../utils/ColorUtils\";\r\nexport class CharRender_Native extends ICharRender {\r\n    constructor() {\r\n        super();\r\n        this.lastFont = '';\r\n        this.lastScaleX = 1.0;\r\n        this.lastScaleY = 1.0;\r\n    }\r\n    getWidth(font, str) {\r\n        if (!window.conchTextCanvas)\r\n            return 0;\r\n        window.conchTextCanvas.font = font;\r\n        this.lastFont = font;\r\n        return window.conchTextCanvas.measureText(str).width;\r\n    }\r\n    scale(sx, sy) {\r\n        this.lastScaleX = sx;\r\n        this.lastScaleY = sy;\r\n    }\r\n    getCharBmp(char, font, lineWidth, colStr, strokeColStr, size, margin_left, margin_top, margin_right, margin_bottom, rect = null) {\r\n        if (!window.conchTextCanvas)\r\n            return null;\r\n        window.conchTextCanvas.font = font;\r\n        this.lastFont = font;\r\n        var w = size.width = window.conchTextCanvas.measureText(char).width;\r\n        var h = size.height;\r\n        w += (margin_left + margin_right);\r\n        h += (margin_top + margin_bottom);\r\n        window.conchTextCanvas.scale && window.conchTextCanvas.scale(this.lastScaleX, this.lastScaleY);\r\n        var c1 = ColorUtils.create(strokeColStr);\r\n        var nStrokeColor = c1.numColor;\r\n        var c2 = ColorUtils.create(colStr);\r\n        var nTextColor = c2.numColor;\r\n        var textInfo = window.conchTextCanvas.getTextBitmapData(char, nTextColor, lineWidth > 2 ? 2 : lineWidth, nStrokeColor);\r\n        size.bmpWidth = textInfo.width;\r\n        size.bmpHeight = textInfo.height;\r\n        return textInfo;\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/text/CharRenderInfo.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/text/ICharRender.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/ColorUtils.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/webgl/text/CharRender_Native.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { CharRenderInfo } from \"./CharRenderInfo\";\r\nimport { ICharRender } from \"./ICharRender\";\r\nexport declare class CharRender_Native extends ICharRender {\r\n    private lastFont;\r\n    private lastScaleX;\r\n    private lastScaleY;\r\n    constructor();\r\n    getWidth(font: string, str: string): number;\r\n    scale(sx: number, sy: number): void;\r\n    getCharBmp(char: string, font: string, lineWidth: number, colStr: string, strokeColStr: string, size: CharRenderInfo, margin_left: number, margin_top: number, margin_right: number, margin_bottom: number, rect?: any[] | null): ImageData | null;\r\n}\r\n"
+  }
+}

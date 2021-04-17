@@ -1,0 +1,11 @@
+{
+  "code": "import { WebGL } from \"../webgl/WebGL\";\r\nexport class RunDriver {\r\n}\r\nRunDriver.createShaderCondition = function (conditionScript) {\r\n    var fn = \"(function() {return \" + conditionScript + \";})\";\r\n    return window.Laya._runScript(fn);\r\n};\r\nRunDriver.changeWebGLSize = function (w, h) {\r\n    WebGL.onStageResize(w, h);\r\n};\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/WebGL.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/utils/RunDriver.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class RunDriver {\r\n    static createShaderCondition: Function;\r\n    static changeWebGLSize: Function;\r\n}\r\n"
+  }
+}

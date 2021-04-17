@@ -1,0 +1,13 @@
+{
+  "code": "import { SaveBase } from \"./SaveBase\";\r\nexport class SaveMark {\r\n    constructor() {\r\n        this._saveuse = 0;\r\n    }\r\n    isSaveMark() {\r\n        return true;\r\n    }\r\n    restore(context) {\r\n        context._saveMark = this._preSaveMark;\r\n        SaveMark.POOL[SaveMark.POOL._length++] = this;\r\n    }\r\n    static Create(context) {\r\n        var no = SaveMark.POOL;\r\n        var o = no._length > 0 ? no[--no._length] : (new SaveMark());\r\n        o._saveuse = 0;\r\n        o._preSaveMark = context._saveMark;\r\n        context._saveMark = o;\r\n        return o;\r\n    }\r\n}\r\nSaveMark.POOL = SaveBase._createArray();\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/resource/Context.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/canvas/save/ISaveData.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/webgl/canvas/save/SaveBase.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/webgl/canvas/save/SaveMark.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../../resource/Context\";\r\nimport { ISaveData } from \"./ISaveData\";\r\nexport declare class SaveMark implements ISaveData {\r\n    private static POOL;\r\n    _saveuse: number;\r\n    _preSaveMark: SaveMark;\r\n    constructor();\r\n    isSaveMark(): boolean;\r\n    restore(context: Context): void;\r\n    static Create(context: Context): SaveMark;\r\n}\r\n"
+  }
+}

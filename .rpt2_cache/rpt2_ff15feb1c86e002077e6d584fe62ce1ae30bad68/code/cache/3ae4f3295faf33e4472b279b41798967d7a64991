@@ -1,0 +1,13 @@
+{
+  "code": "import { Event } from \"../events/Event\";\r\nimport { ILaya } from \"../../ILaya\";\r\nimport { ClassUtils } from \"../utils/ClassUtils\";\r\nexport class UIEvent extends Event {\r\n}\r\nUIEvent.SHOW_TIP = \"showtip\";\r\nUIEvent.HIDE_TIP = \"hidetip\";\r\nILaya.regClass(UIEvent);\r\nClassUtils.regClass(\"laya.ui.UIEvent\", UIEvent);\r\nClassUtils.regClass(\"Laya.UIEvent\", UIEvent);\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/events/Event.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/ILaya.ts",
+    "F:/ProjectsWorks/font_game_2ceshi/libs/laya/utils/ClassUtils.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/laya/ui/UIEvent.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Event } from \"../events/Event\";\r\nexport declare class UIEvent extends Event {\r\n    static SHOW_TIP: string;\r\n    static HIDE_TIP: string;\r\n}\r\n"
+  }
+}

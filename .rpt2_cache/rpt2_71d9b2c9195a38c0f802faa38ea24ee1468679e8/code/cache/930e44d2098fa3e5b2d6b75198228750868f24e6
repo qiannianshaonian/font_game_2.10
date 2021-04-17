@@ -1,0 +1,12 @@
+{
+  "code": "import { Event } from \"./Event\";\r\nimport { ILaya } from \"../../ILaya\";\r\nexport class KeyBoardManager {\r\n    static __init__() {\r\n        KeyBoardManager._addEvent(\"keydown\");\r\n        KeyBoardManager._addEvent(\"keypress\");\r\n        KeyBoardManager._addEvent(\"keyup\");\r\n    }\r\n    static _addEvent(type) {\r\n        ILaya.Browser.document.addEventListener(type, function (e) {\r\n            KeyBoardManager._dispatch(e, type);\r\n        }, true);\r\n    }\r\n    static _dispatch(e, type) {\r\n        if (!KeyBoardManager.enabled)\r\n            return;\r\n        KeyBoardManager._event._stoped = false;\r\n        KeyBoardManager._event.nativeEvent = e;\r\n        KeyBoardManager._event.keyCode = e.keyCode || e.which || e.charCode;\r\n        if (type === \"keydown\")\r\n            KeyBoardManager._pressKeys[KeyBoardManager._event.keyCode] = true;\r\n        else if (type === \"keyup\")\r\n            KeyBoardManager._pressKeys[KeyBoardManager._event.keyCode] = null;\r\n        var target = (ILaya.stage.focus && (ILaya.stage.focus.event != null) && ILaya.stage.focus.displayedInStage) ? ILaya.stage.focus : ILaya.stage;\r\n        var ct = target;\r\n        while (ct) {\r\n            ct.event(type, KeyBoardManager._event.setTo(type, ct, target));\r\n            ct = ct.parent;\r\n        }\r\n    }\r\n    static hasKeyDown(key) {\r\n        return KeyBoardManager._pressKeys[key];\r\n    }\r\n}\r\nKeyBoardManager._pressKeys = {};\r\nKeyBoardManager.enabled = true;\r\nKeyBoardManager._event = new Event();\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/events/Event.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/ILaya.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/events/KeyBoardManager.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Event } from \"./Event\";\r\nexport declare class KeyBoardManager {\r\n    private static _pressKeys;\r\n    static enabled: boolean;\r\n    static _event: Event;\r\n    static __init__(): void;\r\n    private static _addEvent;\r\n    private static _dispatch;\r\n    static hasKeyDown(key: number): boolean;\r\n}\r\n"
+  }
+}

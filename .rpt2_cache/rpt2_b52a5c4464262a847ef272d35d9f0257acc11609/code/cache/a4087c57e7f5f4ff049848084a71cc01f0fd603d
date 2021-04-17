@@ -1,0 +1,14 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class FillTextureCmd {\r\n    static create(texture, x, y, width, height, type, offset, other) {\r\n        var cmd = Pool.getItemByClass(\"FillTextureCmd\", FillTextureCmd);\r\n        cmd.texture = texture;\r\n        cmd.x = x;\r\n        cmd.y = y;\r\n        cmd.width = width;\r\n        cmd.height = height;\r\n        cmd.type = type;\r\n        cmd.offset = offset;\r\n        cmd.other = other;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        this.texture = null;\r\n        this.offset = null;\r\n        this.other = null;\r\n        Pool.recover(\"FillTextureCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context.fillTexture(this.texture, this.x + gx, this.y + gy, this.width, this.height, this.type, this.offset, this.other);\r\n    }\r\n    get cmdID() {\r\n        return FillTextureCmd.ID;\r\n    }\r\n}\r\nFillTextureCmd.ID = \"FillTexture\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/maths/Point.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Texture.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/.rpt2_cache/placeholder/laya/display/cmd/FillTextureCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Point } from \"../../maths/Point\";\r\nimport { Context } from \"../../resource/Context\";\r\nimport { Texture } from \"../../resource/Texture\";\r\nexport declare class FillTextureCmd {\r\n    static ID: string;\r\n    texture: Texture;\r\n    x: number;\r\n    y: number;\r\n    width: number;\r\n    height: number;\r\n    type: string;\r\n    offset: Point;\r\n    other: any;\r\n    static create(texture: Texture, x: number, y: number, width: number, height: number, type: string, offset: Point, other: any): FillTextureCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

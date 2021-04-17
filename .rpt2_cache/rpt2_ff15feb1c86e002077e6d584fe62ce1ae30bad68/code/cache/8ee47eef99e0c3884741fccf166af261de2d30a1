@@ -1,0 +1,9 @@
+{
+  "code": "export class Config {\r\n}\r\nConfig.animationInterval = 50;\r\nConfig.isAntialias = false;\r\nConfig.isAlpha = false;\r\nConfig.premultipliedAlpha = true;\r\nConfig.isStencil = true;\r\nConfig.preserveDrawingBuffer = false;\r\nConfig.webGL2D_MeshAllocMaxMem = true;\r\nConfig.is2DPixelArtGame = false;\r\nConfig.useWebGL2 = false;\r\nConfig.allowGPUInstanceDynamicBatch = true;\r\nConfig.useRetinalCanvas = false;\r\nwindow.Config = Config;\r\n",
+  "references": [],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2ceshi/.rpt2_cache/placeholder/Config.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class Config {\r\n    static animationInterval: number;\r\n    static isAntialias: boolean;\r\n    static isAlpha: boolean;\r\n    static premultipliedAlpha: boolean;\r\n    static isStencil: boolean;\r\n    static preserveDrawingBuffer: boolean;\r\n    static webGL2D_MeshAllocMaxMem: boolean;\r\n    static is2DPixelArtGame: boolean;\r\n    static useWebGL2: boolean;\r\n    static allowGPUInstanceDynamicBatch: boolean;\r\n    static useRetinalCanvas: boolean;\r\n}\r\n"
+  }
+}

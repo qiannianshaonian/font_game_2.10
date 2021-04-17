@@ -1,0 +1,9 @@
+{
+  "code": "export class IStatRender {\r\n    show(x = 0, y = 0) {\r\n    }\r\n    enable() {\r\n    }\r\n    hide() {\r\n    }\r\n    set_onclick(fn) {\r\n    }\r\n    isCanvasRender() {\r\n        return true;\r\n    }\r\n    renderNotCanvas(ctx, x, y) { }\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/IStatRender.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class IStatRender {\r\n    show(x?: number, y?: number): void;\r\n    enable(): void;\r\n    hide(): void;\r\n    set_onclick(fn: Function): void;\r\n    isCanvasRender(): boolean;\r\n    renderNotCanvas(ctx: any, x: number, y: number): void;\r\n}\r\n"
+  }
+}

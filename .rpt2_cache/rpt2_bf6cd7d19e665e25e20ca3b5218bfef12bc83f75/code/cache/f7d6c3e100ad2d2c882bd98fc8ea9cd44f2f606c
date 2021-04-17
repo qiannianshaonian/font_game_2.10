@@ -1,0 +1,9 @@
+{
+  "code": "export class DestructionListener {\r\n    SayGoodbyeJoint(params) {\r\n        params.m_userData && (params.m_userData.isDestroy = true);\r\n    }\r\n    SayGoodbyeFixture(params) {\r\n    }\r\n    SayGoodbyeParticleGroup(params) {\r\n    }\r\n    SayGoodbyeParticle(params) {\r\n    }\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/physics/DestructionListener.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class DestructionListener {\r\n    SayGoodbyeJoint(params: any): void;\r\n    SayGoodbyeFixture(params: any): void;\r\n    SayGoodbyeParticleGroup(params: any): void;\r\n    SayGoodbyeParticle(params: any): void;\r\n}\r\n"
+  }
+}

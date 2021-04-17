@@ -1,0 +1,13 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class TransformCmd {\r\n    static create(matrix, pivotX, pivotY) {\r\n        var cmd = Pool.getItemByClass(\"TransformCmd\", TransformCmd);\r\n        cmd.matrix = matrix;\r\n        cmd.pivotX = pivotX;\r\n        cmd.pivotY = pivotY;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        this.matrix = null;\r\n        Pool.recover(\"TransformCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context._transform(this.matrix, this.pivotX + gx, this.pivotY + gy);\r\n    }\r\n    get cmdID() {\r\n        return TransformCmd.ID;\r\n    }\r\n}\r\nTransformCmd.ID = \"Transform\";\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/maths/Matrix.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/Context.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/display/cmd/TransformCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Matrix } from \"../../maths/Matrix\";\r\nimport { Context } from \"../../resource/Context\";\r\nexport declare class TransformCmd {\r\n    static ID: string;\r\n    matrix: Matrix;\r\n    pivotX: number;\r\n    pivotY: number;\r\n    static create(matrix: Matrix, pivotX: number, pivotY: number): TransformCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "code": "import { LayaGL } from \"../../layagl/LayaGL\";\r\nexport class Buffer {\r\n    constructor() {\r\n        this._byteLength = 0;\r\n        this._glBuffer = LayaGL.instance.createBuffer();\r\n    }\r\n    get bufferUsage() {\r\n        return this._bufferUsage;\r\n    }\r\n    _bindForVAO() {\r\n    }\r\n    bind() {\r\n        return false;\r\n    }\r\n    destroy() {\r\n        if (this._glBuffer) {\r\n            LayaGL.instance.deleteBuffer(this._glBuffer);\r\n            this._glBuffer = null;\r\n        }\r\n    }\r\n}\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/layagl/LayaGL.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/utils/Buffer.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class Buffer {\r\n    static _bindedVertexBuffer: any;\r\n    static _bindedIndexBuffer: any;\r\n    protected _glBuffer: any;\r\n    protected _buffer: any;\r\n    protected _bufferType: number;\r\n    protected _bufferUsage: number;\r\n    _byteLength: number;\r\n    readonly bufferUsage: number;\r\n    constructor();\r\n    _bindForVAO(): void;\r\n    bind(): boolean;\r\n    destroy(): void;\r\n}\r\n"
+  }
+}

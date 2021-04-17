@@ -1,0 +1,11 @@
+{
+  "code": "import { BufferStateBase } from \"./BufferStateBase\";\r\nexport class BufferState2D extends BufferStateBase {\r\n    constructor() {\r\n        super();\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/webgl/BufferStateBase.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/.rpt2_cache/placeholder/laya/webgl/BufferState2D.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { BufferStateBase } from \"./BufferStateBase\";\r\nexport declare class BufferState2D extends BufferStateBase {\r\n    constructor();\r\n}\r\n"
+  }
+}

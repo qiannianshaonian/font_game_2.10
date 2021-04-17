@@ -1,0 +1,9 @@
+{
+  "code": "export class RenderInfo {\r\n}\r\nRenderInfo.loopStTm = 0;\r\nRenderInfo.loopCount = 0;\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/renders/RenderInfo.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class RenderInfo {\r\n    static loopStTm: number;\r\n    static loopCount: number;\r\n}\r\n"
+  }
+}

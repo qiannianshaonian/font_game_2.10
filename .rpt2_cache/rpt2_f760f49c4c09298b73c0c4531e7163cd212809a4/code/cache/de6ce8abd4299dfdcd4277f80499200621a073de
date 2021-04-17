@@ -1,0 +1,12 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class TranslateCmd {\r\n    static create(tx, ty) {\r\n        var cmd = Pool.getItemByClass(\"TranslateCmd\", TranslateCmd);\r\n        cmd.tx = tx;\r\n        cmd.ty = ty;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        Pool.recover(\"TranslateCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context.translate(this.tx, this.ty);\r\n    }\r\n    get cmdID() {\r\n        return TranslateCmd.ID;\r\n    }\r\n}\r\nTranslateCmd.ID = \"Translate\";\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/resource/Context.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/.rpt2_cache/placeholder/laya/display/cmd/TranslateCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nexport declare class TranslateCmd {\r\n    static ID: string;\r\n    tx: number;\r\n    ty: number;\r\n    static create(tx: number, ty: number): TranslateCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

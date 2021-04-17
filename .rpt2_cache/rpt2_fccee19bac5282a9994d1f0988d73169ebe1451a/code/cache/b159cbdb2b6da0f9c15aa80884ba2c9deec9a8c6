@@ -1,0 +1,6 @@
+{
+  "code": "import { Script } from \"laya/components/Script\";\r\nexport default class WXTool extends Script {\r\n    static addBtn(btn) {\r\n        this._btns.push(btn);\r\n    }\r\n    static removeBtn(btn) {\r\n        this._btns.slice(this._btns.indexOf(btn), 1);\r\n    }\r\n    static hideAllBtn() {\r\n        this._btns.forEach(element => {\r\n            element.style.hidden = true;\r\n        });\r\n    }\r\n    static showAllBtn() {\r\n        this._btns.forEach(element => {\r\n            element.style.hidden = false;\r\n        });\r\n    }\r\n}\r\nWXTool._btns = [];\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/components/Script.ts"
+  ]
+}

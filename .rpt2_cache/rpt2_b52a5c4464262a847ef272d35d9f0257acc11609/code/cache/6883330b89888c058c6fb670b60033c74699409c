@@ -1,0 +1,16 @@
+{
+  "code": "import { ColorFilter } from \"../../filters/ColorFilter\";\r\nimport { ColorUtils } from \"../../utils/ColorUtils\";\r\nimport { Pool } from \"../../utils/Pool\";\r\nexport class DrawTrianglesCmd {\r\n    static create(texture, x, y, vertices, uvs, indices, matrix, alpha, color, blendMode, colorNum) {\r\n        var cmd = Pool.getItemByClass(\"DrawTrianglesCmd\", DrawTrianglesCmd);\r\n        cmd.texture = texture;\r\n        cmd.x = x;\r\n        cmd.y = y;\r\n        cmd.vertices = vertices;\r\n        cmd.uvs = uvs;\r\n        cmd.indices = indices;\r\n        cmd.matrix = matrix;\r\n        cmd.alpha = alpha;\r\n        if (color) {\r\n            cmd.color = new ColorFilter();\r\n            var c = ColorUtils.create(color).arrColor;\r\n            cmd.color.color(c[0] * 255, c[1] * 255, c[2] * 255, c[3] * 255);\r\n        }\r\n        cmd.blendMode = blendMode;\r\n        cmd.colorNum = colorNum;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        this.texture = null;\r\n        this.vertices = null;\r\n        this.uvs = null;\r\n        this.indices = null;\r\n        this.matrix = null;\r\n        Pool.recover(\"DrawTrianglesCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context.drawTriangles(this.texture, this.x + gx, this.y + gy, this.vertices, this.uvs, this.indices, this.matrix, this.alpha, this.color, this.blendMode, this.colorNum);\r\n    }\r\n    get cmdID() {\r\n        return DrawTrianglesCmd.ID;\r\n    }\r\n}\r\nDrawTrianglesCmd.ID = \"DrawTriangles\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/filters/ColorFilter.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/maths/Matrix.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Texture.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/ColorUtils.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/.rpt2_cache/placeholder/laya/display/cmd/DrawTrianglesCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { ColorFilter } from \"../../filters/ColorFilter\";\r\nimport { Matrix } from \"../../maths/Matrix\";\r\nimport { Context } from \"../../resource/Context\";\r\nimport { Texture } from \"../../resource/Texture\";\r\nexport declare class DrawTrianglesCmd {\r\n    static ID: string;\r\n    texture: Texture | null;\r\n    x: number;\r\n    y: number;\r\n    vertices: Float32Array;\r\n    uvs: Float32Array;\r\n    indices: Uint16Array;\r\n    matrix: Matrix | null;\r\n    alpha: number;\r\n    blendMode: string | null;\r\n    color: ColorFilter;\r\n    colorNum: number | null;\r\n    static create(texture: Texture, x: number, y: number, vertices: Float32Array, uvs: Float32Array, indices: Uint16Array, matrix: Matrix | null, alpha: number, color: string | null, blendMode: string | null, colorNum: number | null): DrawTrianglesCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "code": "import { LayaGL } from \"../../layagl/LayaGL\";\r\nimport { Buffer } from \"./Buffer\";\r\nimport { Buffer2D } from \"./Buffer2D\";\r\nexport class IndexBuffer2D extends Buffer2D {\r\n    constructor(bufferUsage = 0x88e4) {\r\n        super();\r\n        this._bufferUsage = bufferUsage;\r\n        this._bufferType = LayaGL.instance.ELEMENT_ARRAY_BUFFER;\r\n        this._buffer = new ArrayBuffer(8);\r\n    }\r\n    _checkArrayUse() {\r\n        this._uint16Array && (this._uint16Array = new Uint16Array(this._buffer));\r\n    }\r\n    getUint16Array() {\r\n        return this._uint16Array || (this._uint16Array = new Uint16Array(this._buffer));\r\n    }\r\n    _bindForVAO() {\r\n        var gl = LayaGL.instance;\r\n        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._glBuffer);\r\n    }\r\n    bind() {\r\n        if (Buffer._bindedIndexBuffer !== this._glBuffer) {\r\n            var gl = LayaGL.instance;\r\n            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._glBuffer);\r\n            Buffer._bindedIndexBuffer = this._glBuffer;\r\n            return true;\r\n        }\r\n        return false;\r\n    }\r\n    destory() {\r\n        this._uint16Array = null;\r\n        this._buffer = null;\r\n    }\r\n    disposeResource() {\r\n        this._disposeResource();\r\n    }\r\n}\r\nIndexBuffer2D.create = function (bufferUsage = 0x88e4) {\r\n    return new IndexBuffer2D(bufferUsage);\r\n};\r\n",
+  "references": [
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/layagl/LayaGL.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/utils/Buffer.ts",
+    "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/utils/Buffer2D.ts"
+  ],
+  "dts": {
+    "name": "F:/ProjectsWorks/font_game_2.10/libs/laya/webgl/utils/IndexBuffer2D.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Buffer2D } from \"./Buffer2D\";\r\nexport declare class IndexBuffer2D extends Buffer2D {\r\n    static create: Function;\r\n    protected _uint16Array: Uint16Array;\r\n    constructor(bufferUsage?: number);\r\n    protected _checkArrayUse(): void;\r\n    getUint16Array(): Uint16Array;\r\n    _bindForVAO(): void;\r\n    bind(): boolean;\r\n    destory(): void;\r\n    disposeResource(): void;\r\n}\r\n"
+  }
+}

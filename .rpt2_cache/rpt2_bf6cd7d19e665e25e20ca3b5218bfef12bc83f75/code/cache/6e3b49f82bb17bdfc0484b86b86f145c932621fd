@@ -1,0 +1,12 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class AlphaCmd {\r\n    static create(alpha) {\r\n        var cmd = Pool.getItemByClass(\"AlphaCmd\", AlphaCmd);\r\n        cmd.alpha = alpha;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        Pool.recover(\"AlphaCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context.alpha(this.alpha);\r\n    }\r\n    get cmdID() {\r\n        return AlphaCmd.ID;\r\n    }\r\n}\r\nAlphaCmd.ID = \"Alpha\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/display/cmd/AlphaCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nexport declare class AlphaCmd {\r\n    static ID: string;\r\n    alpha: number;\r\n    static create(alpha: number): AlphaCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

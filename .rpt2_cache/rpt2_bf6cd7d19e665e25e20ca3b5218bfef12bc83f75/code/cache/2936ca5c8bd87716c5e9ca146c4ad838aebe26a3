@@ -1,0 +1,9 @@
+{
+  "code": "export var FilterMode;\r\n(function (FilterMode) {\r\n    FilterMode[FilterMode[\"Point\"] = 0] = \"Point\";\r\n    FilterMode[FilterMode[\"Bilinear\"] = 1] = \"Bilinear\";\r\n    FilterMode[FilterMode[\"Trilinear\"] = 2] = \"Trilinear\";\r\n})(FilterMode || (FilterMode = {}));\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font2.0/font_game_2.10/libs/laya/resource/FilterMode.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare enum FilterMode {\r\n    Point = 0,\r\n    Bilinear = 1,\r\n    Trilinear = 2\r\n}\r\n"
+  }
+}
