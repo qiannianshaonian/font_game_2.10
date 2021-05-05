@@ -4,7 +4,7 @@
     "selectedBox":123,
     "selecteID":110,
     "searchKey":"Box",
-    "props":{"y":0,"x":0,"width":640,"presetID":1,"preset":"laya/pages/prefab/GameSetting.prefab","isPresetRoot":true,"height":1136},
+    "props":{"y":100,"x":10,"width":640,"scaleY":1.6,"scaleX":1.6,"presetID":1,"preset":"laya/pages/prefab/GameSetting.prefab","isPresetRoot":true,"height":1136},
     "nodeParent":-1,
     "maxID":140,
     "label":"Box(GameSetting)",

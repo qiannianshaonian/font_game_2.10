@@ -1,0 +1,8 @@
+{
+  "code": "import PrefebBase from \"./PrefebBase\";\r\nexport default class TipItem extends PrefebBase {\r\n    constructor() {\r\n        super();\r\n        this.text = \"d\";\r\n    }\r\n    onAwake() {\r\n        super.onAwake();\r\n        this.txt_text.text = this.text;\r\n        this.img_bg.width = this.txt_text.displayWidth + 36;\r\n        this.owner[\"width\"] = this.img_bg.width;\r\n    }\r\n    onEnable() {\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/Text.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ui/Image.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/src/script/prefeb/PrefebBase.ts"
+  ]
+}

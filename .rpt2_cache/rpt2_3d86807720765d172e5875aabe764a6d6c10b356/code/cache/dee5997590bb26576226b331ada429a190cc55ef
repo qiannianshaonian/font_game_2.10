@@ -1,0 +1,13 @@
+{
+  "code": "import { Event } from \"../events/Event\";\r\nimport { ILaya } from \"../../ILaya\";\r\nimport { ClassUtils } from \"../utils/ClassUtils\";\r\nexport class UIEvent extends Event {\r\n}\r\nUIEvent.SHOW_TIP = \"showtip\";\r\nUIEvent.HIDE_TIP = \"hidetip\";\r\nILaya.regClass(UIEvent);\r\nClassUtils.regClass(\"laya.ui.UIEvent\", UIEvent);\r\nClassUtils.regClass(\"Laya.UIEvent\", UIEvent);\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/events/Event.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/ILaya.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/ClassUtils.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ui/UIEvent.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Event } from \"../events/Event\";\r\nexport declare class UIEvent extends Event {\r\n    static SHOW_TIP: string;\r\n    static HIDE_TIP: string;\r\n}\r\n"
+  }
+}

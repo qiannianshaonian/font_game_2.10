@@ -1,4 +1,5 @@
 import { Laya } from "Laya";
+import { TTFLoader } from "laya/net/TTFLoader";
 import { Browser } from "laya/utils/Browser";
 import { Handler } from "laya/utils/Handler";
 
@@ -111,8 +112,8 @@ export class WxMiniUtil {
         WxMiniUtil.shareWebHandler = complete;
         if (Browser.window.tt) {
             Browser.window.tt.shareAppMessage({
-                title: '夏日跳水大作战',
-                desc: "#夏日跳水大作战 #抖音小游戏",
+                title: '趣味汉字',
+                desc: "#趣味汉字 #抖音小游戏",
                 imageUrl: "miniImg/miniShare.png",
                 success() {
                     console.log("分享成功");
@@ -126,8 +127,8 @@ export class WxMiniUtil {
         }
         else {
             Browser.window.wx.shareAppMessage({
-                title: '夏日跳水大作战',
-                desc: "夏日跳水大作战，搞笑动作等你来开发！",
+                title: '趣味汉字',
+                desc: "趣味汉字等你来战",
                 imageUrl: 'miniImg/miniShare.png'
             });
         }
@@ -136,8 +137,8 @@ export class WxMiniUtil {
     static onShareAppMessage() {
         Browser.window.wx.onShareAppMessage(function () {
             return {
-                title: '夏日跳水大作战，搞笑动作等你来开发！',
-                biliContent: "#夏日跳水大作战#",
+                title: '趣味汉字',
+                biliContent: "#趣味汉字#",
                 imageUrl: 'miniImg/miniShare.png'
             }
         })
@@ -211,7 +212,7 @@ export class WxMiniUtil {
     static loadRewardedVideo(completeHandler: Handler) {
         WxMiniUtil.loadVideoComplete = completeHandler;
         if (!WxMiniUtil.rewardedvideo) {
-            WxMiniUtil.rewardedvideo = Browser.window.wx.createRewardedVideoAd({ adUnitId: 'adunit-a7bced9f18d8a7bb' });
+            WxMiniUtil.rewardedvideo = Browser.window.tt.createRewardedVideoAd({ adUnitId: 'adunit-a7bced9f18d8a7bb' });
             WxMiniUtil.rewardedvideo.onLoad(() => {
                 console.log('激励视频 广告加载成功');
                 WxMiniUtil.loadVideoComplete.runWith("true");
@@ -236,8 +237,8 @@ export class WxMiniUtil {
         }
         WxMiniUtil.showAdVideoHandler = completeHandler;
         if (!WxMiniUtil.rewardedvideo) {
-            let adID: string = Browser.window.tt ? "1j4221j5gf9jd1gllf" : "adunit-a30e0ad0d9697dfd";
-            WxMiniUtil.rewardedvideo = Browser.window.wx.createRewardedVideoAd({ adUnitId: adID });
+            let adID: string = "1j4221j5gf9jd1gllf";
+            WxMiniUtil.rewardedvideo = Browser.window.tt.createRewardedVideoAd({ adUnitId: adID });
             WxMiniUtil.rewardedvideo.onClose(res => {
                 if (res && res.isEnded || res === undefined) {
                     // 正常播放结束，可以下发游戏奖励
@@ -271,38 +272,59 @@ export class WxMiniUtil {
     private static interstitialAdHandler: Handler;
     static showInterstitialAd(completeHandler: Handler = null) {
         if (!Browser.onTTMiniGame) {           
-                WxMiniUtil.interstitialAdHandler.runWith("false");
+                WxMiniUtil.interstitialAdHandler.runWith("false1");
                 return;
         }
         WxMiniUtil.interstitialAdHandler = completeHandler;
         if(Browser.window.tt){
             const isToutiaio = Browser.window.tt.getSystemInfoSync().appName === "Douyin";
-            console.log("app name",Browser.window.tt.getSystemInfoSync().appName)
             if(!isToutiaio){
-                WxMiniUtil.interstitialAdHandler.runWith("false");
+                WxMiniUtil.interstitialAdHandler.runWith("false2");
                 return;
             } 
         }
-        if (!WxMiniUtil.interstitialAd) {
-            let adID: string = Browser.window.tt ? "1b2m7lpbgi51jajhce" : "adunit-a30e0ad0d9697dfd";
-            WxMiniUtil.interstitialAd = Browser.window.wx.createInterstitialAd({ adUnitId: adID });
-            WxMiniUtil.interstitialAd.onClose(res => {
-                console.log("插屏播放完成");
-                if (WxMiniUtil.interstitialAdHandler)
-                    WxMiniUtil.interstitialAdHandler.runWith("true");
-            })
-            WxMiniUtil.interstitialAd.onError(err => {
-                console.log(err)
-                WxMiniUtil.interstitialAdHandler.runWith("false");
-                //  PromptMgr.Prompt("当前暂无可显示广告，请稍后再试！");
-            })
-        }
-        WxMiniUtil.interstitialAd.show()
-            .catch(err => {
-                console.log("show插屏广告" + err);
-                WxMiniUtil.interstitialAdHandler.runWith("false");
-                // PromptMgr.Prompt("当前暂无广告，请稍后再试！");
-            })
+        let adID: string = "1b2m7lpbgi51jajhce" ;
+        WxMiniUtil.interstitialAd = Browser.window.tt.createInterstitialAd({ adUnitId: adID });
+        WxMiniUtil.interstitialAd.onClose(res => {
+            let titlestr ="触发*万能字技能";
+            let flag = "true1"
+            if (Math.floor(Math.random() * 100) < 50) {
+                titlestr = "触发仙人指路技能"
+                flag ="true2"
+            }
+            Browser.window.tt.showToast({
+                title: titlestr,
+                duration: 2500,
+                success(res) {
+                  console.log(`${res}`);
+                },
+                fail(res) {
+                  console.log(`showToast 调用失败`);
+                },
+              });
+            WxMiniUtil.interstitialAd.destroy();
+            if (WxMiniUtil.interstitialAdHandler)
+                WxMiniUtil.interstitialAdHandler.runWith(flag);
+        })
+        WxMiniUtil.interstitialAd.onError(err => {
+            // console.log("show插屏广告11 错误",err);
+            WxMiniUtil.interstitialAdHandler.runWith("false3");
+        })
+
+        WxMiniUtil.interstitialAd.load()
+        // 显示插屏广告内容
+        .then(() => WxMiniUtil.interstitialAd.show()).catch(err => {
+            // console.log("show插屏广告错误" , err);
+            WxMiniUtil.interstitialAdHandler.runWith("false4");
+        })
+
+        
+        // WxMiniUtil.interstitialAd.show()
+        //     .catch(err => {
+        //         console.log("show插屏广告" + err);
+        //         WxMiniUtil.interstitialAdHandler.runWith("false4");
+        //         // PromptMgr.Prompt("当前暂无广告，请稍后再试！");
+        //     })
     }
 
     //显示推广游戏ICON广告

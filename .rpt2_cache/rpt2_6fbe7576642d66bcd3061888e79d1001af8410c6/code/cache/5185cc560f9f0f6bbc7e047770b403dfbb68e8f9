@@ -1,0 +1,12 @@
+{
+  "code": "import { Texture } from \"../../resource/Texture\";\r\nexport class SkinSlotDisplayData {\r\n    createTexture(currTexture) {\r\n        if (this.texture)\r\n            return this.texture;\r\n        this.texture = new Texture(currTexture.bitmap, this.uvs);\r\n        if (this.uvs[0] > this.uvs[4]\r\n            && this.uvs[1] > this.uvs[5]) {\r\n            this.texture.width = currTexture.height;\r\n            this.texture.height = currTexture.width;\r\n            this.texture.offsetX = -currTexture.offsetX;\r\n            this.texture.offsetY = -currTexture.offsetY;\r\n            this.texture.sourceWidth = currTexture.sourceHeight;\r\n            this.texture.sourceHeight = currTexture.sourceWidth;\r\n        }\r\n        else {\r\n            this.texture.width = currTexture.width;\r\n            this.texture.height = currTexture.height;\r\n            this.texture.offsetX = -currTexture.offsetX;\r\n            this.texture.offsetY = -currTexture.offsetY;\r\n            this.texture.sourceWidth = currTexture.sourceWidth;\r\n            this.texture.sourceHeight = currTexture.sourceHeight;\r\n        }\r\n        return this.texture;\r\n    }\r\n    destory() {\r\n        if (this.texture)\r\n            this.texture.destroy();\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ani/bone/Transform.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/Texture.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/.rpt2_cache/placeholder/laya/ani/bone/SkinSlotDisplayData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Transform } from \"./Transform\";\r\nimport { Texture } from \"../../resource/Texture\";\r\nexport declare class SkinSlotDisplayData {\r\n    name: string;\r\n    attachmentName: string;\r\n    type: number;\r\n    transform: Transform;\r\n    width: number;\r\n    height: number;\r\n    texture: Texture;\r\n    bones: any[];\r\n    uvs: any[];\r\n    weights: any[];\r\n    triangles: any[];\r\n    vertices: any[];\r\n    lengths: any[];\r\n    verLen: number;\r\n    createTexture(currTexture: Texture): Texture;\r\n    destory(): void;\r\n}\r\n"
+  }
+}

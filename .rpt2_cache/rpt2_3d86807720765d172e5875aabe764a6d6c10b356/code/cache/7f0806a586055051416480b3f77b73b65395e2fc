@@ -1,0 +1,12 @@
+{
+  "code": "export class IPhysics {\r\n}\r\nIPhysics.RigidBody = null;\r\nIPhysics.Physics = null;\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/physics/RigidBody.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/physics/Physics.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/physics/IPhysics.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { RigidBody } from \"./RigidBody\";\r\nimport { Physics } from \"./Physics\";\r\nexport declare class IPhysics {\r\n    static RigidBody: typeof RigidBody;\r\n    static Physics: typeof Physics;\r\n}\r\n"
+  }
+}

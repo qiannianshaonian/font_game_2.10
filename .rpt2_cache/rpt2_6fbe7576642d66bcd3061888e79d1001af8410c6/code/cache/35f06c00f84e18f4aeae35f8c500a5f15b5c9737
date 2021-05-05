@@ -1,0 +1,13 @@
+{
+  "code": "export class IAniLib {\r\n}\r\nIAniLib.Skeleton = null;\r\nIAniLib.AnimationTemplet = null;\r\nIAniLib.Templet = null;\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ani/bone/Skeleton.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ani/AnimationTemplet.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ani/bone/Templet.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/.rpt2_cache/placeholder/laya/ani/AniLibPack.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Skeleton } from \"./bone/Skeleton\";\r\nimport { AnimationTemplet } from \"./AnimationTemplet\";\r\nimport { Templet } from \"./bone/Templet\";\r\nexport declare class IAniLib {\r\n    static Skeleton: typeof Skeleton;\r\n    static AnimationTemplet: typeof AnimationTemplet;\r\n    static Templet: typeof Templet;\r\n}\r\n"
+  }
+}

@@ -61,17 +61,25 @@ window.Laya=window.Laya||{};
             ];
         }
         static getMobileHeight() {
+            let tt = Laya$1.Laya.Browser.window.screen.height;
             if (AppConfig.platform != "wx") {
-                return 1136;
+                return tt;
             }
             let wxInfo = Laya$1.Browser.window.wx.getSystemInfoSync();
             console.log('wx height:', wxInfo.windowHeight, ', widht:', wxInfo.windowWidth);
             let h = 640 * wxInfo.windowHeight / wxInfo.windowWidth;
             console.log('h:', h);
-            if (h > 1136) {
+            if (h > 1300) {
                 return h;
             }
-            return 1136;
+            return 1300;
+        }
+        static getMobileWidth() {
+            let tt = Laya$1.Laya.Browser.window.screen.width;
+            if (AppConfig.platform != "wx") {
+                return tt;
+            }
+            return 640;
         }
         static hadGuidance() {
             let bo = localStorage.getItem("guide_tt1");
@@ -110,7 +118,7 @@ window.Laya=window.Laya||{};
     AppConfig.asynUrlsLoaded = false;
     AppConfig.pools = {};
     AppConfig.platform = "web";
-    AppConfig.version = "1.1.2";
+    AppConfig.version = "1.1.4";
 
     class SceneBase extends Laya$1.Script {
         onAwake() {
@@ -1074,28 +1082,28 @@ window.Laya=window.Laya||{};
             else if (score < 2000) {
                 starNum = 1;
             }
-            else if (score < 3000) {
+            else if (score < 2500) {
                 starNum = 2;
             }
-            else if (score < 4000) {
+            else if (score < 3000) {
                 starNum = 3;
             }
-            else if (score < 5000) {
+            else if (score < 4000) {
                 starNum = 4;
             }
-            else if (score < 6000) {
+            else if (score < 5000) {
                 starNum = 5;
             }
-            else if (score < 7000) {
+            else if (score < 6000) {
                 starNum = 6;
             }
-            else if (score < 8000) {
+            else if (score < 7000) {
                 starNum = 7;
             }
-            else if (score < 9000) {
+            else if (score < 8000) {
                 starNum = 8;
             }
-            else if (score < 10000) {
+            else if (score < 9000) {
                 starNum = 9;
             }
             else {
@@ -1207,8 +1215,8 @@ window.Laya=window.Laya||{};
             WxMiniUtil.shareWebHandler = complete;
             if (Laya$1.Browser.window.tt) {
                 Laya$1.Browser.window.tt.shareAppMessage({
-                    title: '夏日跳水大作战',
-                    desc: "#夏日跳水大作战 #抖音小游戏",
+                    title: '趣味汉字',
+                    desc: "#趣味汉字 #抖音小游戏",
                     imageUrl: "miniImg/miniShare.png",
                     success() {
                         console.log("分享成功");
@@ -1222,8 +1230,8 @@ window.Laya=window.Laya||{};
             }
             else {
                 Laya$1.Browser.window.wx.shareAppMessage({
-                    title: '夏日跳水大作战',
-                    desc: "夏日跳水大作战，搞笑动作等你来开发！",
+                    title: '趣味汉字',
+                    desc: "趣味汉字等你来战",
                     imageUrl: 'miniImg/miniShare.png'
                 });
             }
@@ -1231,8 +1239,8 @@ window.Laya=window.Laya||{};
         static onShareAppMessage() {
             Laya$1.Browser.window.wx.onShareAppMessage(function () {
                 return {
-                    title: '夏日跳水大作战，搞笑动作等你来开发！',
-                    biliContent: "#夏日跳水大作战#",
+                    title: '趣味汉字',
+                    biliContent: "#趣味汉字#",
                     imageUrl: 'miniImg/miniShare.png'
                 };
             });
@@ -1273,8 +1281,8 @@ window.Laya=window.Laya||{};
                 console.log(err);
             });
             WxMiniUtil.bannerAd.onResize(res => {
-                WxMiniUtil.bannerAd.style.top = WxMiniUtil.wxinfo.screenHeight - res.height;
-                WxMiniUtil.bannerAd.style.left = (WxMiniUtil.wxinfo.screenWidth - res.width) / 2;
+                WxMiniUtil.bannerAd.style.top = bannerHeight - res.height;
+                WxMiniUtil.bannerAd.style.left = (bannerWidth - res.width) / 2;
             });
         }
         static hideBanner() {
@@ -1290,7 +1298,7 @@ window.Laya=window.Laya||{};
         static loadRewardedVideo(completeHandler) {
             WxMiniUtil.loadVideoComplete = completeHandler;
             if (!WxMiniUtil.rewardedvideo) {
-                WxMiniUtil.rewardedvideo = Laya$1.Browser.window.wx.createRewardedVideoAd({ adUnitId: 'adunit-a7bced9f18d8a7bb' });
+                WxMiniUtil.rewardedvideo = Laya$1.Browser.window.tt.createRewardedVideoAd({ adUnitId: 'adunit-a7bced9f18d8a7bb' });
                 WxMiniUtil.rewardedvideo.onLoad(() => {
                     console.log('激励视频 广告加载成功');
                     WxMiniUtil.loadVideoComplete.runWith("true");
@@ -1310,8 +1318,8 @@ window.Laya=window.Laya||{};
             }
             WxMiniUtil.showAdVideoHandler = completeHandler;
             if (!WxMiniUtil.rewardedvideo) {
-                let adID = Laya$1.Browser.window.tt ? "1j4221j5gf9jd1gllf" : "adunit-a30e0ad0d9697dfd";
-                WxMiniUtil.rewardedvideo = Laya$1.Browser.window.wx.createRewardedVideoAd({ adUnitId: adID });
+                let adID = "1j4221j5gf9jd1gllf";
+                WxMiniUtil.rewardedvideo = Laya$1.Browser.window.tt.createRewardedVideoAd({ adUnitId: adID });
                 WxMiniUtil.rewardedvideo.onClose(res => {
                     if (res && res.isEnded || res === undefined) {
                         console.log("激励视频播放完成");
@@ -1335,35 +1343,46 @@ window.Laya=window.Laya||{};
         }
         static showInterstitialAd(completeHandler = null) {
             if (!Laya$1.Browser.onTTMiniGame) {
-                WxMiniUtil.interstitialAdHandler.runWith("false");
+                WxMiniUtil.interstitialAdHandler.runWith("false1");
                 return;
             }
             WxMiniUtil.interstitialAdHandler = completeHandler;
             if (Laya$1.Browser.window.tt) {
                 const isToutiaio = Laya$1.Browser.window.tt.getSystemInfoSync().appName === "Douyin";
-                console.log("app name", Laya$1.Browser.window.tt.getSystemInfoSync().appName);
                 if (!isToutiaio) {
-                    WxMiniUtil.interstitialAdHandler.runWith("false");
+                    WxMiniUtil.interstitialAdHandler.runWith("false2");
                     return;
                 }
             }
-            if (!WxMiniUtil.interstitialAd) {
-                let adID = Laya$1.Browser.window.tt ? "1b2m7lpbgi51jajhce" : "adunit-a30e0ad0d9697dfd";
-                WxMiniUtil.interstitialAd = Laya$1.Browser.window.wx.createInterstitialAd({ adUnitId: adID });
-                WxMiniUtil.interstitialAd.onClose(res => {
-                    console.log("插屏播放完成");
-                    if (WxMiniUtil.interstitialAdHandler)
-                        WxMiniUtil.interstitialAdHandler.runWith("true");
+            let adID = "1b2m7lpbgi51jajhce";
+            WxMiniUtil.interstitialAd = Laya$1.Browser.window.tt.createInterstitialAd({ adUnitId: adID });
+            WxMiniUtil.interstitialAd.onClose(res => {
+                let titlestr = "触发*万能字技能";
+                let flag = "true1";
+                if (Math.floor(Math.random() * 100) < 50) {
+                    titlestr = "触发仙人指路技能";
+                    flag = "true2";
+                }
+                Laya$1.Browser.window.tt.showToast({
+                    title: titlestr,
+                    duration: 2500,
+                    success(res) {
+                        console.log(`${res}`);
+                    },
+                    fail(res) {
+                        console.log(`showToast 调用失败`);
+                    },
                 });
-                WxMiniUtil.interstitialAd.onError(err => {
-                    console.log(err);
-                    WxMiniUtil.interstitialAdHandler.runWith("false");
-                });
-            }
-            WxMiniUtil.interstitialAd.show()
-                .catch(err => {
-                console.log("show插屏广告" + err);
-                WxMiniUtil.interstitialAdHandler.runWith("false");
+                WxMiniUtil.interstitialAd.destroy();
+                if (WxMiniUtil.interstitialAdHandler)
+                    WxMiniUtil.interstitialAdHandler.runWith(flag);
+            });
+            WxMiniUtil.interstitialAd.onError(err => {
+                WxMiniUtil.interstitialAdHandler.runWith("false3");
+            });
+            WxMiniUtil.interstitialAd.load()
+                .then(() => WxMiniUtil.interstitialAd.show()).catch(err => {
+                WxMiniUtil.interstitialAdHandler.runWith("false4");
             });
         }
         static showGameIconAd() {
@@ -1421,11 +1440,13 @@ window.Laya=window.Laya||{};
         constructor() { super(); }
         onAwake() {
             super.onAwake();
+            console.log("...屏幕宽度", Laya$1.Laya.Browser.window.screen.width, Laya$1.Laya.stage.width, Laya$1.Laya.stage.height);
             this.owner["height"] = Laya$1.Laya.stage.height;
+            console.log("...屏幕长度", Laya$1.Laya.Browser.window.screen.height);
             if (AppConfig.platform == "wx") {
-                let scaleX = window["Laya"]["MiniAdpter"].window.screen.availWidth / 640;
+                let scaleX = Laya$1.Laya.Browser.window.screen.width / 640;
                 let h = AppConfig.getMobileHeight();
-                let scaleY = window["Laya"]["MiniAdpter"].window.screen.availHeight * (h / Laya$1.Laya.stage.height) / h;
+                let scaleY = Laya$1.Laya.Browser.window.screen.height * (h / Laya$1.Laya.stage.height) / h;
                 let button = Laya$1.Browser.window.wx["createUserInfoButton"]({
                     type: 'image',
                     image: 'btn_startGame.png',
@@ -1478,9 +1499,6 @@ window.Laya=window.Laya||{};
             });
         }
         onEnable() {
-            if (AppConfig.platform == "tt") {
-                WxMiniUtil.showBanner();
-            }
         }
         onDisable() {
             if (AppConfig.platform == "wx") {
@@ -1565,27 +1583,32 @@ window.Laya=window.Laya||{};
                 this.restartHandler.run();
             }, null, false);
             this.btn_showAd.clickHandler = Laya$1.Handler.create(this, function () {
-                if (AppConfig.platform == "tt") {
-                    WxMiniUtil.showRewardedVideo(Laya$1.Handler.create(this, this.onShowAdComple));
-                }
-                else if (AppConfig.platform == "android") {
-                    this.showAdHandler.run();
-                }
+                let that = this;
+                window['King_SDK_Manager'].showRewardedVideoAd(res => {
+                    if (res) {
+                        console.log('播放成功，下发游戏奖励');
+                        that.onShowAdComple();
+                    }
+                    else {
+                        console.log('播放失败');
+                    }
+                });
             }, null, false);
         }
         onShowAdComple() {
             this.showAdHandler.run();
         }
         onEnable() {
+            console.log("游戏结束调用banner");
             if (this.comeBackTime < 1) {
                 this.btn_showAd.visible = false;
             }
-            WxMiniUtil.showBanner();
+            window['King_SDK_Manager'].hideAllBanner();
+            window['King_SDK_Manager'].showNativeInter();
         }
         onDisable() {
             this.btn_home.offAll();
             this.btn_tryAgain.offAll();
-            WxMiniUtil.hideBanner();
         }
     }
 
@@ -1741,6 +1764,7 @@ window.Laya=window.Laya||{};
                 }
             }, null, false));
             this.btn_close.clickHandler = (Laya$1.Handler.create(this, function (e) {
+                window['King_SDK_Manager'].showNativeBanner();
                 this.onCloseHandler.run();
             }, null, false));
             this.btn_music.on(Laya$1.Event.MOUSE_DOWN, this, this.onDragMouseDown);
@@ -1784,16 +1808,16 @@ window.Laya=window.Laya||{};
             this.btn_effect.x = this.progress_effect.x + this.progress_effect.width;
         }
         onEnable() {
-            WxMiniUtil.showBanner();
+            console.log("关闭bannner");
+            window['King_SDK_Manager'].hideAllBanner();
         }
         onDisable() {
             this.btn_home.offAll();
             this.btn_tryAgain.offAll();
             this.btn_share.offAll();
-            WxMiniUtil.hideBanner();
         }
         onShareGameRecordComple(data) {
-            if (data != "true") {
+            if (data == "short") {
                 ControllerMgr.getInstance(TipController).showCenterBottomTip("录屏时长不足3秒,请重新录制");
             }
             console.log("...分享了完成了", data);
@@ -1894,6 +1918,7 @@ window.Laya=window.Laya||{};
             this.heCizuRate = 40;
             this.hanZiRate = 60;
             this.ciZuRate = 60;
+            this.randRate = 0;
             this.buShouRate = 0;
             this._playerEffectInd = 0;
         }
@@ -1916,8 +1941,6 @@ window.Laya=window.Laya||{};
             this.btn_setting.on(Laya$1.Event.CLICK, this, this.onSettingMouseEvent);
             this.btn_point.on(Laya$1.Event.CLICK, this, this.onPointMouseEvent);
             this.btn_wanneng.on(Laya$1.Event.CLICK, this, this.onWannengMouseEvent);
-            this.btn_vedio.on(Laya$1.Event.CLICK, this, this.onStopMouseEvent);
-            this.btn_vedio1.on(Laya$1.Event.CLICK, this, this.onGoShareMouseEvent);
             if (!AppConfig.hadGuidance()) {
                 this.btn_point.visible = false;
             }
@@ -1929,32 +1952,18 @@ window.Laya=window.Laya||{};
             this.changeGameStatue(GameState.init);
             this.refresh();
         }
-        onStopMouseEvent(e) {
-            console.log("...点击了停止录屏");
-            this.btn_vedio.visible = false;
-            this.btn_vedio.disabled = true;
-            this.btn_vedio1.visible = true;
-            this.btn_vedio1.disabled = false;
-            TTMiniUtils.stopGameRecorder();
-        }
-        onGoShareMouseEvent(e) {
-            this.btn_vedio1.visible = false;
-            this.btn_vedio1.disabled = true;
-            TTMiniUtils.shareGameRecorder(Laya$1.Handler.create(this, this.onShareGameRecordComple));
-        }
-        onShareGameRecordComple(data) {
-            if (data != "true") {
-                ControllerMgr.getInstance(TipController).showCenterBottomTip("录屏时长不足3秒,请重新录制");
-            }
-            console.log("...分享了完成了", data);
-            this.btn_vedio.visible = true;
-            this.btn_vedio.disabled = false;
-            Laya$1.Laya.timer.once(500, this, function () {
-                TTMiniUtils.startGameRecorder();
-            });
-        }
         onWannengMouseEvent(e) {
-            WxMiniUtil.showRewardedVideo(Laya$1.Handler.create(this, this.onWannengComple));
+            this.changeGameStatue(GameState.Pause);
+            let that = this;
+            window['King_SDK_Manager'].showRewardedVideoAd(res => {
+                if (res) {
+                    console.log('播放成功，下发游戏奖励');
+                    that.onWannengComple();
+                }
+                else {
+                    console.log('播放失败');
+                }
+            });
         }
         onWannengComple() {
             if (this._myPlayerInfo.wannengUseTimes > 0) {
@@ -1974,12 +1983,15 @@ window.Laya=window.Laya||{};
                 return;
             }
         }
-        onCPComple(data) {
+        onCPComple() {
             let callBk = () => {
                 this.changeGameStatue(GameState.Playing);
-                console.log("cha ping data", data);
-                if (data == "true") {
+                let rate = Math.random() * 100;
+                if (rate > 70) {
                     this._nextDropingFontInfo = MapFontInfo.create({ text: "*" });
+                }
+                else {
+                    this._myPlayerInfo.guideRemainTimes = 1;
                 }
                 this.refresh();
             };
@@ -1993,7 +2005,15 @@ window.Laya=window.Laya||{};
             return;
         }
         onPointMouseEvent(e) {
-            WxMiniUtil.showRewardedVideo(Laya$1.Handler.create(this, this.onPointComple));
+            window['King_SDK_Manager'].showRewardedVideoAd(res => {
+                if (res) {
+                    console.log('播放成功，下发游戏奖励');
+                    this.onPointComple();
+                }
+                else {
+                    console.log('播放失败');
+                }
+            });
         }
         onPointComple() {
             if (this._myPlayerInfo.guideRemainTimes > 0) {
@@ -2004,6 +2024,7 @@ window.Laya=window.Laya||{};
                     this.changeGameStatue(GameState.Playing);
                     this._myPlayerInfo.guideRemainTimes = 3;
                     this._myPlayerInfo.guideUseTimes--;
+                    this.randRate = -2;
                     this.refresh();
                 };
                 if (AppConfig.isNative) {
@@ -2019,6 +2040,8 @@ window.Laya=window.Laya||{};
         onSettingMouseEvent(e) {
             this.changeGameStatue(GameState.Pause);
             this.showGameSetting();
+            window['King_SDK_Manager'].hideAllBanner();
+            window['King_SDK_Manager'].showNativeInter();
         }
         onPauseOrStartMouseEvent(e) {
             if (this._gameState == GameState.Pause) {
@@ -3314,11 +3337,11 @@ window.Laya=window.Laya||{};
                     this._guideRate = 15;
                 }
                 else {
-                    this._guideRate = Math.min(this._guideRate + 1, 6);
+                    this._guideRate = Math.min(this._guideRate + 1, 8);
                 }
                 return;
             }
-            this._guideRate = Math.min(this._guideRate + 1, 6);
+            this._guideRate = Math.min(this._guideRate + 1, 8);
         }
         guideToGrid() {
             for (let tempProperty in this._guideImgs) {
@@ -3466,12 +3489,12 @@ window.Laya=window.Laya||{};
             this.txt_dispelText.text = text;
             switch (text.length) {
                 case 1:
-                    this.txt_dispelText.fontSize = 120;
-                    this.txt_dispelText.size(120, 120);
+                    this.txt_dispelText.fontSize = 180;
+                    this.txt_dispelText.size(180, 180);
                     break;
                 case 2:
-                    this.txt_dispelText.fontSize = 60;
-                    this.txt_dispelText.size(120, 60);
+                    this.txt_dispelText.fontSize = 90;
+                    this.txt_dispelText.size(180, 90);
                     break;
                 case 3:
                     this.txt_dispelText.fontSize = 40;
@@ -3565,21 +3588,20 @@ window.Laya=window.Laya||{};
                 this._nextDropingFontInfo = this.getRandomElement(this._words);
                 this._words.splice(this._words.indexOf(this._nextDropingFontInfo), 1);
                 if (this._nextDropingFontInfo != null) {
-                    if (fontGridNum < 6) {
+                    if (fontGridNum < 10) {
                         this.hanZiRate += 16;
-                        this.ciZuRate += 2;
                     }
-                    else if (fontGridNum < 21) {
+                    else if (fontGridNum < 22) {
                         this.hanZiRate += 10;
                         this.ciZuRate += 2;
                     }
                     else if (fontGridNum < 28) {
-                        this.hanZiRate += 3;
-                        this.ciZuRate += 9;
+                        this.hanZiRate += 5;
+                        this.ciZuRate += 5;
                     }
                     else {
-                        this.hanZiRate += 2;
-                        this.ciZuRate += 10;
+                        this.hanZiRate += 5;
+                        this.ciZuRate += 7;
                     }
                     this.heCizuRate = 10;
                     return;
@@ -3610,11 +3632,10 @@ window.Laya=window.Laya||{};
                             this._dropingFontInfo = MapFontInfo.create({ id: this._nextDropingFontInfo.id });
                             this._dropingFontInfo.isStuntFont = this._nextDropingFontInfo.isStuntFont;
                         }
-                        if (fontGridNum < 6) {
+                        if (fontGridNum < 10) {
                             this.hanZiRate = 20;
-                            this.ciZuRate += 1;
                         }
-                        else if (fontGridNum < 21) {
+                        else if (fontGridNum < 22) {
                             this.hanZiRate = 16;
                             this.ciZuRate += 2;
                         }
@@ -3624,7 +3645,7 @@ window.Laya=window.Laya||{};
                         }
                         else {
                             this.hanZiRate = 5;
-                            this.ciZuRate += 10;
+                            this.ciZuRate += 6;
                         }
                         return;
                     }
@@ -3646,45 +3667,44 @@ window.Laya=window.Laya||{};
                             this._dropingFontInfo = MapFontInfo.create({ id: this._nextDropingFontInfo.id });
                             this._dropingFontInfo.isStuntFont = this._nextDropingFontInfo.isStuntFont;
                         }
-                        if (fontGridNum < 6) {
-                            this.hanZiRate += 16;
+                        if (fontGridNum < 10) {
+                            this.hanZiRate += 15;
+                            this.ciZuRate = 1;
+                        }
+                        else if (fontGridNum < 22) {
+                            this.hanZiRate += 11;
                             this.ciZuRate = 4;
                         }
-                        else if (fontGridNum < 21) {
-                            this.hanZiRate += 12;
-                            this.ciZuRate = 5;
-                        }
                         else if (fontGridNum < 28) {
-                            this.hanZiRate += 7;
-                            this.ciZuRate = 14;
+                            this.hanZiRate += 6;
+                            this.ciZuRate = 8;
                         }
                         else if (fontGridNum < 35) {
-                            this.hanZiRate += 2;
-                            this.ciZuRate = 16;
+                            this.hanZiRate += 3;
+                            this.ciZuRate = 11;
                         }
                         else {
                             this.hanZiRate += 3;
-                            this.ciZuRate = 18;
+                            this.ciZuRate = 13;
                         }
                         return;
                     }
                 }
             }
-            if (fontGridNum < 6) {
-                this.hanZiRate += 16;
+            if (fontGridNum < 10) {
+                this.hanZiRate += 14;
+            }
+            else if (fontGridNum < 22) {
+                this.hanZiRate += 10;
                 this.ciZuRate += 1;
             }
-            else if (fontGridNum < 21) {
-                this.hanZiRate += 11;
-                this.ciZuRate += 2;
-            }
             else if (fontGridNum < 30) {
-                this.hanZiRate += 4;
-                this.ciZuRate += 9;
+                this.hanZiRate += 5;
+                this.ciZuRate += 6;
             }
             else {
-                this.hanZiRate += 2;
-                this.ciZuRate += 10;
+                this.hanZiRate += 4;
+                this.ciZuRate += 7;
             }
             let fontDataArr = this.getRandHzBySocore(MapFontInfo.DataSource["font"]);
             let mapFontInfo = MapFontInfo.create();
@@ -4060,10 +4080,11 @@ window.Laya=window.Laya||{};
     class Main {
         constructor() {
             let h = AppConfig.getMobileHeight();
+            let w = AppConfig.getMobileWidth();
             if (window["Laya3D"])
-                window["Laya3D"].init(GameConfig.width, h);
+                window["Laya3D"].init(w, h);
             else
-                Laya$1.Laya.init(GameConfig.width, h, Laya$1.WebGL);
+                Laya$1.Laya.init(w, h, Laya$1.WebGL);
             Laya$1.Laya["DebugPanel"] && Laya$1.Laya["DebugPanel"].enable();
             if (AppConfig.platform == "wx") {
                 Laya$1.Laya.stage.scaleMode = "fixheight";
@@ -4145,11 +4166,10 @@ window.Laya=window.Laya||{};
             this.updateLoadingProgress(90 + value * 10);
         }
         onGameStart() {
-            if (AppConfig.platform == "tt") {
-                TTMiniUtils.init();
-            }
             ControllerMgr.getInstance(TipController).init();
             SoundTool.init();
+            window['King_SDK_Manager'].init();
+            window['King_SDK_Manager'].showNativeBanner();
         }
     }
     new Main();

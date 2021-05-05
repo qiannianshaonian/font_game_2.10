@@ -1,0 +1,15 @@
+{
+  "code": "import { UIComponent } from \"./UIComponent\";\r\nimport { Event } from \"../events/Event\";\r\nimport { ILaya } from \"../../ILaya\";\r\nimport { ClassUtils } from \"../utils/ClassUtils\";\r\nexport class Box extends UIComponent {\r\n    set dataSource(value) {\r\n        this._dataSource = value;\r\n        for (var name in value) {\r\n            var comp = this.getChildByName(name);\r\n            if (comp)\r\n                comp.dataSource = value[name];\r\n            else if (name in this && !(this[name] instanceof Function))\r\n                this[name] = value[name];\r\n        }\r\n    }\r\n    get dataSource() {\r\n        return super.dataSource;\r\n    }\r\n    get bgColor() {\r\n        return this._bgColor;\r\n    }\r\n    set bgColor(value) {\r\n        this._bgColor = value;\r\n        if (value) {\r\n            this._onResize(null);\r\n            this.on(Event.RESIZE, this, this._onResize);\r\n        }\r\n        else {\r\n            this.graphics.clear();\r\n            this.off(Event.RESIZE, this, this._onResize);\r\n        }\r\n    }\r\n    _onResize(e) {\r\n        this.graphics.clear();\r\n        this.graphics.drawRect(0, 0, this.width, this.height, this._bgColor);\r\n    }\r\n}\r\nILaya.regClass(Box);\r\nClassUtils.regClass(\"laya.ui.Box\", Box);\r\nClassUtils.regClass(\"Laya.Box\", Box);\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ui/UIComponent.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ui/IBox.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/events/Event.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/ILaya.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/ClassUtils.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ui/Box.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { UIComponent } from \"./UIComponent\";\r\nimport { IBox } from \"./IBox\";\r\nexport declare class Box extends UIComponent implements IBox {\r\n    private _bgColor;\r\n    dataSource: any;\r\n    bgColor: string;\r\n    private _onResize;\r\n}\r\n"
+  }
+}

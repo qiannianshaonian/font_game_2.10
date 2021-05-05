@@ -1,0 +1,7 @@
+{
+  "code": "import ControllerBase from \"./ControllerBase\";\r\nimport PlayerInfo from \"../model/PlayerInfo\";\r\nexport default class PlayerController extends ControllerBase {\r\n    constructor() {\r\n        super(...arguments);\r\n        this.myPlayerInfo = new PlayerInfo();\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/src/script/controller/ControllerBase.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/src/script/model/PlayerInfo.ts"
+  ]
+}

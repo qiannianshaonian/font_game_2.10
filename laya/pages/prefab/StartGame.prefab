@@ -15,7 +15,7 @@
             "type":1,
             "id":3
         }],
-    "props":{"y":0,"x":0,"width":640,"presetID":1,"preset":"laya/pages/prefab/StartGame.prefab","isPresetRoot":true,"height":1136},
+    "props":{"y":0,"x":0,"width":1080,"presetID":1,"preset":"laya/pages/prefab/StartGame.prefab","isPresetRoot":true,"height":2400},
     "nodeParent":-1,
     "maxID":61,
     "label":"Sprite(StartGame)",
@@ -47,31 +47,18 @@
             "nodeParent":36,
             "label":"Box(StartGame)",
             "isOpen":true,
-            "isDirectory":true,
+            "isDirectory":false,
             "isAniNode":true,
-            "hasChild":true,
+            "hasChild":false,
             "compId":60,
             "child":[
-                {
-                    "x":30,
-                    "type":"Rect",
-                    "searchKey":"Rect",
-                    "props":{"width":640,"presetID":4,"preset":"laya/pages/prefab/StartGame.prefab","lineWidth":1,"height":150,"fillColor":"#ffffff"},
-                    "nodeParent":60,
-                    "label":"Rect(StartGame)",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":28,
-                    "child":[
-                        ]
-                }]
+                ]
         },
         {
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite",
-            "props":{"y":182,"x":117,"texture":"map/img_logo.png","scaleY":1.51,"scaleX":1.51,"presetID":5,"preset":"laya/pages/prefab/StartGame.prefab"},
+            "props":{"y":778,"x":210,"texture":"map/img_logo.png","scaleY":2.3,"scaleX":2.3,"presetID":5,"preset":"laya/pages/prefab/StartGame.prefab"},
             "nodeParent":36,
             "label":"Sprite(StartGame)",
             "isDirectory":false,
@@ -85,7 +72,7 @@
             "x":15,
             "type":"Button",
             "searchKey":"Button,btn_startGame",
-            "props":{"y":821,"x":324,"width":335,"stateNum":"1","skin":"map/btn_startGame.png","runtime":"script/tool/ButtonRunTime.ts","presetID":20,"preset":"laya/pages/prefab/StartGame.prefab","pivotY":57,"pivotX":168,"name":"btn_startGame","height":133},
+            "props":{"y":1673,"x":524.90625,"width":335,"stateNum":"1","skin":"map/btn_startGame.png","scaleY":1.5,"scaleX":1.5,"runtime":"script/tool/ButtonRunTime.ts","presetID":20,"preset":"laya/pages/prefab/StartGame.prefab","pivotY":57,"pivotX":168,"name":"btn_startGame","height":133},
             "nodeParent":36,
             "label":"btn_startGame",
             "isDirectory":false,

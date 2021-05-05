@@ -1,0 +1,12 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class DrawCurvesCmd {\r\n    static create(x, y, points, lineColor, lineWidth) {\r\n        var cmd = Pool.getItemByClass(\"DrawCurvesCmd\", DrawCurvesCmd);\r\n        cmd.x = x;\r\n        cmd.y = y;\r\n        cmd.points = points;\r\n        cmd.lineColor = lineColor;\r\n        cmd.lineWidth = lineWidth;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        this.points = null;\r\n        this.lineColor = null;\r\n        Pool.recover(\"DrawCurvesCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        if (this.points)\r\n            context.drawCurves(this.x + gx, this.y + gy, this.points, this.lineColor, this.lineWidth);\r\n    }\r\n    get cmdID() {\r\n        return DrawCurvesCmd.ID;\r\n    }\r\n}\r\nDrawCurvesCmd.ID = \"DrawCurves\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/cmd/DrawCurvesCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nexport declare class DrawCurvesCmd {\r\n    static ID: string;\r\n    x: number;\r\n    y: number;\r\n    points: number[] | null;\r\n    lineColor: any;\r\n    lineWidth: number;\r\n    static create(x: number, y: number, points: any[], lineColor: any, lineWidth: number): DrawCurvesCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

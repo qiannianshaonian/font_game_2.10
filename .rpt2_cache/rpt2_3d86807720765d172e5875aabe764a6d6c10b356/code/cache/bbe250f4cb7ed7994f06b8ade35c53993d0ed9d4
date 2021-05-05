@@ -1,0 +1,9 @@
+{
+  "code": "export class DrawOrderData {\r\n    constructor() {\r\n        this.drawOrder = [];\r\n    }\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ani/bone/DrawOrderData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class DrawOrderData {\r\n    time: number;\r\n    drawOrder: number[];\r\n    constructor();\r\n}\r\n"
+  }
+}

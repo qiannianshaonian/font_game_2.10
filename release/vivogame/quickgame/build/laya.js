@@ -24121,6 +24121,72 @@
      ClassUtils.regClass("laya.physics.PhysicsDebugDraw", PhysicsDebugDraw);
      ClassUtils.regClass("Laya.PhysicsDebugDraw", PhysicsDebugDraw);
 
+     class BoxCollider extends ColliderBase {
+         constructor() {
+             super(...arguments);
+             this._x = 0;
+             this._y = 0;
+             this._width = 100;
+             this._height = 100;
+         }
+         getDef() {
+             if (!this._shape) {
+                 this._shape = new window.box2d.b2PolygonShape();
+                 this._setShape(false);
+             }
+             this.label = (this.label || "BoxCollider");
+             return super.getDef();
+         }
+         _setShape(re = true) {
+             var scaleX = (this.owner["scaleX"] || 1);
+             var scaleY = (this.owner["scaleY"] || 1);
+             this._shape.SetAsBox(this._width / 2 / Physics.PIXEL_RATIO * scaleX, this._height / 2 / Physics.PIXEL_RATIO * scaleY, new window.box2d.b2Vec2((this._width / 2 + this._x) / Physics.PIXEL_RATIO * scaleX, (this._height / 2 + this._y) / Physics.PIXEL_RATIO * scaleY));
+             if (re)
+                 this.refresh();
+         }
+         get x() {
+             return this._x;
+         }
+         set x(value) {
+             this._x = value;
+             if (this._shape)
+                 this._setShape();
+         }
+         get y() {
+             return this._y;
+         }
+         set y(value) {
+             this._y = value;
+             if (this._shape)
+                 this._setShape();
+         }
+         get width() {
+             return this._width;
+         }
+         set width(value) {
+             if (value <= 0)
+                 throw "BoxCollider size cannot be less than 0";
+             this._width = value;
+             if (this._shape)
+                 this._setShape();
+         }
+         get height() {
+             return this._height;
+         }
+         set height(value) {
+             if (value <= 0)
+                 throw "BoxCollider size cannot be less than 0";
+             this._height = value;
+             if (this._shape)
+                 this._setShape();
+         }
+         resetShape(re = true) {
+             this._setShape();
+         }
+     }
+     ClassUtils.regClass("laya.physics.BoxCollider", BoxCollider);
+     ClassUtils.regClass("Laya.BoxCollider", BoxCollider);
+
      class Script extends Component {
          get isSingleton() {
              return false;
@@ -29002,72 +29068,6 @@
      ClassUtils.regClass("laya.ui.Image", Image);
      ClassUtils.regClass("Laya.Image", Image);
 
-     class BoxCollider extends ColliderBase {
-         constructor() {
-             super(...arguments);
-             this._x = 0;
-             this._y = 0;
-             this._width = 100;
-             this._height = 100;
-         }
-         getDef() {
-             if (!this._shape) {
-                 this._shape = new window.box2d.b2PolygonShape();
-                 this._setShape(false);
-             }
-             this.label = (this.label || "BoxCollider");
-             return super.getDef();
-         }
-         _setShape(re = true) {
-             var scaleX = (this.owner["scaleX"] || 1);
-             var scaleY = (this.owner["scaleY"] || 1);
-             this._shape.SetAsBox(this._width / 2 / Physics.PIXEL_RATIO * scaleX, this._height / 2 / Physics.PIXEL_RATIO * scaleY, new window.box2d.b2Vec2((this._width / 2 + this._x) / Physics.PIXEL_RATIO * scaleX, (this._height / 2 + this._y) / Physics.PIXEL_RATIO * scaleY));
-             if (re)
-                 this.refresh();
-         }
-         get x() {
-             return this._x;
-         }
-         set x(value) {
-             this._x = value;
-             if (this._shape)
-                 this._setShape();
-         }
-         get y() {
-             return this._y;
-         }
-         set y(value) {
-             this._y = value;
-             if (this._shape)
-                 this._setShape();
-         }
-         get width() {
-             return this._width;
-         }
-         set width(value) {
-             if (value <= 0)
-                 throw "BoxCollider size cannot be less than 0";
-             this._width = value;
-             if (this._shape)
-                 this._setShape();
-         }
-         get height() {
-             return this._height;
-         }
-         set height(value) {
-             if (value <= 0)
-                 throw "BoxCollider size cannot be less than 0";
-             this._height = value;
-             if (this._shape)
-                 this._setShape();
-         }
-         resetShape(re = true) {
-             this._setShape();
-         }
-     }
-     ClassUtils.regClass("laya.physics.BoxCollider", BoxCollider);
-     ClassUtils.regClass("Laya.BoxCollider", BoxCollider);
-
      class Label extends UIComponent {
          constructor(text = "") {
              super();
@@ -29239,116 +29239,6 @@
      ILaya.regClass(Label);
      ClassUtils.regClass("laya.ui.Label", Label);
      ClassUtils.regClass("Laya.Label", Label);
-
-     class Box extends UIComponent {
-         set dataSource(value) {
-             this._dataSource = value;
-             for (var name in value) {
-                 var comp = this.getChildByName(name);
-                 if (comp)
-                     comp.dataSource = value[name];
-                 else if (name in this && !(this[name] instanceof Function))
-                     this[name] = value[name];
-             }
-         }
-         get dataSource() {
-             return super.dataSource;
-         }
-         get bgColor() {
-             return this._bgColor;
-         }
-         set bgColor(value) {
-             this._bgColor = value;
-             if (value) {
-                 this._onResize(null);
-                 this.on(Event.RESIZE, this, this._onResize);
-             }
-             else {
-                 this.graphics.clear();
-                 this.off(Event.RESIZE, this, this._onResize);
-             }
-         }
-         _onResize(e) {
-             this.graphics.clear();
-             this.graphics.drawRect(0, 0, this.width, this.height, this._bgColor);
-         }
-     }
-     ILaya.regClass(Box);
-     ClassUtils.regClass("laya.ui.Box", Box);
-     ClassUtils.regClass("Laya.Box", Box);
-
-     class WXOpenDataViewer extends UIComponent {
-         constructor() {
-             super();
-             this._width = this._height = 200;
-             var tex = new Texture();
-             tex.bitmap = new Texture2D();
-             this.texture = tex;
-         }
-         onEnable() {
-             this.postMsg({ type: "display", rate: Laya.stage.frameRate });
-             if (window.wx && window.sharedCanvas)
-                 Laya.timer.frameLoop(1, this, this._onLoop);
-         }
-         onDisable() {
-             this.postMsg({ type: "undisplay" });
-             Laya.timer.clear(this, this._onLoop);
-         }
-         _onLoop() {
-             let _canvas = window.sharedCanvas;
-             this.texture.sourceWidth = _canvas.width;
-             this.texture.sourceHeight = _canvas.height;
-             this.texture.bitmap.loadImageSource(_canvas);
-         }
-         set width(value) {
-             super.width = value;
-             if (window.sharedCanvas)
-                 window.sharedCanvas.width = value;
-             this.callLater(this._postMsg);
-         }
-         get width() {
-             return super.width;
-         }
-         set height(value) {
-             super.height = value;
-             if (window.sharedCanvas)
-                 window.sharedCanvas.height = value;
-             this.callLater(this._postMsg);
-         }
-         get height() {
-             return super.height;
-         }
-         set x(value) {
-             super.x = value;
-             this.callLater(this._postMsg);
-         }
-         get x() {
-             return super.x;
-         }
-         set y(value) {
-             super.y = value;
-             this.callLater(this._postMsg);
-         }
-         get y() {
-             return super.y;
-         }
-         _postMsg() {
-             var mat = new Matrix();
-             mat.translate(this.x, this.y);
-             var stage = Laya.stage;
-             mat.scale(stage._canvasTransform.getScaleX() * this.globalScaleX * stage.transform.getScaleX(), stage._canvasTransform.getScaleY() * this.globalScaleY * stage.transform.getScaleY());
-             this.postMsg({ type: "changeMatrix", a: mat.a, b: mat.b, c: mat.c, d: mat.d, tx: mat.tx, ty: mat.ty, w: this.width, h: this.height });
-         }
-         postMsg(msg) {
-             if (window.wx && window.wx.getOpenDataContext) {
-                 var openDataContext = window.wx.getOpenDataContext();
-                 openDataContext.postMessage(msg);
-             }
-         }
-     }
-     ILaya.regClass(WXOpenDataViewer);
-     ClassUtils.regClass("laya.ui.WXOpenDataViewer", WXOpenDataViewer);
-     ClassUtils.regClass("Laya.WXOpenDataViewer", WXOpenDataViewer);
 
      class Button extends UIComponent {
          constructor(skin = null, label = "") {
@@ -29673,6 +29563,43 @@
      ILaya.regClass(Button);
      ClassUtils.regClass("laya.ui.Button", Button);
      ClassUtils.regClass("Laya.Button", Button);
+
+     class Box extends UIComponent {
+         set dataSource(value) {
+             this._dataSource = value;
+             for (var name in value) {
+                 var comp = this.getChildByName(name);
+                 if (comp)
+                     comp.dataSource = value[name];
+                 else if (name in this && !(this[name] instanceof Function))
+                     this[name] = value[name];
+             }
+         }
+         get dataSource() {
+             return super.dataSource;
+         }
+         get bgColor() {
+             return this._bgColor;
+         }
+         set bgColor(value) {
+             this._bgColor = value;
+             if (value) {
+                 this._onResize(null);
+                 this.on(Event.RESIZE, this, this._onResize);
+             }
+             else {
+                 this.graphics.clear();
+                 this.off(Event.RESIZE, this, this._onResize);
+             }
+         }
+         _onResize(e) {
+             this.graphics.clear();
+             this.graphics.drawRect(0, 0, this.width, this.height, this._bgColor);
+         }
+     }
+     ILaya.regClass(Box);
+     ClassUtils.regClass("laya.ui.Box", Box);
+     ClassUtils.regClass("Laya.Box", Box);
 
      class Slider extends UIComponent {
          constructor(skin = null) {
@@ -31119,6 +31046,79 @@
      ILaya.regClass(List);
      ClassUtils.regClass("laya.ui.List", List);
      ClassUtils.regClass("Laya.List", List);
+
+     class WXOpenDataViewer extends UIComponent {
+         constructor() {
+             super();
+             this._width = this._height = 200;
+             var tex = new Texture();
+             tex.bitmap = new Texture2D();
+             this.texture = tex;
+         }
+         onEnable() {
+             this.postMsg({ type: "display", rate: Laya.stage.frameRate });
+             if (window.wx && window.sharedCanvas)
+                 Laya.timer.frameLoop(1, this, this._onLoop);
+         }
+         onDisable() {
+             this.postMsg({ type: "undisplay" });
+             Laya.timer.clear(this, this._onLoop);
+         }
+         _onLoop() {
+             let _canvas = window.sharedCanvas;
+             this.texture.sourceWidth = _canvas.width;
+             this.texture.sourceHeight = _canvas.height;
+             this.texture.bitmap.loadImageSource(_canvas);
+         }
+         set width(value) {
+             super.width = value;
+             if (window.sharedCanvas)
+                 window.sharedCanvas.width = value;
+             this.callLater(this._postMsg);
+         }
+         get width() {
+             return super.width;
+         }
+         set height(value) {
+             super.height = value;
+             if (window.sharedCanvas)
+                 window.sharedCanvas.height = value;
+             this.callLater(this._postMsg);
+         }
+         get height() {
+             return super.height;
+         }
+         set x(value) {
+             super.x = value;
+             this.callLater(this._postMsg);
+         }
+         get x() {
+             return super.x;
+         }
+         set y(value) {
+             super.y = value;
+             this.callLater(this._postMsg);
+         }
+         get y() {
+             return super.y;
+         }
+         _postMsg() {
+             var mat = new Matrix();
+             mat.translate(this.x, this.y);
+             var stage = Laya.stage;
+             mat.scale(stage._canvasTransform.getScaleX() * this.globalScaleX * stage.transform.getScaleX(), stage._canvasTransform.getScaleY() * this.globalScaleY * stage.transform.getScaleY());
+             this.postMsg({ type: "changeMatrix", a: mat.a, b: mat.b, c: mat.c, d: mat.d, tx: mat.tx, ty: mat.ty, w: this.width, h: this.height });
+         }
+         postMsg(msg) {
+             if (window.wx && window.wx.getOpenDataContext) {
+                 var openDataContext = window.wx.getOpenDataContext();
+                 openDataContext.postMessage(msg);
+             }
+         }
+     }
+     ILaya.regClass(WXOpenDataViewer);
+     ClassUtils.regClass("laya.ui.WXOpenDataViewer", WXOpenDataViewer);
+     ClassUtils.regClass("Laya.WXOpenDataViewer", WXOpenDataViewer);
 
      exports.AtlasInfoManager = AtlasInfoManager;
      exports.Box = Box;

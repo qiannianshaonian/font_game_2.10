@@ -60,16 +60,16 @@
     ],
     "clearReleaseDir": true,
     "compile": true,
-    "forceCompile": false,
+    "forceCompile": true,
     "onlyIndexJS": true,
     "useMinJsLibs": true,
     "es6toes5": false,
     "projectType": "ts_new",
-    "pubTime": 1618577554529,
+    "pubTime": 1620205914086,
     "vivoInfo": {
         "name": "趣味汉字",
         "projName": "quickgame",
-        "package": "com.wupei.fontgame",
+        "package": "com.qxy.game.characters.vivominigame",
         "icon": "/Users/zonst/Documents/微信图片_20190827231926.png",
         "versionName": "1.0.0",
         "versionCode": 1,
@@ -84,12 +84,12 @@
     "vivoSign": {
         "generateSign": false,
         "countryName": "CN",
-        "provinceName": "",
-        "localityName": "",
-        "orgName": "",
-        "orgUnitName": "",
-        "commonName": "",
-        "emailAddr": ""
+        "provinceName": "zhejiang",
+        "localityName": "hangzhou",
+        "orgName": "nizhiguo",
+        "orgUnitName": "nizhiguo",
+        "commonName": "nizhiguo",
+        "emailAddr": "1437747313@qq.com"
     },
     "vivoSubpack": [],
     "uesEnginePlugin": true

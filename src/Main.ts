@@ -18,14 +18,14 @@ import MapFontInfo from "./script/model/MapFontInfo";
 import ControllerMgr from "./script/controller/ControllerMgr";
 import TipController from "./script/controller/TipController";
 import SoundTool from "./script/tool/SoundTool";
-import{ TTMiniUtils } from "./script/tool/TTMiniUtil";
 
 class Main {
 	constructor() {
 		let h = AppConfig.getMobileHeight();
-		//根据IDE设置初始化引擎		
-		if (window["Laya3D"]) window["Laya3D"].init(GameConfig.width, h);
-		else Laya.init(GameConfig.width, h, WebGL);
+		let w = AppConfig.getMobileWidth();
+		//根据IDE设置初始化引擎		GameConfig.width
+		if (window["Laya3D"]) window["Laya3D"].init(w, h);
+		else Laya.init(w, h, WebGL);
 		//Physics.enable();
 		Laya["DebugPanel"] && Laya["DebugPanel"].enable();
 
@@ -135,12 +135,10 @@ class Main {
 	}
 
 	private onGameStart() : void{
-		if (AppConfig.platform=="tt"){
-			TTMiniUtils.init();
-		}
-	
 		ControllerMgr.getInstance(TipController).init();
 		SoundTool.init();
+		window['King_SDK_Manager'].init();
+		window['King_SDK_Manager'].showNativeBanner();
 		// SoundTool.playBgMusic();
 	}
 }

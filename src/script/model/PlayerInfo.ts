@@ -19,35 +19,35 @@ export default class PlayerInfo extends ModelBase {
         {
             starNum = 1;
         }
-        else if(score < 3000)
+        else if(score < 2500)
         {
             starNum = 2;
         }
-        else if(score < 4000)
+        else if(score < 3000)
         {
             starNum = 3;
         }
-        else if(score < 5000)
+        else if(score < 4000)
         {
             starNum = 4;
         }
-        else if(score < 6000)
+        else if(score < 5000)
         {
             starNum = 5;
         }
-        else if(score < 7000)
+        else if(score < 6000)
         {
             starNum = 6;
         }
-        else if(score < 8000)
+        else if(score < 7000)
         {
             starNum = 7;
         }
-        else if(score < 9000)
+        else if(score < 8000)
         {
             starNum = 8;
         }
-        else if(score < 10000)
+        else if(score < 9000)
         {
             starNum = 9;
         }

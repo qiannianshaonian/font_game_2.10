@@ -1,0 +1,11 @@
+{
+  "code": "export class LayaGL {\r\n}\r\nLayaGL.ARRAY_BUFFER_TYPE_DATA = 0;\r\nLayaGL.ARRAY_BUFFER_TYPE_CMD = 1;\r\nLayaGL.ARRAY_BUFFER_REF_REFERENCE = 0;\r\nLayaGL.ARRAY_BUFFER_REF_COPY = 1;\r\nLayaGL.UPLOAD_SHADER_UNIFORM_TYPE_ID = 0;\r\nLayaGL.UPLOAD_SHADER_UNIFORM_TYPE_DATA = 1;\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/LayaGPU.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/layagl/LayaGL.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { LayaGPU } from \"../webgl/LayaGPU\";\r\nexport declare class LayaGL {\r\n    static ARRAY_BUFFER_TYPE_DATA: number;\r\n    static ARRAY_BUFFER_TYPE_CMD: number;\r\n    static ARRAY_BUFFER_REF_REFERENCE: number;\r\n    static ARRAY_BUFFER_REF_COPY: number;\r\n    static UPLOAD_SHADER_UNIFORM_TYPE_ID: number;\r\n    static UPLOAD_SHADER_UNIFORM_TYPE_DATA: number;\r\n    static instance: WebGLRenderingContext;\r\n    static layaGPUInstance: LayaGPU;\r\n}\r\n"
+  }
+}

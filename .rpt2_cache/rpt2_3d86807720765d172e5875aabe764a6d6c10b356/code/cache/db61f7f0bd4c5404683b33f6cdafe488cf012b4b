@@ -1,0 +1,12 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class ClipRectCmd {\r\n    static create(x, y, width, height) {\r\n        var cmd = Pool.getItemByClass(\"ClipRectCmd\", ClipRectCmd);\r\n        cmd.x = x;\r\n        cmd.y = y;\r\n        cmd.width = width;\r\n        cmd.height = height;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        Pool.recover(\"ClipRectCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context.clipRect(this.x + gx, this.y + gy, this.width, this.height);\r\n    }\r\n    get cmdID() {\r\n        return ClipRectCmd.ID;\r\n    }\r\n}\r\nClipRectCmd.ID = \"ClipRect\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/cmd/ClipRectCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nexport declare class ClipRectCmd {\r\n    static ID: string;\r\n    x: number;\r\n    y: number;\r\n    width: number;\r\n    height: number;\r\n    static create(x: number, y: number, width: number, height: number): ClipRectCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

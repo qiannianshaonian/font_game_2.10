@@ -1,0 +1,11 @@
+{
+  "code": "import { Browser } from \"./Browser\";\r\nexport class Mouse {\r\n    static set cursor(cursorStr) {\r\n        Mouse._style.cursor = cursorStr;\r\n    }\r\n    static get cursor() {\r\n        return Mouse._style.cursor;\r\n    }\r\n    static __init__() {\r\n        Mouse._style = Browser.document.body.style;\r\n    }\r\n    static hide() {\r\n        if (Mouse.cursor != \"none\") {\r\n            Mouse._preCursor = Mouse.cursor;\r\n            Mouse.cursor = \"none\";\r\n        }\r\n    }\r\n    static show() {\r\n        if (Mouse.cursor == \"none\") {\r\n            if (Mouse._preCursor) {\r\n                Mouse.cursor = Mouse._preCursor;\r\n            }\r\n            else {\r\n                Mouse.cursor = \"auto\";\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Browser.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/.rpt2_cache/placeholder/laya/utils/Mouse.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class Mouse {\r\n    private static _style;\r\n    private static _preCursor;\r\n    static cursor: string;\r\n    static __init__(): any;\r\n    static hide(): void;\r\n    static show(): void;\r\n}\r\n"
+  }
+}

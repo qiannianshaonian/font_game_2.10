@@ -1,0 +1,11 @@
+{
+  "code": "import { Utils } from \"../../utils/Utils\";\r\nexport class UVTools {\r\n    constructor() {\r\n    }\r\n    static getRelativeUV(bigUV, smallUV, rst = null) {\r\n        var startX = bigUV[0];\r\n        var width = bigUV[2] - bigUV[0];\r\n        var startY = bigUV[1];\r\n        var height = bigUV[5] - bigUV[1];\r\n        if (!rst)\r\n            rst = [];\r\n        rst.length = smallUV.length;\r\n        var i, len;\r\n        len = rst.length;\r\n        var dWidth = 1 / width;\r\n        var dHeight = 1 / height;\r\n        for (i = 0; i < len; i += 2) {\r\n            rst[i] = (smallUV[i] - startX) * dWidth;\r\n            rst[i + 1] = (smallUV[i + 1] - startY) * dHeight;\r\n        }\r\n        return rst;\r\n    }\r\n    static getAbsoluteUV(bigUV, smallUV, rst = null) {\r\n        if (bigUV[0] == 0 && bigUV[1] == 0 && bigUV[4] == 1 && bigUV[5] == 1) {\r\n            if (rst) {\r\n                Utils.copyArray(rst, smallUV);\r\n                return rst;\r\n            }\r\n            else {\r\n                return smallUV;\r\n            }\r\n        }\r\n        var startX = bigUV[0];\r\n        var width = bigUV[2] - bigUV[0];\r\n        var startY = bigUV[1];\r\n        var height = bigUV[5] - bigUV[1];\r\n        if (!rst)\r\n            rst = [];\r\n        rst.length = smallUV.length;\r\n        var i, len;\r\n        len = rst.length;\r\n        for (i = 0; i < len; i += 2) {\r\n            rst[i] = smallUV[i] * width + startX;\r\n            rst[i + 1] = smallUV[i + 1] * height + startY;\r\n        }\r\n        return rst;\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Utils.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ani/bone/UVTools.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class UVTools {\r\n    constructor();\r\n    static getRelativeUV(bigUV: ArrayLike<number>, smallUV: any[], rst?: any[]): any[];\r\n    static getAbsoluteUV(bigUV: ArrayLike<number>, smallUV: any[], rst?: any[]): any[];\r\n}\r\n"
+  }
+}

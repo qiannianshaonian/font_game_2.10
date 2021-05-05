@@ -52,8 +52,6 @@ export default class MainGameScene extends SceneBase {
     private img_popularGroupBg: Image;
     private btn_point: Button;
     private btn_wanneng: Button;
-    private btn_vedio: Button;
-    private btn_vedio1: Button;
     private mc_dispelText: Sprite;
     private txt_dispelText: Text;
     private txt_currentPinYin: Text;
@@ -111,16 +109,10 @@ export default class MainGameScene extends SceneBase {
 
         this._myPlayerInfo = ControllerMgr.getInstance(PlayerController).myPlayerInfo;
 
-        // this.btn_pauseOrStart["zoomOn"](Handler.create(this, this.onPauseOrStartMouseEvent, [], false));
-        // this.btn_setting["zoomOn"](Handler.create(this, this.onSettingMouseEvent, [], false));
-        // this.btn_point["zoomOn"](Handler.create(this, this.onPointMouseEvent, [], false));
-        // this.btn_wanneng["zoomOn"](Handler.create(this, this.onWannengMouseEvent, [], false));
         this.btn_pauseOrStart.on(Event.CLICK,this,this.onPauseOrStartMouseEvent);
         this.btn_setting.on(Event.CLICK,this,this.onSettingMouseEvent);
         this.btn_point.on(Event.CLICK,this,this.onPointMouseEvent);
         this.btn_wanneng.on(Event.CLICK,this,this.onWannengMouseEvent);
-        this.btn_vedio.on(Event.CLICK,this,this.onStopMouseEvent);
-        this.btn_vedio1.on(Event.CLICK,this,this.onGoShareMouseEvent);
         if (!AppConfig.hadGuidance()){
             this.btn_point.visible = false;  
         }
@@ -132,66 +124,53 @@ export default class MainGameScene extends SceneBase {
         
         this.changeGameStatue(GameState.init);
         this.refresh();
-    } 
-
-    private onStopMouseEvent(e:Event):void{
-        console.log("...点击了停止录屏");
-        this.btn_vedio.visible=false;
-        this.btn_vedio.disabled=true;
-        this.btn_vedio1.visible=true;
-        this.btn_vedio1.disabled=false;
-        TTMiniUtils.stopGameRecorder();
-    }
-
-    private onGoShareMouseEvent(e:Event):void{
-        this.btn_vedio1.visible=false;
-        this.btn_vedio1.disabled=true;
-        TTMiniUtils.shareGameRecorder(Handler.create(this,this.onShareGameRecordComple));
-    }
-
-    private onShareGameRecordComple(data :any) :void{
-        if (data != "true"){
-            ControllerMgr.getInstance(TipController).showCenterBottomTip("录屏时长不足3秒,请重新录制");
-        }
-        console.log("...分享了完成了",data);
-        this.btn_vedio.visible=true;
-        this.btn_vedio.disabled=false;
-        Laya.timer.once(500, this, function (): void {
-            TTMiniUtils.startGameRecorder();
-        });
     }
 
     private onWannengMouseEvent(e: Event): void  {
-        WxMiniUtil.showRewardedVideo(Handler.create(this,this.onWannengComple));
+        this.changeGameStatue(GameState.Pause);
+        let that = this;
+        window['King_SDK_Manager'].showRewardedVideoAd(res=>{
+            if(res){
+                console.log('播放成功，下发游戏奖励');
+                that.onWannengComple();
+            }else{
+                console.log('播放失败');
+            }}
+            );
     }
 
     private onWannengComple(): void {
-        if (this._myPlayerInfo.wannengUseTimes > 0)  {
-            let callBk = ()=>{
-                this.changeGameStatue(GameState.Playing);
-                this._nextDropingFontInfo = MapFontInfo.create({ text: "*" });
-                this._myPlayerInfo.wannengUseTimes --;
-                this.refresh();
+            if (this._myPlayerInfo.wannengUseTimes > 0)  {
+                let callBk = ()=>{
+                    this.changeGameStatue(GameState.Playing);
+                    this._nextDropingFontInfo = MapFontInfo.create({ text: "*" });
+                    this._myPlayerInfo.wannengUseTimes --;
+                    // this.randRate=-2;
+                    this.refresh();
+                }
+                if(AppConfig.isNative)
+                {
+                    this.changeGameStatue(GameState.Pause);
+                    NativeBridgeAndroid.showVedioAd(callBk);
+                }
+                else 
+                {
+                    callBk();
+                }
+                return;
             }
-            if(AppConfig.isNative)
-            {
-                this.changeGameStatue(GameState.Pause);
-                NativeBridgeAndroid.showVedioAd(callBk);
-            }
-            else 
-            {
-                callBk();
-            }
-            return;
-        }
     }
 
-    private onCPComple(data :any): void {
+    private onCPComple(): void {
         let callBk = ()=>{
             this.changeGameStatue(GameState.Playing);
-            console.log("cha ping data",data);
-            if (data == "true"){ 
+            let rate = Math.random() * 100;
+            if (rate>70){ 
+                // this.randRate= -5;
                 this._nextDropingFontInfo = MapFontInfo.create({ text: "*" });
+            }else  {
+                // this.randRate= -5;
+                this._myPlayerInfo.guideRemainTimes = 1;
             }
             this.refresh();
         }
@@ -208,7 +187,13 @@ export default class MainGameScene extends SceneBase {
     }
 
     private onPointMouseEvent(e: Event): void  {
-        WxMiniUtil.showRewardedVideo(Handler.create(this,this.onPointComple));
+        window['King_SDK_Manager'].showRewardedVideoAd(res => {
+            if(res){
+                console.log('播放成功，下发游戏奖励');
+                this.onPointComple();
+            }else{
+                console.log('播放失败');
+            }});
     }
 
     private onPointComple(): void {
@@ -221,6 +206,7 @@ export default class MainGameScene extends SceneBase {
                 this.changeGameStatue(GameState.Playing);
                 this._myPlayerInfo.guideRemainTimes = 3;
                 this._myPlayerInfo.guideUseTimes --;
+                this.randRate=-2;
                 this.refresh();
             }
             if(AppConfig.isNative)
@@ -239,10 +225,11 @@ export default class MainGameScene extends SceneBase {
     private onSettingMouseEvent(e: Event): void {
             this.changeGameStatue(GameState.Pause);
             this.showGameSetting();
+            window['King_SDK_Manager'].hideAllBanner();
+            window['King_SDK_Manager'].showNativeInter();
     }
 
     private onPauseOrStartMouseEvent(e: Event): void {
-       
             if (this._gameState == GameState.Pause)  {
                 this.changeGameStatue(GameState.Playing);
             }
@@ -442,7 +429,6 @@ export default class MainGameScene extends SceneBase {
                 break;
             case GameState.Pause:
                 this.btn_pauseOrStart.skin = "map/btn_start.png";
-
                 break;
             case GameState.EffectPause:
                 break;
@@ -1660,11 +1646,11 @@ export default class MainGameScene extends SceneBase {
             } else if (this._score < 800) {
                 this._guideRate = 15;
             }else {
-                this._guideRate = Math.min(this._guideRate + 1, 6);
+                this._guideRate = Math.min(this._guideRate + 1, 8);
             }
             return
         }
-        this._guideRate = Math.min(this._guideRate + 1, 6);
+        this._guideRate = Math.min(this._guideRate + 1, 8);
     }
     /**
        * 循环所有顶格，显示跟当前飘落的汉子有关联的格子，即可组成词语或者和合成汉子的格子
@@ -1828,12 +1814,12 @@ export default class MainGameScene extends SceneBase {
         this.txt_dispelText.text = text;
         switch (text.length)  {
             case 1:
-                this.txt_dispelText.fontSize = 120;
-                this.txt_dispelText.size(120, 120);
+                this.txt_dispelText.fontSize = 180;
+                this.txt_dispelText.size(180, 180);
                 break;
             case 2:
-                this.txt_dispelText.fontSize = 60;
-                this.txt_dispelText.size(120, 60);
+                this.txt_dispelText.fontSize = 90;
+                this.txt_dispelText.size(180, 90);
                 break;
             case 3:
                 this.txt_dispelText.fontSize = 40;
@@ -1877,14 +1863,17 @@ export default class MainGameScene extends SceneBase {
     private heCizuRate: number = 40; //出现左边那个词组的概率
     private hanZiRate: number = 60; // 出现能跟五列最外边汉字合成汉字的概率
     private ciZuRate: number = 60; // 出现能跟五列最外边汉字合成词组的概率
+    private randRate: number = 0; // 出现能跟五列最外边汉字合成词组的概率
     private buShouRate: number = 0; //出现特殊部首的概率
     randomNextFont(): void {
         let fontGridNum =this.getFontGridNum()
-        // if (fontGridNum>25){
-        //     if (this.getRandomResult(30)){
-        //         console.log(".....随机到了");
+        // if (this._score > 600){
+        //     this.randRate=  Math.min(this.randRate+1,10)
+        //     if (fontGridNum>20 && this.randRate> 0 && this.getRandomResult(this.randRate)){
         //         this.changeGameStatue(GameState.Pause);
-        //         WxMiniUtil.showInterstitialAd( Handler.create(this,this.onCPComple));
+        //         Laya.timer.once(2500, this, function (): void {
+        //             this.onCPComple();
+        //         });
         //     }
         // }
 
@@ -1946,19 +1935,18 @@ export default class MainGameScene extends SceneBase {
             this._nextDropingFontInfo = this.getRandomElement(this._words);
             this._words.splice(this._words.indexOf(this._nextDropingFontInfo), 1);
             if (this._nextDropingFontInfo != null)  {
-                if (fontGridNum <6){
+                if (fontGridNum <10){
                     this.hanZiRate += 16; 
-                    this.ciZuRate += 2 ;
-                }else if (fontGridNum <21){
+                }else if (fontGridNum <22){
                     this.hanZiRate += 10; 
                     this.ciZuRate += 2 ;
                 }else if (fontGridNum <28){
-                    this.hanZiRate += 3; 
-                    this.ciZuRate += 9 ;
+                    this.hanZiRate += 5; 
+                    this.ciZuRate += 5 ;
                 }
                 else{
-                    this.hanZiRate += 2; 
-                    this.ciZuRate += 10;
+                    this.hanZiRate += 5; 
+                    this.ciZuRate += 7;
                 }
                 this.heCizuRate = 10;
                 return;
@@ -1987,15 +1975,13 @@ export default class MainGameScene extends SceneBase {
                 this._nextDropingFontInfo = this.getRandomElement(this._splitFontWords);
                 this._splitFontWords.splice(this._splitFontWords.indexOf(this._nextDropingFontInfo), 1);
                 if (this._nextDropingFontInfo != null)  {
-                    // console.log("随机出一个合成汉字。111111111111111")
                     if (this._myPlayerInfo.guideRemainTimes>0){
                         this._dropingFontInfo = MapFontInfo.create({ id: this._nextDropingFontInfo.id });
                         this._dropingFontInfo.isStuntFont = this._nextDropingFontInfo.isStuntFont;
                     }
-                    if (fontGridNum < 6){
+                    if (fontGridNum < 10){
                         this.hanZiRate = 20; 
-                        this.ciZuRate += 1 ;
-                    }else if(fontGridNum <21){
+                    }else if(fontGridNum <22){
                         this.hanZiRate = 16; 
                         this.ciZuRate += 2 ;
                     }else if(fontGridNum <28){
@@ -2004,7 +1990,7 @@ export default class MainGameScene extends SceneBase {
                     }
                     else{
                         this.hanZiRate = 5; 
-                        this.ciZuRate += 10;
+                        this.ciZuRate += 6;
                     }
                     return;
                 }
@@ -2028,41 +2014,40 @@ export default class MainGameScene extends SceneBase {
                         this._dropingFontInfo = MapFontInfo.create({ id: this._nextDropingFontInfo.id });
                         this._dropingFontInfo.isStuntFont = this._nextDropingFontInfo.isStuntFont;
                     }
-                    if (fontGridNum <6){
-                        this.hanZiRate +=16; 
+                    if (fontGridNum <10){
+                        this.hanZiRate +=15; 
+                        this.ciZuRate = 1 ;
+                    }else if(fontGridNum <22){
+                        this.hanZiRate +=11; 
                         this.ciZuRate = 4 ;
-                    }else if(fontGridNum <21){
-                        this.hanZiRate +=12; 
-                        this.ciZuRate = 5 ;
                     }else if(fontGridNum <28){
-                        this.hanZiRate +=7; 
-                        this.ciZuRate = 14 ;
+                        this.hanZiRate +=6; 
+                        this.ciZuRate = 8 ;
                     }
                     else if(fontGridNum <35){
-                        this.hanZiRate +=2; 
-                        this.ciZuRate = 16;
+                        this.hanZiRate +=3; 
+                        this.ciZuRate = 11;
                     }
                     else{
                         this.hanZiRate +=3; 
-                        this.ciZuRate = 18;
+                        this.ciZuRate = 13;
                     }
                     return;
                 }
             }
         }
-        if (fontGridNum <6){
-            this.hanZiRate += 16; 
+        if (fontGridNum <10){
+            this.hanZiRate += 14; 
+        }else if(fontGridNum <22){
+            this.hanZiRate += 10; 
             this.ciZuRate += 1 ;
-        }else if(fontGridNum <21){
-            this.hanZiRate += 11; 
-            this.ciZuRate += 2 ;
         }else if(fontGridNum < 30){
-            this.hanZiRate += 4; 
-            this.ciZuRate += 9;
+            this.hanZiRate += 5; 
+            this.ciZuRate += 6;
         }
         else{
-            this.hanZiRate += 2; 
-            this.ciZuRate += 10;
+            this.hanZiRate += 4; 
+            this.ciZuRate += 7;
         }
         //随机从汉字库抽一个汉字
         // console.log("随机出一个汉字 汉字  词组  左边概率。。。。", this.hanZiRate,this.ciZuRate,this.heCizuRate)

@@ -1,0 +1,14 @@
+{
+  "code": "import { ShaderDefines2D } from \"../ShaderDefines2D\";\r\nimport { Value2D } from \"../value/Value2D\";\r\nimport { CONST3D2D } from \"../../../utils/CONST3D2D\";\r\nimport { WebGLContext } from \"../../../WebGLContext\";\r\nexport class SkinSV extends Value2D {\r\n    constructor(type) {\r\n        super(ShaderDefines2D.SKINMESH, 0);\r\n        this.offsetX = 300;\r\n        this.offsetY = 0;\r\n        var gl = WebGLContext.mainContext;\r\n        var _vlen = 8 * CONST3D2D.BYTES_PE;\r\n        this.position = [2, gl.FLOAT, false, _vlen, 0];\r\n        this.texcoord = [2, gl.FLOAT, false, _vlen, 2 * CONST3D2D.BYTES_PE];\r\n        this.color = [4, gl.FLOAT, false, _vlen, 4 * CONST3D2D.BYTES_PE];\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/shader/d2/ShaderDefines2D.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/shader/d2/value/Value2D.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/utils/CONST3D2D.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/WebGLContext.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/shader/d2/skinAnishader/SkinSV.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Value2D } from \"../value/Value2D\";\r\nexport declare class SkinSV extends Value2D {\r\n    texcoord: any;\r\n    position: any;\r\n    offsetX: number;\r\n    offsetY: number;\r\n    constructor(type: any);\r\n}\r\n"
+  }
+}

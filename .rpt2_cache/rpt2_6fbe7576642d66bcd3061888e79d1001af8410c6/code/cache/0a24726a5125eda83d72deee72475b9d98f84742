@@ -1,0 +1,11 @@
+{
+  "code": "export class AnimationContent {\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ani/AnimationNodeContent.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/.rpt2_cache/placeholder/laya/ani/AnimationContent.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { AnimationNodeContent } from \"./AnimationNodeContent\";\r\nexport declare class AnimationContent {\r\n    nodes: AnimationNodeContent[];\r\n    name: string;\r\n    playTime: number;\r\n    bone3DMap: any;\r\n    totalKeyframeDatasLength: number;\r\n}\r\n"
+  }
+}

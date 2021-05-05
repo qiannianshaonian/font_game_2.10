@@ -5,8 +5,6 @@ import { Image } from "laya/ui/Image";
 import { Laya } from "Laya";
 import { Text } from "laya/display/Text";
 import { Button } from "laya/ui/Button";
-import { Browser } from "laya/utils/Browser";
-import { WxMiniUtil } from "../tool/WxMiniUtil";
 
 export default class GameResult extends PrefebBase {
     public showHomeHandler : Handler;
@@ -59,11 +57,14 @@ export default class GameResult extends PrefebBase {
             // {
                 // this.showAdHandler.run();
             // }
-            if(AppConfig.platform == "tt") {
-                WxMiniUtil.showRewardedVideo(Handler.create(this,this.onShowAdComple));
-            }else if (AppConfig.platform == "android"){
-                this.showAdHandler.run();
-            }
+            let that =this;
+            window['King_SDK_Manager'].showRewardedVideoAd(res =>{
+                if(res){
+                    console.log('播放成功，下发游戏奖励');
+                    that.onShowAdComple();
+                }else{
+                    console.log('播放失败');
+                }});
         },null,false);
     }
 
@@ -72,17 +73,16 @@ export default class GameResult extends PrefebBase {
     }
     
     onEnable(): void {
+        console.log("游戏结束调用banner");
         if (this.comeBackTime <1 ) {
             this.btn_showAd.visible=false
         }
-
-        WxMiniUtil.showBanner();
+        window['King_SDK_Manager'].hideAllBanner();
+        window['King_SDK_Manager'].showNativeInter();
     }
 
     onDisable(): void {
         this.btn_home.offAll();
         this.btn_tryAgain.offAll();
-
-        WxMiniUtil.hideBanner();
     }
 }

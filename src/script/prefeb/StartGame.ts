@@ -28,12 +28,14 @@ export default class StartGame extends PrefebBase {
 
     onAwake() : void{
         super.onAwake();
+        console.log("...屏幕宽度", Laya.Browser.window.screen.width,Laya.stage.width,Laya.stage.height)
         this.owner["height"] = Laya.stage.height;
+        console.log("...屏幕长度", Laya.Browser.window.screen.height)
         if(AppConfig.platform == "wx")
         {
-            let scaleX = window["Laya"]["MiniAdpter"].window.screen.availWidth / 640;
+            let scaleX = Laya.Browser.window.screen.width/ 640;
             let h = AppConfig.getMobileHeight() ;
-            let scaleY = window["Laya"]["MiniAdpter"].window.screen.availHeight* (h / Laya.stage.height) / h;
+            let scaleY = Laya.Browser.window.screen.height* (h / Laya.stage.height) / h;
             // let scaleY = MiniAdpter.window.screen.availHeight* (1136 / stage.height) / 1136;
             let button = Browser.window.wx["createUserInfoButton"]({
                 type: 'image',
@@ -125,9 +127,6 @@ export default class StartGame extends PrefebBase {
     }
     
     onEnable(): void {
-        if (AppConfig.platform=="tt"){
-            WxMiniUtil.showBanner();
-        }
     }
 
     onDisable(): void {

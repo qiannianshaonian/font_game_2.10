@@ -1,0 +1,9 @@
+{
+  "code": "export class AnimationState {\r\n    constructor() {\r\n    }\r\n}\r\nAnimationState.stopped = 0;\r\nAnimationState.paused = 1;\r\nAnimationState.playing = 2;\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/.rpt2_cache/placeholder/laya/ani/AnimationState.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class AnimationState {\r\n    static stopped: number;\r\n    static paused: number;\r\n    static playing: number;\r\n    constructor();\r\n}\r\n"
+  }
+}

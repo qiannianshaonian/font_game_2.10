@@ -1,0 +1,13 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class SpriteStyle {\r\n    constructor() {\r\n        this.reset();\r\n    }\r\n    reset() {\r\n        this.scaleX = this.scaleY = 1;\r\n        this.skewX = this.skewY = 0;\r\n        this.pivotX = this.pivotY = this.rotation = 0;\r\n        this.alpha = 1;\r\n        if (this.scrollRect)\r\n            this.scrollRect.recover();\r\n        this.scrollRect = null;\r\n        if (this.viewport)\r\n            this.viewport.recover();\r\n        this.viewport = null;\r\n        this.hitArea = null;\r\n        this.dragging = null;\r\n        this.blendMode = null;\r\n        return this;\r\n    }\r\n    recover() {\r\n        if (this === SpriteStyle.EMPTY)\r\n            return;\r\n        Pool.recover(\"SpriteStyle\", this.reset());\r\n    }\r\n    static create() {\r\n        return Pool.getItemByClass(\"SpriteStyle\", SpriteStyle);\r\n    }\r\n}\r\nSpriteStyle.EMPTY = new SpriteStyle();\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/maths/Rectangle.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Dragging.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/.rpt2_cache/placeholder/laya/display/css/SpriteStyle.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Rectangle } from \"../../maths/Rectangle\";\r\nimport { Dragging } from \"../../utils/Dragging\";\r\nexport declare class SpriteStyle {\r\n    static EMPTY: SpriteStyle;\r\n    scaleX: number;\r\n    scaleY: number;\r\n    skewX: number;\r\n    skewY: number;\r\n    pivotX: number;\r\n    pivotY: number;\r\n    rotation: number;\r\n    alpha: number;\r\n    scrollRect: Rectangle;\r\n    viewport: Rectangle;\r\n    hitArea: any;\r\n    dragging: Dragging;\r\n    blendMode: string;\r\n    constructor();\r\n    reset(): SpriteStyle;\r\n    recover(): void;\r\n    static create(): SpriteStyle;\r\n}\r\n"
+  }
+}

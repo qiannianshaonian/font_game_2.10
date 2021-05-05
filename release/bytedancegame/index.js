@@ -1,1 +1,0 @@
-window.screenOrientation="sensor_landscape",require("./laya.js"),require("./js/bundle.js");

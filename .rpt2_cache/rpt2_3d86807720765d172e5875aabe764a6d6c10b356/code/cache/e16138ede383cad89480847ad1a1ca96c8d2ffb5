@@ -1,0 +1,13 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class Draw9GridTexture {\r\n    constructor() {\r\n    }\r\n    static create(texture, x, y, width, height, sizeGrid) {\r\n        var cmd = Pool.getItemByClass(\"Draw9GridTexture\", Draw9GridTexture);\r\n        cmd.texture = texture;\r\n        texture._addReference();\r\n        cmd.x = x;\r\n        cmd.y = y;\r\n        cmd.width = width;\r\n        cmd.height = height;\r\n        cmd.sizeGrid = sizeGrid;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        this.texture._removeReference();\r\n        Pool.recover(\"Draw9GridTexture\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        context.drawTextureWithSizeGrid(this.texture, this.x, this.y, this.width, this.height, this.sizeGrid, gx, gy);\r\n    }\r\n    get cmdID() {\r\n        return Draw9GridTexture.ID;\r\n    }\r\n}\r\nDraw9GridTexture.ID = \"Draw9GridTexture\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/Texture.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/cmd/Draw9GridTexture.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nimport { Texture } from \"../../resource/Texture\";\r\nexport declare class Draw9GridTexture {\r\n    static ID: string;\r\n    texture: Texture;\r\n    x: number;\r\n    y: number;\r\n    width: number;\r\n    height: number;\r\n    sizeGrid: any[];\r\n    static create(texture: Texture, x: number, y: number, width: number, height: number, sizeGrid: any[]): Draw9GridTexture;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n    constructor();\r\n}\r\n"
+  }
+}

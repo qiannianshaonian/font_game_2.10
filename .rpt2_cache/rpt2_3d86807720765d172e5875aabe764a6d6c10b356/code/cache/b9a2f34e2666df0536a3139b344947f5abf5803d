@@ -1,0 +1,9 @@
+{
+  "code": "export class TfConstraintData {\r\n    constructor() {\r\n        this.boneIndexs = [];\r\n    }\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ani/bone/TfConstraintData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class TfConstraintData {\r\n    name: string;\r\n    boneIndexs: number[];\r\n    targetIndex: number;\r\n    rotateMix: number;\r\n    translateMix: number;\r\n    scaleMix: number;\r\n    shearMix: number;\r\n    offsetRotation: number;\r\n    offsetX: number;\r\n    offsetY: number;\r\n    offsetScaleX: number;\r\n    offsetScaleY: number;\r\n    offsetShearY: number;\r\n}\r\n"
+  }
+}

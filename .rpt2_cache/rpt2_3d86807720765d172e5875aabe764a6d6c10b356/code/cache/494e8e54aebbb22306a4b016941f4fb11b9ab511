@@ -1,0 +1,11 @@
+{
+  "code": "import { Pool } from \"../utils/Pool\";\r\nexport class Point {\r\n    constructor(x = 0, y = 0) {\r\n        this.x = x;\r\n        this.y = y;\r\n    }\r\n    static create() {\r\n        return Pool.getItemByClass(\"Point\", Point);\r\n    }\r\n    setTo(x, y) {\r\n        this.x = x;\r\n        this.y = y;\r\n        return this;\r\n    }\r\n    reset() {\r\n        this.x = this.y = 0;\r\n        return this;\r\n    }\r\n    recover() {\r\n        Pool.recover(\"Point\", this.reset());\r\n    }\r\n    distance(x, y) {\r\n        return Math.sqrt((this.x - x) * (this.x - x) + (this.y - y) * (this.y - y));\r\n    }\r\n    toString() {\r\n        return this.x + \",\" + this.y;\r\n    }\r\n    normalize() {\r\n        var d = Math.sqrt(this.x * this.x + this.y * this.y);\r\n        if (d > 0) {\r\n            var id = 1.0 / d;\r\n            this.x *= id;\r\n            this.y *= id;\r\n        }\r\n    }\r\n    copy(point) {\r\n        return this.setTo(point.x, point.y);\r\n    }\r\n}\r\nPoint.TEMP = new Point();\r\nPoint.EMPTY = new Point();\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/maths/Point.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class Point {\r\n    static TEMP: Point;\r\n    static EMPTY: Point;\r\n    x: number;\r\n    y: number;\r\n    constructor(x?: number, y?: number);\r\n    static create(): Point;\r\n    setTo(x: number, y: number): Point;\r\n    reset(): Point;\r\n    recover(): void;\r\n    distance(x: number, y: number): number;\r\n    toString(): string;\r\n    normalize(): void;\r\n    copy(point: Point): Point;\r\n}\r\n"
+  }
+}

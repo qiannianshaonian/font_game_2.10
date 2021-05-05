@@ -1,0 +1,9 @@
+{
+  "code": "export class IkConstraintData {\r\n    constructor() {\r\n        this.boneNames = [];\r\n        this.bendDirection = 1;\r\n        this.mix = 1;\r\n        this.isSpine = true;\r\n        this.targetBoneIndex = -1;\r\n        this.boneIndexs = [];\r\n    }\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/.rpt2_cache/placeholder/laya/ani/bone/IkConstraintData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class IkConstraintData {\r\n    name: string;\r\n    targetBoneName: string;\r\n    boneNames: string[];\r\n    bendDirection: number;\r\n    mix: number;\r\n    isSpine: boolean;\r\n    targetBoneIndex: number;\r\n    boneIndexs: number[];\r\n    constructor();\r\n}\r\n"
+  }
+}

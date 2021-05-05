@@ -1,0 +1,13 @@
+{
+  "code": "import { Pool } from \"../../utils/Pool\";\r\nexport class DrawImageCmd {\r\n    static create(texture, x, y, width, height) {\r\n        var cmd = Pool.getItemByClass(\"DrawImageCmd\", DrawImageCmd);\r\n        cmd.texture = texture;\r\n        texture._addReference();\r\n        cmd.x = x;\r\n        cmd.y = y;\r\n        cmd.width = width;\r\n        cmd.height = height;\r\n        return cmd;\r\n    }\r\n    recover() {\r\n        this.texture && this.texture._removeReference();\r\n        this.texture = null;\r\n        Pool.recover(\"DrawImageCmd\", this);\r\n    }\r\n    run(context, gx, gy) {\r\n        if (this.texture)\r\n            context.drawTexture(this.texture, this.x + gx, this.y + gy, this.width, this.height);\r\n    }\r\n    get cmdID() {\r\n        return DrawImageCmd.ID;\r\n    }\r\n}\r\nDrawImageCmd.ID = \"DrawImage\";\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/Texture.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/.rpt2_cache/placeholder/laya/display/cmd/DrawImageCmd.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Context } from \"../../resource/Context\";\r\nimport { Texture } from \"../../resource/Texture\";\r\nexport declare class DrawImageCmd {\r\n    static ID: string;\r\n    texture: Texture | null;\r\n    x: number;\r\n    y: number;\r\n    width: number;\r\n    height: number;\r\n    static create(texture: Texture, x: number, y: number, width: number, height: number): DrawImageCmd;\r\n    recover(): void;\r\n    run(context: Context, gx: number, gy: number): void;\r\n    readonly cmdID: string;\r\n}\r\n"
+  }
+}

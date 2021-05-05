@@ -1,0 +1,38 @@
+{
+  "code": "export class ILaya {\r\n    static regClass(c) {\r\n        ILaya.__classMap[c.name] = c;\r\n    }\r\n}\r\nILaya.Laya = null;\r\nILaya.Timer = null;\r\nILaya.WorkerLoader = null;\r\nILaya.Dragging = null;\r\nILaya.GraphicsBounds = null;\r\nILaya.Sprite = null;\r\nILaya.TextRender = null;\r\nILaya.TextAtlas = null;\r\nILaya.timer = null;\r\nILaya.systemTimer = null;\r\nILaya.startTimer = null;\r\nILaya.updateTimer = null;\r\nILaya.lateTimer = null;\r\nILaya.physicsTimer = null;\r\nILaya.stage = null;\r\nILaya.Loader = null;\r\nILaya.loader = null;\r\nILaya.TTFLoader = null;\r\nILaya.SoundManager = null;\r\nILaya.WebAudioSound = null;\r\nILaya.AudioSound = null;\r\nILaya.ShaderCompile = null;\r\nILaya.ClassUtils = null;\r\nILaya.SceneUtils = null;\r\nILaya.Context = null;\r\nILaya.Render = null;\r\nILaya.MouseManager = null;\r\nILaya.Text = null;\r\nILaya.Browser = null;\r\nILaya.WebGL = null;\r\nILaya.Pool = null;\r\nILaya.Utils = null;\r\nILaya.Graphics = null;\r\nILaya.Submit = null;\r\nILaya.Stage = null;\r\nILaya.Resource = null;\r\nILaya.__classMap = {};\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Dragging.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/GraphicsBounds.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/Sprite.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/text/TextRender.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Timer.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/net/Loader.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/net/TTFLoader.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/media/SoundManager.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/media/webaudio/WebAudioSound.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/utils/ShaderCompile.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/text/TextAtlas.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/ClassUtils.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/SceneUtils.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/Stage.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/renders/Render.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/net/LoaderManager.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/net/WorkerLoader.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/events/MouseManager.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/Text.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Browser.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/WebGL.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/media/h5audio/AudioSound.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Pool.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Utils.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/Graphics.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/submit/Submit.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/Resource.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/ILaya.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { Dragging } from \"./laya/utils/Dragging\";\r\nimport { GraphicsBounds } from \"./laya/display/GraphicsBounds\";\r\nimport { Sprite } from \"./laya/display/Sprite\";\r\nimport { TextRender } from \"./laya/webgl/text/TextRender\";\r\nimport { Timer } from \"./laya/utils/Timer\";\r\nimport { Loader } from \"./laya/net/Loader\";\r\nimport { TTFLoader } from \"./laya/net/TTFLoader\";\r\nimport { SoundManager } from \"./laya/media/SoundManager\";\r\nimport { WebAudioSound } from \"./laya/media/webaudio/WebAudioSound\";\r\nimport { ShaderCompile } from \"./laya/webgl/utils/ShaderCompile\";\r\nimport { TextAtlas } from \"./laya/webgl/text/TextAtlas\";\r\nimport { ClassUtils } from \"./laya/utils/ClassUtils\";\r\nimport { SceneUtils } from \"./laya/utils/SceneUtils\";\r\nimport { Stage } from \"./laya/display/Stage\";\r\nimport { Context } from \"./laya/resource/Context\";\r\nimport { Render } from \"./laya/renders/Render\";\r\nimport { LoaderManager } from \"./laya/net/LoaderManager\";\r\nimport { WorkerLoader } from \"./laya/net/WorkerLoader\";\r\nimport { MouseManager } from \"./laya/events/MouseManager\";\r\nimport { Text } from \"./laya/display/Text\";\r\nimport { Browser } from \"./laya/utils/Browser\";\r\nimport { WebGL } from \"./laya/webgl/WebGL\";\r\nimport { AudioSound } from \"./laya/media/h5audio/AudioSound\";\r\nimport { Pool } from \"./laya/utils/Pool\";\r\nimport { Utils } from \"./laya/utils/Utils\";\r\nimport { Graphics } from \"./laya/display/Graphics\";\r\nimport { Submit } from \"./laya/webgl/submit/Submit\";\r\nimport { Resource } from \"./laya/resource/Resource\";\r\nexport declare class ILaya {\r\n    static Laya: any;\r\n    static Timer: typeof Timer;\r\n    static WorkerLoader: typeof WorkerLoader;\r\n    static Dragging: typeof Dragging;\r\n    static GraphicsBounds: typeof GraphicsBounds;\r\n    static Sprite: typeof Sprite;\r\n    static TextRender: typeof TextRender;\r\n    static TextAtlas: typeof TextAtlas;\r\n    static timer: Timer;\r\n    static systemTimer: Timer;\r\n    static startTimer: Timer;\r\n    static updateTimer: Timer;\r\n    static lateTimer: Timer;\r\n    static physicsTimer: Timer;\r\n    static stage: Stage;\r\n    static Loader: typeof Loader;\r\n    static loader: LoaderManager;\r\n    static TTFLoader: typeof TTFLoader;\r\n    static SoundManager: typeof SoundManager;\r\n    static WebAudioSound: typeof WebAudioSound;\r\n    static AudioSound: typeof AudioSound;\r\n    static ShaderCompile: typeof ShaderCompile;\r\n    static ClassUtils: typeof ClassUtils;\r\n    static SceneUtils: typeof SceneUtils;\r\n    static Context: typeof Context;\r\n    static Render: typeof Render;\r\n    static MouseManager: typeof MouseManager;\r\n    static Text: typeof Text;\r\n    static Browser: typeof Browser;\r\n    static WebGL: typeof WebGL;\r\n    static Pool: typeof Pool;\r\n    static Utils: typeof Utils;\r\n    static Graphics: typeof Graphics;\r\n    static Submit: typeof Submit;\r\n    static Stage: typeof Stage;\r\n    static Resource: typeof Resource;\r\n    static __classMap: Object;\r\n    static regClass(c: any): void;\r\n}\r\n"
+  }
+}

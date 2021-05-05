@@ -11,7 +11,5 @@ window.screenOrientation = "sensor_landscape";
 
 //-----libs-end-------
 loadLib("laya.js");
-loadLib("king_SDK/sdkManager.js");
 loadLib("js/bundle.js");
-window['King_SDK_Manager'].init();
-window['King_SDK_Manager'].showNativeBanner();
+loadLib("king_SDK/sdkManager.js");

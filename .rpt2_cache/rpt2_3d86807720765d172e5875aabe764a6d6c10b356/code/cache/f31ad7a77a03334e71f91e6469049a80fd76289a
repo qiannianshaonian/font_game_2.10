@@ -1,0 +1,9 @@
+{
+  "code": "export var RenderTextureFormat;\r\n(function (RenderTextureFormat) {\r\n    RenderTextureFormat[RenderTextureFormat[\"R8G8B8\"] = 0] = \"R8G8B8\";\r\n    RenderTextureFormat[RenderTextureFormat[\"R8G8B8A8\"] = 1] = \"R8G8B8A8\";\r\n    RenderTextureFormat[RenderTextureFormat[\"Alpha8\"] = 2] = \"Alpha8\";\r\n    RenderTextureFormat[RenderTextureFormat[\"R16G16B16A16\"] = 14] = \"R16G16B16A16\";\r\n    RenderTextureFormat[RenderTextureFormat[\"Depth\"] = 15] = \"Depth\";\r\n    RenderTextureFormat[RenderTextureFormat[\"ShadowMap\"] = 16] = \"ShadowMap\";\r\n})(RenderTextureFormat || (RenderTextureFormat = {}));\r\nexport var RenderTextureDepthFormat;\r\n(function (RenderTextureDepthFormat) {\r\n    RenderTextureDepthFormat[RenderTextureDepthFormat[\"DEPTH_16\"] = 0] = \"DEPTH_16\";\r\n    RenderTextureDepthFormat[RenderTextureDepthFormat[\"STENCIL_8\"] = 1] = \"STENCIL_8\";\r\n    RenderTextureDepthFormat[RenderTextureDepthFormat[\"DEPTHSTENCIL_24_8\"] = 2] = \"DEPTHSTENCIL_24_8\";\r\n    RenderTextureDepthFormat[RenderTextureDepthFormat[\"DEPTHSTENCIL_NONE\"] = 3] = \"DEPTHSTENCIL_NONE\";\r\n    RenderTextureDepthFormat[RenderTextureDepthFormat[\"DEPTHSTENCIL_16_8\"] = 2] = \"DEPTHSTENCIL_16_8\";\r\n})(RenderTextureDepthFormat || (RenderTextureDepthFormat = {}));\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/RenderTextureFormat.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare enum RenderTextureFormat {\r\n    R8G8B8 = 0,\r\n    R8G8B8A8 = 1,\r\n    Alpha8 = 2,\r\n    R16G16B16A16 = 14,\r\n    Depth = 15,\r\n    ShadowMap = 16\r\n}\r\nexport declare enum RenderTextureDepthFormat {\r\n    DEPTH_16 = 0,\r\n    STENCIL_8 = 1,\r\n    DEPTHSTENCIL_24_8 = 2,\r\n    DEPTHSTENCIL_NONE = 3,\r\n    DEPTHSTENCIL_16_8 = 2\r\n}\r\n"
+  }
+}

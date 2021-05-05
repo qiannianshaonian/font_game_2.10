@@ -1,0 +1,15 @@
+{
+  "code": "import { SpriteStyle } from \"./SpriteStyle\";\r\nimport { Pool } from \"../../utils/Pool\";\r\nexport class TextStyle extends SpriteStyle {\r\n    constructor() {\r\n        super(...arguments);\r\n        this.italic = false;\r\n    }\r\n    reset() {\r\n        super.reset();\r\n        this.italic = false;\r\n        this.align = \"left\";\r\n        this.wordWrap = false;\r\n        this.leading = 0;\r\n        this.padding = [0, 0, 0, 0];\r\n        this.bgColor = null;\r\n        this.borderColor = null;\r\n        this.asPassword = false;\r\n        this.stroke = 0;\r\n        this.strokeColor = \"#000000\";\r\n        this.bold = false;\r\n        this.underline = false;\r\n        this.underlineColor = null;\r\n        this.currBitmapFont = null;\r\n        return this;\r\n    }\r\n    recover() {\r\n        if (this === TextStyle.EMPTY)\r\n            return;\r\n        Pool.recover(\"TextStyle\", this.reset());\r\n    }\r\n    static create() {\r\n        return Pool.getItemByClass(\"TextStyle\", TextStyle);\r\n    }\r\n    render(sprite, context, x, y) {\r\n        (this.bgColor || this.borderColor) && context.drawRect(x - this.pivotX, y - this.pivotY, sprite.width, sprite.height, this.bgColor, this.borderColor, 1);\r\n    }\r\n}\r\nTextStyle.EMPTY = new TextStyle();\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/css/SpriteStyle.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/BitmapFont.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/Sprite.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/resource/Context.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Pool.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/css/TextStyle.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { SpriteStyle } from \"./SpriteStyle\";\r\nimport { BitmapFont } from \"../BitmapFont\";\r\nimport { Sprite } from \"../Sprite\";\r\nimport { Context } from \"../../resource/Context\";\r\nexport declare class TextStyle extends SpriteStyle {\r\n    static EMPTY: TextStyle;\r\n    italic: boolean;\r\n    align: string;\r\n    wordWrap: boolean;\r\n    leading: number;\r\n    padding: any[];\r\n    bgColor: string | null;\r\n    borderColor: string | null;\r\n    asPassword: boolean;\r\n    stroke: number;\r\n    strokeColor: string;\r\n    bold: boolean;\r\n    underline: boolean;\r\n    underlineColor: string | null;\r\n    currBitmapFont: BitmapFont | null;\r\n    reset(): SpriteStyle;\r\n    recover(): void;\r\n    static create(): TextStyle;\r\n    render(sprite: Sprite, context: Context, x: number, y: number): void;\r\n}\r\n"
+  }
+}

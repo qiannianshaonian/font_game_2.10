@@ -1,0 +1,12 @@
+{
+  "code": "import PrefebBase from \"./PrefebBase\";\r\nimport { Handler } from \"laya/utils/Handler\";\r\nimport { Laya } from \"Laya\";\r\nexport default class GameResult extends PrefebBase {\r\n    constructor() { super(); }\r\n    onAwake() {\r\n        super.onAwake();\r\n        this.owner[\"height\"] = Laya.stage.height;\r\n        this.txt_score.text = this.score.toString();\r\n        this.btn_home.clickHandler = Handler.create(this, function () {\r\n            this.showHomeHandler.run();\r\n        }, null, false);\r\n        this.btn_tryAgain.clickHandler = Handler.create(this, function () {\r\n            this.restartHandler.run();\r\n        }, null, false);\r\n        this.btn_showAd.clickHandler = Handler.create(this, function () {\r\n            let that = this;\r\n            window['King_SDK_Manager'].showRewardedVideoAd(res => {\r\n                if (res) {\r\n                    console.log('播放成功，下发游戏奖励');\r\n                    that.onShowAdComple();\r\n                }\r\n                else {\r\n                    console.log('播放失败');\r\n                }\r\n            });\r\n        }, null, false);\r\n    }\r\n    onShowAdComple() {\r\n        this.showAdHandler.run();\r\n    }\r\n    onEnable() {\r\n        console.log(\"游戏结束调用banner\");\r\n        if (this.comeBackTime < 1) {\r\n            this.btn_showAd.visible = false;\r\n        }\r\n        window['King_SDK_Manager'].hideAllBanner();\r\n        window['King_SDK_Manager'].showNativeInter();\r\n    }\r\n    onDisable() {\r\n        this.btn_home.offAll();\r\n        this.btn_tryAgain.offAll();\r\n    }\r\n}\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/src/script/prefeb/PrefebBase.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/src/AppConfig.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/utils/Handler.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ui/Image.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/Laya.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/display/Text.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ui/Button.ts"
+  ]
+}

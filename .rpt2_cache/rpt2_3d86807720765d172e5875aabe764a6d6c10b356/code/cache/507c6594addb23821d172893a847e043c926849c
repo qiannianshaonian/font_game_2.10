@@ -1,0 +1,9 @@
+{
+  "code": "export class SkinData {\r\n    constructor() {\r\n        this.slotArr = [];\r\n    }\r\n}\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/ani/bone/SkinData.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class SkinData {\r\n    name: string;\r\n    slotArr: any[];\r\n}\r\n"
+  }
+}

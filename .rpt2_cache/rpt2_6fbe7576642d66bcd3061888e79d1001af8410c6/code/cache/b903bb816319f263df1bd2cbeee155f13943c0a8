@@ -1,0 +1,15 @@
+{
+  "code": "import { AtlasGrid } from \"./AtlasGrid\";\r\nimport { TextTexture } from \"./TextTexture\";\r\nimport { ILaya } from \"../../../ILaya\";\r\nexport class TextAtlas {\r\n    constructor() {\r\n        this.texWidth = 1024;\r\n        this.texHeight = 1024;\r\n        this.texture = null;\r\n        this.charMaps = {};\r\n        this.texHeight = this.texWidth = ILaya.TextRender.atlasWidth;\r\n        this.texture = TextTexture.getTextTexture(this.texWidth, this.texHeight);\r\n        if (this.texWidth / TextAtlas.atlasGridW > 256) {\r\n            TextAtlas.atlasGridW = Math.ceil(this.texWidth / 256);\r\n        }\r\n        this.atlasgrid = new AtlasGrid(this.texWidth / TextAtlas.atlasGridW, this.texHeight / TextAtlas.atlasGridW, this.texture.id);\r\n    }\r\n    setProtecteDist(d) {\r\n    }\r\n    getAEmpty(w, h, pt) {\r\n        var find = this.atlasgrid.addRect(1, Math.ceil(w / TextAtlas.atlasGridW), Math.ceil(h / TextAtlas.atlasGridW), pt);\r\n        if (find) {\r\n            pt.x *= TextAtlas.atlasGridW;\r\n            pt.y *= TextAtlas.atlasGridW;\r\n        }\r\n        return find;\r\n    }\r\n    get usedRate() {\r\n        return this.atlasgrid._used;\r\n    }\r\n    destroy() {\r\n        for (var k in this.charMaps) {\r\n            var ri = this.charMaps[k];\r\n            ri.deleted = true;\r\n        }\r\n        this.texture.discard();\r\n    }\r\n    printDebugInfo() {\r\n    }\r\n}\r\nTextAtlas.atlasGridW = 16;\r\n",
+  "references": [
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/text/AtlasGrid.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/text/TextTexture.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/maths/Point.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/laya/webgl/text/CharRenderInfo.ts",
+    "/Users/zonst/Documents/font_vivo/font_game_2.10/libs/ILaya.ts"
+  ],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/.rpt2_cache/placeholder/laya/webgl/text/TextAtlas.d.ts",
+    "writeByteOrderMark": false,
+    "text": "import { TextTexture } from \"./TextTexture\";\r\nimport { Point } from \"../../maths/Point\";\r\nexport declare class TextAtlas {\r\n    texWidth: number;\r\n    texHeight: number;\r\n    private atlasgrid;\r\n    texture: TextTexture | null;\r\n    charMaps: any;\r\n    static atlasGridW: number;\r\n    constructor();\r\n    setProtecteDist(d: number): void;\r\n    getAEmpty(w: number, h: number, pt: Point): boolean;\r\n    readonly usedRate: number;\r\n    destroy(): void;\r\n    printDebugInfo(): void;\r\n}\r\n"
+  }
+}

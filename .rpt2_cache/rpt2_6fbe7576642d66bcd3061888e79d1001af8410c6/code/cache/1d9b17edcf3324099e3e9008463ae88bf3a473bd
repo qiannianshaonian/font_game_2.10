@@ -1,0 +1,9 @@
+{
+  "code": "export class Const {\r\n}\r\nConst.NOT_ACTIVE = 0x01;\r\nConst.ACTIVE_INHIERARCHY = 0x02;\r\nConst.AWAKED = 0x04;\r\nConst.NOT_READY = 0x08;\r\nConst.DISPLAY = 0x10;\r\nConst.HAS_ZORDER = 0x20;\r\nConst.HAS_MOUSE = 0x40;\r\nConst.DISPLAYED_INSTAGE = 0x80;\r\nConst.DRAWCALL_OPTIMIZE = 0x100;\r\n",
+  "references": [],
+  "dts": {
+    "name": "/Users/zonst/Documents/font_vivo/font_game_2.10/.rpt2_cache/placeholder/laya/Const.d.ts",
+    "writeByteOrderMark": false,
+    "text": "export declare class Const {\r\n    static NOT_ACTIVE: number;\r\n    static ACTIVE_INHIERARCHY: number;\r\n    static AWAKED: number;\r\n    static NOT_READY: number;\r\n    static DISPLAY: number;\r\n    static HAS_ZORDER: number;\r\n    static HAS_MOUSE: number;\r\n    static DISPLAYED_INSTAGE: number;\r\n    static DRAWCALL_OPTIMIZE: number;\r\n}\r\n"
+  }
+}

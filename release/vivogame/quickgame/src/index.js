@@ -11,7 +11,5 @@ window.screenOrientation = "sensor_landscape";
 
 //-----libs-end-------
 
-require("./king_SDK/sdkManager.js");
 require("./js/bundle.js");
-window['King_SDK_Manager'].init();
-window['King_SDK_Manager'].showNativeBanner();
+require("./king_SDK/sdkManager.js");
