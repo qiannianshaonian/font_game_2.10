@@ -117,7 +117,7 @@ window.Laya=window.Laya||{};
     }
     AppConfig.asynUrlsLoaded = false;
     AppConfig.pools = {};
-    AppConfig.platform = "web";
+    AppConfig.platform = "vivo";
     AppConfig.version = "1.1.4";
 
     class SceneBase extends Laya$1.Script {
@@ -1126,6 +1126,343 @@ window.Laya=window.Laya||{};
         }
     }
 
+    class StartGame extends PrefebBase {
+        constructor() { super(); }
+        onAwake() {
+            super.onAwake();
+            console.log("...屏幕宽度", Laya$1.Laya.Browser.window.screen.width, Laya$1.Laya.stage.width, Laya$1.Laya.stage.height);
+            this.owner["height"] = Laya$1.Laya.stage.height;
+            if (AppConfig.platform == "wx") {
+                let scaleX = Laya$1.Laya.Browser.window.screen.width / 640;
+                let h = AppConfig.getMobileHeight();
+                let scaleY = Laya$1.Laya.Browser.window.screen.height * (h / Laya$1.Laya.stage.height) / h;
+                let button = Laya$1.Browser.window.wx["createUserInfoButton"]({
+                    type: 'image',
+                    image: 'btn_startGame.png',
+                    style: {
+                        left: this.btn_startGame.x * scaleX,
+                        top: this.btn_startGame.y * scaleY,
+                        width: this.btn_startGame.width * scaleX,
+                        height: this.btn_startGame.height * scaleY,
+                        lineHeight: 40,
+                        color: '#ffffff',
+                        textAlign: 'center',
+                        fontSize: 16,
+                        borderRadius: 4
+                    }
+                });
+                button.onTap((res) => {
+                    console.log(res);
+                    ControllerMgr.getInstance(PlayerController).myPlayerInfo.name = res.userInfo.nickName;
+                    this.handler.run();
+                    button.destroy();
+                });
+                this.btn_startGame.destroy();
+                this.btn_startGame = button;
+                WXTool.addBtn(this.btn_startGame);
+            }
+            else {
+                this.btn_startGame.on(Laya$1.Event.CLICK, this, function () {
+                    this.handler.run();
+                });
+            }
+            this.btn_showRank.on(Laya$1.Event.CLICK, this, function () {
+                if (AppConfig.platform == "wx") {
+                    this.onShowRank.run();
+                }
+                else {
+                    ControllerMgr.getInstance(TipController).showTip("尽情期待");
+                }
+            });
+            this.btn_share.on(Laya$1.Event.CLICK, this, function () {
+                if (AppConfig.platform == "wx") {
+                    Laya$1.Browser.window.wx["shareAppMessage"]({
+                        title: '发现有个有趣的游戏',
+                        imageUrl: "https://mmocgame.qpic.cn/wechatgame/iaUVuxArE9L9G28F6XrxKAIEtJOs9x1Ycm2MYmC2Uz5T9O4RLq0ejvG3ic2KlUBiaVf/0",
+                        imageUrlId: "NelenHPLRXK1-AWENn0aZw"
+                    });
+                }
+                else {
+                    ControllerMgr.getInstance(TipController).showTip("尽情期待");
+                }
+            });
+        }
+        onEnable() {
+        }
+        onDisable() {
+            if (AppConfig.platform == "wx") {
+                WXTool.removeBtn(this.btn_startGame);
+                this.btn_startGame.destroy(true);
+            }
+            else {
+                this.btn_startGame.offAll();
+            }
+        }
+    }
+
+    class FontGrid extends PrefebBase {
+        constructor() {
+            super();
+            this.font = "";
+            this.quality = 1;
+            this.colorArr = ["blue", "red", "puple", "yellow"];
+            this._effects = [];
+        }
+        addEffect(effect) {
+            if (effect == null)
+                return;
+            this.owner.addChild(effect);
+            this._effects.push(effect);
+        }
+        clearEffects() {
+            this._effects.forEach(element => {
+                this.owner.removeChild(element);
+            });
+            this._effects = [];
+        }
+        onUpdate() {
+            let img_bg = this.owner.getChildByName("img_bg");
+            if (this.font != null) {
+                this.owner.getChildByName("txt")["text"] = this.font;
+                img_bg.visible = true;
+                img_bg.skin = "map/img_" + this.getQualitySign() + "GridBg.png";
+            }
+            else {
+                this.owner.getChildByName("txt")["text"] = "";
+                img_bg.visible = false;
+            }
+        }
+        getQualitySign() {
+            return this.colorArr[this.quality - 1];
+        }
+        onReset() {
+            this.quality = 1;
+        }
+        onDisable() {
+            this.recover();
+        }
+        playHeChengEffect() {
+            let sk = ResMgr.Instance().createSpine(URI.spineUrl + "other_taozhuangxitong1.sk", "animation", false);
+            sk.x = sk.y = 44;
+            sk.scaleX = sk.scaleY = 1.7;
+            this.owner.addChild(sk);
+            sk.on(Laya$1.Event.STOPPED, this, function (par_sk) {
+                par_sk.destroy();
+            }, [sk]);
+        }
+        reset() {
+            this.quality = 1;
+            this.clearEffects();
+        }
+    }
+
+    class GameResult extends PrefebBase {
+        constructor() { super(); }
+        onAwake() {
+            super.onAwake();
+            this.owner["height"] = Laya$1.Laya.stage.height;
+            this.txt_score.text = this.score.toString();
+            this.btn_home.clickHandler = Laya$1.Handler.create(this, function () {
+                this.showHomeHandler.run();
+            }, null, false);
+            this.btn_tryAgain.clickHandler = Laya$1.Handler.create(this, function () {
+                this.restartHandler.run();
+            }, null, false);
+            this.btn_showAd.clickHandler = Laya$1.Handler.create(this, function () {
+                let that = this;
+                window['King_SDK_Manager'].showRewardedVideoAd(res => {
+                    if (res) {
+                        console.log('播放成功，下发游戏奖励');
+                        that.onShowAdComple();
+                    }
+                    else {
+                        console.log('播放失败');
+                    }
+                });
+            }, null, false);
+        }
+        onShowAdComple() {
+            this.showAdHandler.run();
+        }
+        onEnable() {
+            console.log("游戏结束调用banner");
+            if (this.comeBackTime < 1) {
+                this.btn_showAd.visible = false;
+            }
+            window['King_SDK_Manager'].hideAllBanner();
+            window['King_SDK_Manager'].showNativeInter();
+        }
+        onDisable() {
+            this.btn_home.offAll();
+            this.btn_tryAgain.offAll();
+        }
+    }
+
+    class SoundTool {
+        static playXiaoChuEffect() {
+            if (Laya$1.Laya.loader.getRes(URI.soundUrl + "xiaochu.wav") != null)
+                Laya$1.Laya.SoundManager.playSound(URI.soundUrl + "xiaochu.wav");
+        }
+        static playHeChengEffect() {
+            if (Laya$1.Laya.loader.getRes(URI.soundUrl + "hecheng.wav") != null)
+                Laya$1.Laya.SoundManager.playSound(URI.soundUrl + "hecheng.wav");
+        }
+        static playTeJiEffect() {
+            if (Laya$1.Laya.loader.getRes(URI.soundUrl + "teji.wav") != null)
+                Laya$1.Laya.SoundManager.playSound(URI.soundUrl + "teji.wav");
+        }
+        static playXiaHuaEffect() {
+            if (Laya$1.Laya.loader.getRes(URI.soundUrl + "xiahua.wav") != null)
+                Laya$1.Laya.SoundManager.playSound(URI.soundUrl + "xiahua.wav");
+        }
+        static playYiDongEffect() {
+            if (Laya$1.Laya.loader.getRes(URI.soundUrl + "yidong.wav") != null)
+                Laya$1.Laya.SoundManager.playSound(URI.soundUrl + "yidong.wav");
+        }
+        static getSoundVolume() {
+            return SoundTool._soundVolume;
+        }
+        static setSoundVolume(value = 0.2) {
+            if (Number["isNaN"](value)) {
+                value = 0.2;
+            }
+            SoundTool._soundVolume = value;
+            Laya$1.Laya.SoundManager.setSoundVolume(value);
+            Laya$1.Laya.LocalStorage.setItem("soundVolume", (value * 100).toString());
+        }
+        static init() {
+            SoundTool.setSoundVolume(parseInt(Laya$1.Laya.LocalStorage.getItem("soundVolume")) / 100);
+        }
+    }
+
+    class GameSetting extends PrefebBase {
+        constructor() { super(); }
+        onAwake() {
+            super.onAwake();
+            this.btn_home.clickHandler = Laya$1.Handler.create(this, function () {
+                this.showHomeHandler.run();
+            }, null, false);
+            this.btn_tryAgain.clickHandler = Laya$1.Handler.create(this, function () {
+                if (AppConfig.platform == "wx") {
+                    this.restartHandler.runWith(1);
+                    Laya$1.Browser.window.wx["shareAppMessage"]({
+                        title: '发现有个有趣的游戏',
+                        imageUrl: "https://mmocgame.qpic.cn/wechatgame/iaUVuxArE9L9G28F6XrxKAIEtJOs9x1Ycm2MYmC2Uz5T9O4RLq0ejvG3ic2KlUBiaVf/0",
+                        imageUrlId: "NelenHPLRXK1-AWENn0aZw"
+                    });
+                }
+                else {
+                    this.restartHandler.run();
+                }
+            }, null, false);
+            this.btn_share.clickHandler = (Laya$1.Handler.create(this, function (e) {
+                if (AppConfig.platform == "wx") {
+                    Laya$1.Browser.window.wx["shareAppMessage"]({
+                        title: '发现有个有趣的游戏',
+                        imageUrl: "https://mmocgame.qpic.cn/wechatgame/iaUVuxArE9L9G28F6XrxKAIEtJOs9x1Ycm2MYmC2Uz5T9O4RLq0ejvG3ic2KlUBiaVf/0",
+                        imageUrlId: "NelenHPLRXK1-AWENn0aZw"
+                    });
+                }
+                else {
+                    ControllerMgr.getInstance(TipController).showTip("尽情期待");
+                }
+            }, null, false));
+            this.btn_close.clickHandler = (Laya$1.Handler.create(this, function (e) {
+                window['King_SDK_Manager'].showNativeBanner();
+                this.onCloseHandler.run();
+            }, null, false));
+            this.btn_music.on(Laya$1.Event.MOUSE_DOWN, this, this.onDragMouseDown);
+            this.btn_effect.on(Laya$1.Event.MOUSE_DOWN, this, this.onDragMouseDown);
+            this.refresh();
+        }
+        onDragMouseDown(e) {
+            this._dragTarget = e.currentTarget;
+            Laya$1.Laya.stage.on(Laya$1.Event.MOUSE_UP, this, this.onStageMouseUp2);
+            Laya$1.Laya.stage.on(Laya$1.Event.MOUSE_MOVE, this, this.onStageMouseMove2);
+        }
+        onStageMouseUp2(e) {
+            this._dragTarget = null;
+            Laya$1.Laya.stage.off(Laya$1.Event.MOUSE_UP, this, this.onStageMouseUp2);
+            Laya$1.Laya.stage.off(Laya$1.Event.MOUSE_MOVE, this, this.onStageMouseMove2);
+        }
+        onStageMouseMove2(e) {
+            let point = new Laya$1.Point(e.stageX, e.stageY);
+            let progress;
+            if (this._dragTarget == this.btn_effect) {
+                progress = this.progress_effect;
+            }
+            point = this._dragTarget.parent["globalToLocal"](point);
+            let x = point.x - progress.x;
+            if (x < 0) {
+                x = 0;
+            }
+            else if (x > 346) {
+                x = 346;
+            }
+            progress.width = x;
+            let num = x / 346;
+            progress.width = num;
+            if (progress == this.progress_effect) {
+                SoundTool.setSoundVolume(num);
+            }
+            this.refresh();
+        }
+        refresh() {
+            this.progress_effect.width = 346 * SoundTool.getSoundVolume();
+            this.btn_effect.x = this.progress_effect.x + this.progress_effect.width;
+        }
+        onEnable() {
+            console.log("关闭bannner");
+            window['King_SDK_Manager'].hideAllBanner();
+        }
+        onDisable() {
+            this.btn_home.offAll();
+            this.btn_tryAgain.offAll();
+            this.btn_share.offAll();
+        }
+    }
+
+    class NativeBridge extends Laya$1.Script {
+        static showVedioAd(callBk) {
+            var os = Laya$1.Browser.window.conchConfig.getOS();
+            var bridge;
+            var obj = {};
+            if (os == "Conch-ios") {
+                bridge = Laya$1.Browser.window.PlatformClass.createClass("JSBridge");
+            }
+            else if (os == "Conch-android") {
+                bridge = Laya$1.Browser.window.PlatformClass.createClass("demo.JSBridge");
+            }
+            if (os == "Conch-ios") {
+                bridge.callWithBack(function (value) {
+                    callBk();
+                }, "showVedioAdCallBk:");
+            }
+            else if (os == "Conch-android") {
+                bridge.callWithBack(function (value) {
+                    callBk();
+                }, "showVedioAdCallBk");
+            }
+        }
+        static showBannerAd(bo) {
+            var os = Laya$1.Browser.window.conchConfig.getOS();
+            var bridge;
+            var obj = {};
+            if (os == "Conch-ios") {
+                bridge = Laya$1.Browser.window.PlatformClass.createClass("JSBridge");
+            }
+            else if (os == "Conch-android") {
+                bridge = Laya$1.Browser.window.PlatformClass.createClass("demo.JSBridge");
+            }
+            if (os == "Conch-ios") {
+                bridge.call("setBannerAdVisible:", bo);
+            }
+            else if (os == "Conch-android") {
+                bridge.call("setBannerAdVisible", bo);
+            }
+        }
+    }
+
     class WxMiniUtil {
         static login(completeHandler) {
             let sysInfo = Laya$1.Browser.window.wx.getSystemInfoSync();
@@ -1436,440 +1773,6 @@ window.Laya=window.Laya||{};
     WxMiniUtil.cconAdobjArr = [];
     WxMiniUtil.portalAd = null;
 
-    class StartGame extends PrefebBase {
-        constructor() { super(); }
-        onAwake() {
-            super.onAwake();
-            console.log("...屏幕宽度", Laya$1.Laya.Browser.window.screen.width, Laya$1.Laya.stage.width, Laya$1.Laya.stage.height);
-            this.owner["height"] = Laya$1.Laya.stage.height;
-            console.log("...屏幕长度", Laya$1.Laya.Browser.window.screen.height);
-            if (AppConfig.platform == "wx") {
-                let scaleX = Laya$1.Laya.Browser.window.screen.width / 640;
-                let h = AppConfig.getMobileHeight();
-                let scaleY = Laya$1.Laya.Browser.window.screen.height * (h / Laya$1.Laya.stage.height) / h;
-                let button = Laya$1.Browser.window.wx["createUserInfoButton"]({
-                    type: 'image',
-                    image: 'btn_startGame.png',
-                    style: {
-                        left: this.btn_startGame.x * scaleX,
-                        top: this.btn_startGame.y * scaleY,
-                        width: this.btn_startGame.width * scaleX,
-                        height: this.btn_startGame.height * scaleY,
-                        lineHeight: 40,
-                        color: '#ffffff',
-                        textAlign: 'center',
-                        fontSize: 16,
-                        borderRadius: 4
-                    }
-                });
-                button.onTap((res) => {
-                    console.log(res);
-                    ControllerMgr.getInstance(PlayerController).myPlayerInfo.name = res.userInfo.nickName;
-                    this.handler.run();
-                    button.destroy();
-                });
-                this.btn_startGame.destroy();
-                this.btn_startGame = button;
-                WXTool.addBtn(this.btn_startGame);
-            }
-            else {
-                this.btn_startGame.on(Laya$1.Event.CLICK, this, function () {
-                    this.handler.run();
-                });
-            }
-            this.btn_showRank.on(Laya$1.Event.CLICK, this, function () {
-                if (AppConfig.platform == "wx") {
-                    this.onShowRank.run();
-                }
-                else {
-                    ControllerMgr.getInstance(TipController).showTip("尽情期待");
-                }
-            });
-            this.btn_share.on(Laya$1.Event.CLICK, this, function () {
-                if (AppConfig.platform == "wx") {
-                    Laya$1.Browser.window.wx["shareAppMessage"]({
-                        title: '发现有个有趣的游戏',
-                        imageUrl: "https://mmocgame.qpic.cn/wechatgame/iaUVuxArE9L9G28F6XrxKAIEtJOs9x1Ycm2MYmC2Uz5T9O4RLq0ejvG3ic2KlUBiaVf/0",
-                        imageUrlId: "NelenHPLRXK1-AWENn0aZw"
-                    });
-                }
-                else {
-                    ControllerMgr.getInstance(TipController).showTip("尽情期待");
-                }
-            });
-        }
-        onEnable() {
-        }
-        onDisable() {
-            if (AppConfig.platform == "wx") {
-                WXTool.removeBtn(this.btn_startGame);
-                this.btn_startGame.destroy(true);
-            }
-            else {
-                this.btn_startGame.offAll();
-            }
-            if (AppConfig.platform == "tt") {
-                WxMiniUtil.hideBanner();
-            }
-        }
-    }
-
-    class FontGrid extends PrefebBase {
-        constructor() {
-            super();
-            this.font = "";
-            this.quality = 1;
-            this.colorArr = ["blue", "red", "puple", "yellow"];
-            this._effects = [];
-        }
-        addEffect(effect) {
-            if (effect == null)
-                return;
-            this.owner.addChild(effect);
-            this._effects.push(effect);
-        }
-        clearEffects() {
-            this._effects.forEach(element => {
-                this.owner.removeChild(element);
-            });
-            this._effects = [];
-        }
-        onUpdate() {
-            let img_bg = this.owner.getChildByName("img_bg");
-            if (this.font != null) {
-                this.owner.getChildByName("txt")["text"] = this.font;
-                img_bg.visible = true;
-                img_bg.skin = "map/img_" + this.getQualitySign() + "GridBg.png";
-            }
-            else {
-                this.owner.getChildByName("txt")["text"] = "";
-                img_bg.visible = false;
-            }
-        }
-        getQualitySign() {
-            return this.colorArr[this.quality - 1];
-        }
-        onReset() {
-            this.quality = 1;
-        }
-        onDisable() {
-            this.recover();
-        }
-        playHeChengEffect() {
-            let sk = ResMgr.Instance().createSpine(URI.spineUrl + "other_taozhuangxitong1.sk", "animation", false);
-            sk.x = sk.y = 44;
-            sk.scaleX = sk.scaleY = 1.7;
-            this.owner.addChild(sk);
-            sk.on(Laya$1.Event.STOPPED, this, function (par_sk) {
-                par_sk.destroy();
-            }, [sk]);
-        }
-        reset() {
-            this.quality = 1;
-            this.clearEffects();
-        }
-    }
-
-    class GameResult extends PrefebBase {
-        constructor() { super(); }
-        onAwake() {
-            super.onAwake();
-            this.owner["height"] = Laya$1.Laya.stage.height;
-            this.txt_score.text = this.score.toString();
-            this.btn_home.clickHandler = Laya$1.Handler.create(this, function () {
-                this.showHomeHandler.run();
-            }, null, false);
-            this.btn_tryAgain.clickHandler = Laya$1.Handler.create(this, function () {
-                this.restartHandler.run();
-            }, null, false);
-            this.btn_showAd.clickHandler = Laya$1.Handler.create(this, function () {
-                let that = this;
-                window['King_SDK_Manager'].showRewardedVideoAd(res => {
-                    if (res) {
-                        console.log('播放成功，下发游戏奖励');
-                        that.onShowAdComple();
-                    }
-                    else {
-                        console.log('播放失败');
-                    }
-                });
-            }, null, false);
-        }
-        onShowAdComple() {
-            this.showAdHandler.run();
-        }
-        onEnable() {
-            console.log("游戏结束调用banner");
-            if (this.comeBackTime < 1) {
-                this.btn_showAd.visible = false;
-            }
-            window['King_SDK_Manager'].hideAllBanner();
-            window['King_SDK_Manager'].showNativeInter();
-        }
-        onDisable() {
-            this.btn_home.offAll();
-            this.btn_tryAgain.offAll();
-        }
-    }
-
-    class SoundTool {
-        static playXiaoChuEffect() {
-            if (Laya$1.Laya.loader.getRes(URI.soundUrl + "xiaochu.wav") != null)
-                Laya$1.Laya.SoundManager.playSound(URI.soundUrl + "xiaochu.wav");
-        }
-        static playHeChengEffect() {
-            if (Laya$1.Laya.loader.getRes(URI.soundUrl + "hecheng.wav") != null)
-                Laya$1.Laya.SoundManager.playSound(URI.soundUrl + "hecheng.wav");
-        }
-        static playTeJiEffect() {
-            if (Laya$1.Laya.loader.getRes(URI.soundUrl + "teji.wav") != null)
-                Laya$1.Laya.SoundManager.playSound(URI.soundUrl + "teji.wav");
-        }
-        static playXiaHuaEffect() {
-            if (Laya$1.Laya.loader.getRes(URI.soundUrl + "xiahua.wav") != null)
-                Laya$1.Laya.SoundManager.playSound(URI.soundUrl + "xiahua.wav");
-        }
-        static playYiDongEffect() {
-            if (Laya$1.Laya.loader.getRes(URI.soundUrl + "yidong.wav") != null)
-                Laya$1.Laya.SoundManager.playSound(URI.soundUrl + "yidong.wav");
-        }
-        static getSoundVolume() {
-            return SoundTool._soundVolume;
-        }
-        static setSoundVolume(value = 0.2) {
-            if (Number["isNaN"](value)) {
-                value = 0.2;
-            }
-            SoundTool._soundVolume = value;
-            Laya$1.Laya.SoundManager.setSoundVolume(value);
-            Laya$1.Laya.LocalStorage.setItem("soundVolume", (value * 100).toString());
-        }
-        static init() {
-            SoundTool.setSoundVolume(parseInt(Laya$1.Laya.LocalStorage.getItem("soundVolume")) / 100);
-        }
-    }
-
-    class TTMiniUtils {
-        static init() {
-            TTMiniUtils.gameRecorder = Laya$1.Browser.window.tt.getGameRecorderManager();
-            TTMiniUtils.gameRecorder.onStart(() => {
-                console.log('录屏开始');
-            });
-            TTMiniUtils.gameRecorder.onStop((res) => {
-                console.log('录屏结束', res.videoPath);
-                TTMiniUtils.videoPath = res.videoPath;
-            });
-            TTMiniUtils.gameRecorder.onInterruptionBegin((res) => {
-                console.log('监听录屏中断开始', res.videoPath);
-            });
-            TTMiniUtils.gameRecorder.onInterruptionEnd((res) => {
-                console.log('监听录屏中断结束', res.videoPath);
-            });
-            TTMiniUtils.gameRecorder.onError((res) => {
-                console.log('监听录屏错误', res.videoPath);
-            });
-        }
-        static startGameRecorder() {
-            console.log("...点击开始了");
-            if (TTMiniUtils.gameRecorder) {
-                TTMiniUtils.gameRecorder.start({ duration: 300 });
-            }
-            else {
-                TTMiniUtils.init();
-                TTMiniUtils.gameRecorder.start({ duration: 300 });
-            }
-        }
-        static pauseGameRecorder() {
-            console.log('录屏pause');
-            TTMiniUtils.gameRecorder.pause();
-        }
-        static resumeGameRecorder() {
-            console.log('录屏resume');
-            TTMiniUtils.gameRecorder.resume();
-        }
-        static stopGameRecorder() {
-            console.log('停止了录屏');
-            if (TTMiniUtils.gameRecorder) {
-                console.log('停止了录屏11111');
-                TTMiniUtils.gameRecorder.stop();
-            }
-        }
-        static shareGameRecorder(onComplete) {
-            if (TTMiniUtils.videoPath == "") {
-                console.log('上局游戏暂未录制！');
-                onComplete.runWith("false");
-                return;
-            }
-            console.log('分享录制 videoPath：' + TTMiniUtils.videoPath);
-            Laya$1.Browser.window.tt.shareAppMessage({
-                channel: 'video',
-                title: '趣味汉字',
-                desc: "#趣味汉字 #抖音小游戏",
-                extra: {
-                    videoPath: TTMiniUtils.videoPath,
-                    videoTopics: ["#趣味汉字", "#抖音小游戏"]
-                },
-                success: () => {
-                    console.log('录屏分享成功');
-                    onComplete.runWith("true");
-                },
-                fail: (e) => {
-                    console.log('录屏分享失败:' + e.errMsg);
-                    if (e.errMsg.indexOf("too short") >= 0) {
-                        onComplete.runWith("short");
-                    }
-                    else {
-                        onComplete.runWith("false");
-                    }
-                }
-            });
-        }
-    }
-    TTMiniUtils.videoPath = "";
-
-    class GameSetting extends PrefebBase {
-        constructor() { super(); }
-        onAwake() {
-            super.onAwake();
-            this.btn_home.clickHandler = Laya$1.Handler.create(this, function () {
-                this.showHomeHandler.run();
-            }, null, false);
-            this.btn_tryAgain.clickHandler = Laya$1.Handler.create(this, function () {
-                if (AppConfig.platform == "wx") {
-                    this.restartHandler.runWith(1);
-                    Laya$1.Browser.window.wx["shareAppMessage"]({
-                        title: '发现有个有趣的游戏',
-                        imageUrl: "https://mmocgame.qpic.cn/wechatgame/iaUVuxArE9L9G28F6XrxKAIEtJOs9x1Ycm2MYmC2Uz5T9O4RLq0ejvG3ic2KlUBiaVf/0",
-                        imageUrlId: "NelenHPLRXK1-AWENn0aZw"
-                    });
-                }
-                else {
-                    this.restartHandler.run();
-                }
-            }, null, false);
-            this.btn_share.clickHandler = (Laya$1.Handler.create(this, function (e) {
-                if (AppConfig.platform == "wx") {
-                    Laya$1.Browser.window.wx["shareAppMessage"]({
-                        title: '发现有个有趣的游戏',
-                        imageUrl: "https://mmocgame.qpic.cn/wechatgame/iaUVuxArE9L9G28F6XrxKAIEtJOs9x1Ycm2MYmC2Uz5T9O4RLq0ejvG3ic2KlUBiaVf/0",
-                        imageUrlId: "NelenHPLRXK1-AWENn0aZw"
-                    });
-                }
-                else if (AppConfig.platform == "tt") {
-                    TTMiniUtils.stopGameRecorder();
-                    TTMiniUtils.shareGameRecorder(Laya$1.Handler.create(this, this.onShareGameRecordComple));
-                }
-                else {
-                    ControllerMgr.getInstance(TipController).showTip("尽情期待");
-                }
-            }, null, false));
-            this.btn_close.clickHandler = (Laya$1.Handler.create(this, function (e) {
-                window['King_SDK_Manager'].showNativeBanner();
-                this.onCloseHandler.run();
-            }, null, false));
-            this.btn_music.on(Laya$1.Event.MOUSE_DOWN, this, this.onDragMouseDown);
-            this.btn_effect.on(Laya$1.Event.MOUSE_DOWN, this, this.onDragMouseDown);
-            this.refresh();
-        }
-        onDragMouseDown(e) {
-            this._dragTarget = e.currentTarget;
-            Laya$1.Laya.stage.on(Laya$1.Event.MOUSE_UP, this, this.onStageMouseUp2);
-            Laya$1.Laya.stage.on(Laya$1.Event.MOUSE_MOVE, this, this.onStageMouseMove2);
-        }
-        onStageMouseUp2(e) {
-            this._dragTarget = null;
-            Laya$1.Laya.stage.off(Laya$1.Event.MOUSE_UP, this, this.onStageMouseUp2);
-            Laya$1.Laya.stage.off(Laya$1.Event.MOUSE_MOVE, this, this.onStageMouseMove2);
-        }
-        onStageMouseMove2(e) {
-            let point = new Laya$1.Point(e.stageX, e.stageY);
-            let progress;
-            if (this._dragTarget == this.btn_effect) {
-                progress = this.progress_effect;
-            }
-            point = this._dragTarget.parent["globalToLocal"](point);
-            let x = point.x - progress.x;
-            if (x < 0) {
-                x = 0;
-            }
-            else if (x > 346) {
-                x = 346;
-            }
-            progress.width = x;
-            let num = x / 346;
-            progress.width = num;
-            if (progress == this.progress_effect) {
-                SoundTool.setSoundVolume(num);
-            }
-            this.refresh();
-        }
-        refresh() {
-            this.progress_effect.width = 346 * SoundTool.getSoundVolume();
-            this.btn_effect.x = this.progress_effect.x + this.progress_effect.width;
-        }
-        onEnable() {
-            console.log("关闭bannner");
-            window['King_SDK_Manager'].hideAllBanner();
-        }
-        onDisable() {
-            this.btn_home.offAll();
-            this.btn_tryAgain.offAll();
-            this.btn_share.offAll();
-        }
-        onShareGameRecordComple(data) {
-            if (data == "short") {
-                ControllerMgr.getInstance(TipController).showCenterBottomTip("录屏时长不足3秒,请重新录制");
-            }
-            console.log("...分享了完成了", data);
-            if (AppConfig.platform == "tt") {
-                Laya$1.Laya.timer.once(500, this, function () {
-                    TTMiniUtils.startGameRecorder();
-                });
-            }
-        }
-    }
-
-    class NativeBridge extends Laya$1.Script {
-        static showVedioAd(callBk) {
-            var os = Laya$1.Browser.window.conchConfig.getOS();
-            var bridge;
-            var obj = {};
-            if (os == "Conch-ios") {
-                bridge = Laya$1.Browser.window.PlatformClass.createClass("JSBridge");
-            }
-            else if (os == "Conch-android") {
-                bridge = Laya$1.Browser.window.PlatformClass.createClass("demo.JSBridge");
-            }
-            if (os == "Conch-ios") {
-                bridge.callWithBack(function (value) {
-                    callBk();
-                }, "showVedioAdCallBk:");
-            }
-            else if (os == "Conch-android") {
-                bridge.callWithBack(function (value) {
-                    callBk();
-                }, "showVedioAdCallBk");
-            }
-        }
-        static showBannerAd(bo) {
-            var os = Laya$1.Browser.window.conchConfig.getOS();
-            var bridge;
-            var obj = {};
-            if (os == "Conch-ios") {
-                bridge = Laya$1.Browser.window.PlatformClass.createClass("JSBridge");
-            }
-            else if (os == "Conch-android") {
-                bridge = Laya$1.Browser.window.PlatformClass.createClass("demo.JSBridge");
-            }
-            if (os == "Conch-ios") {
-                bridge.call("setBannerAdVisible:", bo);
-            }
-            else if (os == "Conch-android") {
-                bridge.call("setBannerAdVisible", bo);
-            }
-        }
-    }
-
     var GameState;
     (function (GameState) {
         GameState[GameState["End"] = 0] = "End";
@@ -1943,11 +1846,6 @@ window.Laya=window.Laya||{};
             this.btn_wanneng.on(Laya$1.Event.CLICK, this, this.onWannengMouseEvent);
             if (!AppConfig.hadGuidance()) {
                 this.btn_point.visible = false;
-            }
-            if (AppConfig.platform == "tt") {
-                Laya$1.Laya.timer.once(500, this, function () {
-                    TTMiniUtils.startGameRecorder();
-                });
             }
             this.changeGameStatue(GameState.init);
             this.refresh();
@@ -2105,9 +2003,6 @@ window.Laya=window.Laya||{};
                 NativeBridge.showVedioAd(() => {
                     this.continueAfterAd();
                 });
-            }
-            else if (AppConfig.platform == "tt") {
-                this.continueAfterAd();
             }
             else {
                 this.continueAfterAd();
@@ -4089,6 +3984,27 @@ window.Laya=window.Laya||{};
             if (AppConfig.platform == "wx") {
                 Laya$1.Laya.stage.scaleMode = "fixheight";
                 Laya$1.Laya.URL.basePath = "https://raw.githubusercontent.com/wupei1987/font-game-wx-asset/master/";
+                window["Laya"]["MiniAdpter"].nativefiles = [
+                    "btn_startGame.png",
+                    "fileconfig.json",
+                    "version.json",
+                    "loading/Loading.json",
+                    "res/atlas/loading.atlas",
+                    "res/atlas/loading.png",
+                    "main/MainGame.json",
+                    "res/atlas/map.atlas",
+                    "res/atlas/map.png",
+                    "res/data.json",
+                    "res/spine/other_taozhuangxitong1.sk",
+                    "res/spine/other_taozhuangxitong1.png",
+                    "res/spine/other_wupinghuanrao_kin_little.sk",
+                    "res/spine/other_wupinghuanrao_kin_little.png"
+                ];
+                Laya$1.ResourceVersion.enable("version.json", Laya$1.Handler.create(this, this.onVersionLoaded), Laya$1.ResourceVersion.FILENAME_VERSION);
+            }
+            else if (AppConfig.platform == "vivo") {
+                Laya$1.Laya.stage.scaleMode = "fixheight";
+                Laya$1.Laya.URL.basePath = "https://github.com/qiannianshaonian/font_game_2.10/master";
                 window["Laya"]["MiniAdpter"].nativefiles = [
                     "btn_startGame.png",
                     "fileconfig.json",
